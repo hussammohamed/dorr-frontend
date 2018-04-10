@@ -29,6 +29,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.domainUrl = "http://localhost:4200"
+    ENV.mainUrl = "http://localhost:8000"
   }
 
   if (environment === 'test') {
