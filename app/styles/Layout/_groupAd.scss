@@ -1,0 +1,30 @@
+.group-ad{
+    margin: 45px 0;
+    .group-ad__header{
+        height: 35px;
+        line-height: 35px;
+        vertical-align: middle;
+        padding: 0 24px;
+        color:  $headline-color;
+        position: relative;
+        h6{
+            color:  $headline-color;
+            font-size: 18px;
+        }
+    }
+    .group-ad__title{
+        font-weight: 700;
+    }
+    .group-ad__more{
+        position: absolute;
+        top: 0;
+        height: 35px;
+        line-height: 35px;
+        vertical-align: middle;
+        #{$left}: 18px;
+        text-decoration: none;
+        color:  $headline-color;
+        display: none;
+    }
+
+}

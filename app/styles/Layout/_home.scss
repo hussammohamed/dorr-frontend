@@ -1,0 +1,34 @@
+﻿$homeBannerHeight : rem(475);
+
+[class^='l-home-'] {
+    margin-bottom:$gutter+px;
+}
+
+
+
+.l-home-categories{
+	
+	background-color:#fff;
+	@include breakpoint(isCommon){
+		margin-bottom:30px;
+	}
+	@include breakpoint(small){
+		height:rem(460);
+		margin-bottom:60px;
+	}
+	
+
+}
+
+.l-home-lastSection{
+	margin-bottom:0;
+}
+
+@import "../../sass/Modules/_homeBanner";
+@import "../../sass/Modules/_featuredServices";
+@import "../../sass/Modules/_homeProducts";
+@import "../../sass/Modules/_homePartners";
+@import "../../sass/Modules/_homeNews";
+@import "../../sass/Modules/_homeNewsletter";
+@import "../../sass/Modules/_homeAbout";
+@import "../../sass/Modules/_homeTabs";

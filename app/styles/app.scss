@@ -1,1 +1,24 @@
+// Fonts
+//@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://fonts.googleapis.com/earlyaccess/notokufiarabic.css");
+// Variables & Mixins
+@import "Base/_variablesRTL"; 
+@import "Base/_variables"; 
+@import "Base/_mixins";
+
+@import 'material-design-lite';
 @import 'ember-paper';
+
+// Layouts
+@import "Layout/_header";
+@import "Layout/_footer";
+@import "Layout/_groupAd";
+
+// Base CSS and typography 
+@import "Base/_reset"; 
+@import "Base/_utilities"; 
+//@import "Base/_normalize";
+// @import "Base/_fonts";   
+// @import "Base/_extend";
+@import "Base/_typography";

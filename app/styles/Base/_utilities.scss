@@ -1,0 +1,153 @@
+.u-fix-clear{
+    &::after {
+        display: block;
+        content: "";
+        clear: both;
+      }
+}
+.u-no-padding{
+    padding: 0 !important;
+}
+.u-padding-bottom-15{
+    padding-bottom: 15px;
+}
+.u-padding-top-15{
+    padding-top: 15px;
+}
+.u-padding-bottom-60{
+    padding-bottom: 60px;
+}
+.u-padding-bottom-25{
+    padding-bottom: 25px;
+}
+.u-padding-top-25{
+    padding-top: 25px;
+}
+.u-padding-top-45{
+    padding-top: 45px;
+}
+.u-padding-bottom-45{
+    padding-bottom: 45px;
+}
+.u-relative{
+    position: relative;
+}
+.u-flip{
+    @if $direction == rtl{
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+    }
+}
+.u-no-mtop{
+    margin-top: 0 !important;
+}
+.u-no-mbottom{
+    margin-bottom: 0 !important;
+}
+.u-mbuttom16{
+    margin-bottom: 16px;
+}
+.u-mtop16{
+    margin-top: 16px;
+}
+.u-mrigth-15{
+    margin-#{$right}: 15px 
+}
+.u-mbuttom30{
+    margin-bottom: 30px 
+}
+.u-margin-sides16{
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.u-center{
+    text-align: center !important;
+}
+.md-48{
+    font-size: 48px;
+}
+.md-72{
+    font-size: 72px;
+}
+.md-18{
+    font-size: 18px;
+}
+.u-auto-width{
+    width: auto;
+}
+.u-height-auto{
+    height: auto;
+    min-height: initial;
+}
+.u-full-width{
+    width: 100% !important;
+}
+.u-no-border{
+    border: 0 !important;
+}
+.u-no-border-top{
+    border-top: 0 !important;
+}
+.u-no-marginUpBottom{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.u-padding-side-20{
+    padding-left: 20px;
+    padding-right: 20px; 
+}
+.u-secondary-base-bg{
+ background-color: $secondary-base;
+}
+.u-headline-color{
+    color:$headline-color;
+}
+.u-primary-darker-color{
+   color: $primary-darker
+}
+.u-text-color{
+    color: $text-color;
+}
+.u-fix-btn{
+    position: relative;
+    top: 15px;
+}
+.u-fix-icon-top{
+    position: relative;
+    top: 7px;
+}
+.u-mdl-textfield--center{
+    margin-right: 50%;
+   @include translate(50%, 0);
+   width: auto;
+   .mdl-textfield__label{
+       text-align: center;
+   }
+   .mdl-textfield__input{
+       text-align: center;
+   }
+}
+.u-min-width-180{
+    min-width: 180px;
+}
+.u-text-left{
+    text-align: $left;
+}
+.u-text-right{
+    text-align: $right;
+}   
+.mdl-custom-width{
+    min-width: calc(33.33% - 16px);
+}
+.u-hidden{
+    visibility: hidden;
+    opacity: 0;
+    display: none !important;
+}
+.u-text-size-10{
+    font-size: 10px;
+}

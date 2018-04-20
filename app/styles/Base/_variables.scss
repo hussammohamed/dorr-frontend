@@ -1,0 +1,219 @@
+// ==============================================================
+// ## Base
+
+//== Colors
+         $body-bg : #f5f5f5;
+    $primary-base : #40A6A2;
+  $primary-darker : #303D46;
+  $secondary-base : #F9BF16; 
+
+	  $text-color : #fff;
+  $headline-color : #6B8597;
+$text-light-color : #90A4B1;
+$text-normal-color: #6B8597;
+ $text-dark-color : #303d46;
+	 $icons-color : #303d46;
+	 $border-color:#e4e4e4;
+	 $link-color: #fff !default;
+
+// selection background color
+//$selection-color : darken($secondary-base,15%);
+
+//== font-families
+//
+$font-path    : '../../fonts';
+$font-numbers : Myriad Pro, Arial, sans-serif;
+		  $fa : FontAwesome;
+ 
+//== Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+		   $font-size : 16px !default;
+		 $line-height : 1.7 !default;
+
+// Responsive Font
+	 $xs-fontsize : 13px !default;
+	 $sm-fontsize : 14px !default;
+	$mid-fontsize : 15px !default;
+  $large-fontsize : $font-size;
+
+//Headings
+$headings-font-family : $font-family;
+$headings-font-weight : 700;
+$headings-line-height : 1.5;
+	  $headings-color : #000;
+
+//Headings size
+$font-size-h1 : 2.25rem;	// ~36px
+$font-size-h2 : 1.875rem;	// ~30px
+$font-size-h3 : 1.5rem;		// ~24px
+$font-size-h4 : 1.125rem;	// ~18px
+$font-size-h5 : 1rem;		// ~16px
+$font-size-h6 : 0.75rem;	// ~12px
+
+//Links
+		   $link-color : $primary-base;
+	 $link-hover-color : lighten($link-color,10%);
+$link-hover-decoration : none ;
+
+
+// ==============================================================
+// ## Reusable Components
+
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-border	: none;
+$btn-radius : 50px;
+$btn-height : 36px;
+$btn-padding : 13px 20px;
+
+$btn-bg	: transparent;
+$btn-color : #000;
+$btn-bg-hover : #e2e2e2;
+$btn-color-hover : #000;
+
+$btn-default-bg	: $primary-base;
+$btn-default-color : #fff;
+$btn-default-bg-hover : lighten($btn-default-bg,8%);
+$btn-default-color-hover : #fff;
+
+$btn-secondary-bg	: $secondary-base;
+$btn-secondary-color : #fff;
+$btn-secondary-bg-hover : lighten($btn-secondary-bg,8%);
+$btn-secondary-color-hover : #fff;
+
+$btn-disabled-bg	: #ccc;
+$btn-disabled-color : #333;
+$btn-disabled-bg-hover : $btn-disabled-bg;
+$btn-disabled-color-hover : $btn-disabled-color;
+
+$btn-cancel-bg	: #ccc;
+$btn-cancel-color : #000;
+$btn-cancel-bg-hover : lighten($btn-cancel-bg,8%);
+$btn-cancel-color-hover : #000;
+$button-padding: 0 25px !default;
+$button-raised-background: $primary-base;
+
+ 
+
+//== Forms
+//
+//##
+
+ 
+$f-label-font-size			: 12px;
+$f-label-color				: #d7d8dc;
+$f-label-margin-bottom		: 15;
+$f-required-color			: #bd1a2f;
+$f-required-size			: 18px;
+$f-control-bg				: #fff;
+$f-control-txt-color		: #363636;
+$f-control-border-color		: transparent;
+$f-control-hover-color		: transparent;
+$f-control-box-shadow		: none;
+$f-control-border-width		: 0;
+$f-control-border-radius	: 0;
+$f-control-padding			: 0;
+$f-control-shadow			: none;
+$f-error: #ea4646;
+
+
+// 
+$input-placeholder-color : #d1d1d1;
+$input-focus-color: $primary-base;
+
+//== Tables
+//
+//##
+
+ 
+
+$table-border-color		:#cbd0d5;
+$table-header-color		:#fff;
+$table-txt-color		:#646464;
+$table-txt-padding		:15px 20px;
+
+$table-pager-bg			:#e4e4e4;
+$table-pager-hover-bg	:#c9c9c9;
+$table-pager-color		:#2a2a2a;
+
+
+//== Media queries breakpoints
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+// Extra small screen / phone
+$screen-xs:                  320px !default;
+
+// Small screen / tablet
+$screen-sm:                  768px !default;
+
+// Medium screen / desktop
+$screen-md:                  992px !default;
+
+// Large screen / desktop
+$screen-lg:                  1200px !default;
+
+// Large screen / wide 
+$screen-wd:					1600px !default;
+
+ 
+
+//== Grid system
+//
+//## Define your custom responsive grid.
+
+//** Padding between columns. Gets divided in half for the left and right.
+$gutter:         30 !default;
+
+
+ 
+
+
+//== Container sizes
+//
+//## Define the maximum width of `.container` for different screen sizes.
+
+$container-width: 1170 !default;
+
+ 
+
+
+//== Breadcrumb
+//
+//##
+
+			$breadCrumb-bg : transparent;
+	$breadcrumb-link-color : rgba(#363636,0.6);
+ $breadcrumb-current-color : #4a4a4a;
+
+
+
+$subsiteHeader-bg		: #f8f9f9;
+
+
+//== Page title
+//
+//##
+
+$page-title-bg				:$breadCrumb-bg	;
+$page-title-border-color	: #e9e9e9;
+$page-title-color			: #565a5e;
+
+
+
+
+
+
+
+// ##
+$youtubeClr			: #bf232b;
+$twitterClr			: #2aaae0;
+$facebookClr		: #3a589b;
+$whatsappClr		: #0dc143;
+$instagramGradient	: linear-gradient( 40deg, rgb(249,237,50) 0%, rgb(238,42,123) 69%, rgb(0,42,255) 100%);
+
+

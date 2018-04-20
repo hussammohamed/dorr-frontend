@@ -1,0 +1,293 @@
+
+//
+// Remove default margin.
+//
+
+body {
+  margin: 0;
+  direction: $rtl;
+  font-family: $font-family;
+  -webkit-font-smoothing: auto
+}
+
+
+// HTML5 display definitions
+// ==========================================================================
+
+//
+// Correct `block` display not defined for any HTML5 element in IE 8/9.
+// Correct `block` display not defined for `details` or `summary` in IE 10/11
+// and Firefox.
+// Correct `block` display not defined for `main` in IE 11.
+//
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+//
+// 1. Correct `inline-block` display not defined in IE 8/9.
+// 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+//
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; // 1
+  vertical-align: baseline; // 2
+}
+
+//
+// Prevent modern browsers from displaying `audio` without controls.
+// Remove excess height in iOS 5 devices.
+//
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+//
+// Address `[hidden]` styling not present in IE 8/9/10.
+// Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
+//
+
+[hidden],
+template {
+  display: none;
+}
+
+// Links
+// ==========================================================================
+
+//
+// Remove the gray background color from active links in IE 10.
+//
+
+a {
+  background-color: transparent;
+}
+
+//
+// Improve readability of focused elements when they are also in an
+// active/hover state.
+//
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+*{
+  outline:none;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+img {
+  border: 0;
+}
+
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+// Tables
+// ==========================================================================
+
+//
+// Remove most spacing between table cells.
+//
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+ul,ol{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+.app--container{
+  min-height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
+}
+.main-content{
+  min-height: calc(100vh - 399px);
+  background-color: $body-bg;
+
+ .content{
+   padding: 45px 10px 200px 10px;
+   @include breakpoint(mid){
+    padding: 45px 75px 200px 75px;
+   }
+
+  &.content-padding{
+    @include breakpoint(mid){
+    padding: 45px 200px 200px 200px;
+    }
+  }
+}
+}
+.mdl-button{
+  padding: 0 25px;
+  font-family: $font-family;
+  &.mdl-button--colored{
+    background-color: $primary-base;
+    color: $text-color;
+    
+    &:hover{
+      background-color: $primary-base;
+      // color: $secondary-base;
+    }
+    &:focus{
+      background-color: $primary-base !important;
+      color: $text-color;
+    }
+  }
+  &.mdl-button--borded{
+    border: 1px solid $primary-base;
+    color: $primary-base;
+  }
+}
+.mdl-textfield--floating-label{
+  &.is-focused{
+    .mdl-textfield__label{
+      color: $primary-base;
+    }
+  }
+}
+.mdl-textfield__label{
+  text-align: $right;
+  &::after{
+    background-color:  $primary-base;
+  }
+}
+.mdl-textfield__input{
+  text-align: $right;
+}
+
+.hover-effect{
+  position: relative;
+  overflow: hidden;
+  &::before{
+    content: "";
+    box-sizing: border-box;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: rgba(255,255,255,0.5);
+    content: '';
+    -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-220%,0);
+    transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-220%,0);
+  }
+  &:hover{
+    &::before{
+      -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,230%,0);
+      transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,230%,0);
+      transition: transform .6s;
+    }
+  }
+}
+.mdl-textfield--slim{
+  padding: 0;
+  .mdl-textfield__label{
+    top: 0;
+  &:after{
+    bottom: 0;
+  }
+}
+}
+.secondary-base-bg{
+  background-color: $secondary-base;
+}
+td.header{
+  color: $headline-color;
+}
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label, .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+  color: $primary-base;
+}
+.mdl-menu{
+  a, a:hover{
+    color: $text-dark-color;
+    display: block;
+    width: 100%;
+  }
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__box-outline{
+  border-color: $primary-base;
+}
+.mdl-checkbox.is-checked .mdl-checkbox__tick-outline{
+  background-color: $primary-base;
+}
+.mdl-checkbox__box-outline{
+  left: auto;
+  right: 0;
+}
+.mdl-checkbox.is-upgraded {
+  padding-left: 0px;
+  padding-right: 24px;
+}
+.mdl-checkbox.is-invalid{
+  .mdl-checkbox__label{
+    color:rgb(213,0,0);
+  }
+  .mdl-checkbox__box-outline{
+    border-color: rgb(213,0,0);
+  }
+}
+
+.dialog.reportDialog .mdl-dialog__actions{
+  padding: 0;
+}
+.mdl-checkbox-col{
+  padding-top: 25px;
+  .price_view{
+    color: rgba(0,0,0, 0.26);
+  }
+}
+.has-error{
+  color: rgb(213,0,0);
+  font-size: 12px;
+  margin-top: 3px;
+  display: block;
+}

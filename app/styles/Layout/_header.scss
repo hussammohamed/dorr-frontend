@@ -1,0 +1,230 @@
+// ## variables
+$header-backgroundColor : #fff;
+$header-marginButtom : $gutter;
+$header-height : auto;
+$header-padding : 0;
+$topbar-bg : $primary-darker;
+
+// Component
+$topbar-height : 35px;
+$topbar-padding: 0 30px;
+$icon-size: 18px;
+$m-header-height: 75px;
+// ## ========================================================================
+// ## styles
+.l-header{
+	padding:$header-padding;
+	background-color: $header-backgroundColor;
+	height: $header-height;
+	border-bottom: $border-color 1px solid; 
+	display: -webkit-box;
+    display: -ms-flexbox;
+	display: flex;
+	box-shadow: none;
+}
+.topbar{
+	height: $topbar-height;
+	background-color: $topbar-bg;
+	padding: $topbar-padding;
+	display: flex;
+	direction: $ltr;
+	.topbar--item{
+		height: 100%;
+		position: relative;
+		color: $text-color;
+		min-width: 55px;
+		padding: 0 12px;
+		.topbar--item--bg{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			@include skew(-30, 0);
+			text-align: center;
+			z-index: 1;
+		}
+		a{
+			color: $text-color;
+			text-decoration: none;
+		}
+		
+		
+	}
+	.topbar--item__lang{
+		.topbar--item--bg{
+			background-color: $primary-base;
+		}
+		a{
+			position: relative;
+			display: block;
+			z-index: 2;
+			text-align: center;
+			width: 100%;
+			height: 100%;
+			vertical-align: middle;
+			line-height: $topbar-height;
+			font-weight: 700;
+		}
+	}
+	.topbar--item__social{
+		.topbar--item--bg{
+			background-color: $secondary-base;
+		}
+		.navigation--social__link{
+			display: block;
+			height: 100%;
+			z-index: 2;
+			position: relative;
+			padding: 0 12px 0 10px;
+			vertical-align: middle;
+			line-height: $topbar-height;
+		}
+		.social--icon{
+			display: inline-block;
+			padding: 0 8px;
+			svg{
+				height:  $icon-size;
+				width:  $icon-size;
+				fill: $icons-color;
+
+			}
+		}
+	}
+	.topbar--item__actions{
+		.mdl-navigation{
+			vertical-align: middle;
+			line-height: $topbar-height;
+		}
+		.action--link{
+			color: $secondary-base;
+			padding: 0 16px;
+			cursor: pointer;
+			.material-icons{
+				font-size:  $icon-size;
+				padding: 0 5px;
+				vertical-align: middle;
+			}
+		}
+	}
+}
+
+.m-header{
+	min-height: $m-header-height;
+	padding: 0 20px;
+	vertical-align: middle;
+	line-height: $m-header-height;
+	border-bottom: $border-color 1px solid;
+	.m-header--item__user{
+		float: $left;
+	}
+}
+.page-header{
+	border-bottom:1px solid rgba($color: #000000, $alpha: .45);
+	margin: -16px 16px 16px;
+}
+.page-breadcrumb{
+
+
+}
+.user-menu{
+	line-height: normal;
+	max-width: 350px;
+	margin-#{$left}:45px; 
+	position: absolute;
+	#{$left}:0;
+	top: 40px;
+	height: 65px;
+	padding-#{$left}: 40px;
+	padding-#{$right}: 8px;
+	border-radius: 4px;
+	background-color: #fff;
+	z-index: 999;
+	overflow: hidden;
+	cursor: pointer;
+	overflow: hidden;
+	// -webkit-transition: all .2s ease-in-out;
+	// -moz-transition: all .2s ease-in-out;
+	// -ms-transition: all .2s ease-in-out;
+	// -o-transition: all .2s ease-in-out;
+	// transition: all .2s ease-in-out;
+&.extended{
+	.collapse-icon{
+		&::before{
+			content: "expand_less ";
+		}
+	}
+	.user-menu--overlay{
+		display: block;
+	}
+	height: auto;
+	webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+	.collapse-icon{
+		position: absolute;
+		color: rgba(0, 0, 0, 0.4);
+		top: 18px;
+		#{$right}: calc(100% - 40px);
+		-webkit-transform: translateX(-50%) translateY(-50%);
+		transform: translateX(-50%) translateY(-50%);
+		&::before{
+			content: "expand_more ";
+		}
+	}
+	.user-menu--avatar{
+		display: inline-block;
+		vertical-align: top;
+	}
+	.user-info{
+		display: inline-block;
+		vertical-align: top;
+		padding: 8px 0px;
+		color: $text-dark-color;
+		.user-name{
+			font-weight: bold;
+			font-size: 10px;
+			margin: 0px 0 0px 0;
+			text-overflow: ellipsis;
+			overflow: hidden
+		}
+		
+		.user-mony{
+			color: $primary-base;
+    		text-overflow: ellipsis;
+			overflow: hidden;
+			i{
+				vertical-align: middle;
+				font-size: 18px;
+			}
+		}
+	}
+	.user-action-list{
+		margin-#{$left}: -32px;
+		padding: 8px;
+		margin-bottom: 0;
+		li{
+			border-top: 1px solid  #e4e4e4;
+			padding: 4px 0;
+			a{
+				font-size: 12px;
+				color: $text-dark-color;
+				font-weight: 400;
+				display: block;
+				height: 100%;
+				width: 100%;
+			}
+		}
+	}
+	.user-menu--overlay{
+		cursor: default;
+		display: none;
+		height: 100vh;
+		width: 100vw;
+		position: fixed;
+		background: transparent;
+		left: 0;
+		top: 0;
+		z-index: -1;
+	}
+}

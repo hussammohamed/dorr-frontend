@@ -15,6 +15,7 @@ export default Ember.Service.extend({
         this.redirectToLogin();
     },
     authToken() {
+        console.log(Cookies.get('token'))
         return Cookies.get('token');
     },
     authUserId(){

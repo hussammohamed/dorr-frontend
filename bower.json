@@ -1,0 +1,6 @@
+{
+  "name": "dorr",
+  "dependencies": {
+    "material-design-lite": "~1.0.4"
+  }
+}
