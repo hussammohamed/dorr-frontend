@@ -1,0 +1,26 @@
+<div class="u-side-padding">
+    <h4 class="page-title">بيانات  السجل التجاري</h4>
+    {{#paper-card as |card|}}
+    <div class="md-padding">
+        {{#paper-form class="md-padding" onSubmit=(action "basicSubmitAction") as |form|}}
+        <div class="layout-row">
+            <div class="layout-column flex-50 md-padding">
+                {{form.input label=" الأسم" value=agency.commercial_register_name onChange=(action (mut agency.commercial_register_name)) required=true}} 
+                 {{#paper-select  label=" جهة الأصدار" options=regions selected=agency.commercial_register_issuer onChange=(action (mut agency.commercial_register_issuer))
+                as |region|}} {{region.name}} {{/paper-select}}
+                {{form.input type="date" label="تاريخ الأنتهاء " value=agency.commercial_register_exp_date onChange=(action (mut  agency.commercial_register_exp_date)) required=true}}
+            </div>
+            <div class="layout-column flex-50 md-padding">
+                {{form.input type="number" label="رقم السجل التجاري " value=agency.commercial_register_no onChange=(action (mut agency.commercial_register_no)) required=true}}
+                {{form.input type="date" label="تاريخ الأصدار" value=agency.commercial_register_date onChange=(action (mut  agency.commercial_register_date)) required=true}}   
+            </div>
+        </div>
+        <div class="layout-row">
+            <span class="flex"></span>
+            {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+        </div>
+        {{/paper-form}}
+    </div>
+
+    {{/paper-card}}
+</div>

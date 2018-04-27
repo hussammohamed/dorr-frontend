@@ -21,6 +21,7 @@ Router.map(function() {
         this.route('units', function() {
           this.route('add-unit', {path: '/add'} );
         });
+        this.route('agency');
       });
     });
   });
