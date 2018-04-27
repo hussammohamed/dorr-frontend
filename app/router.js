@@ -8,7 +8,21 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('index', { path: '/' }, function() {
-    this.route('properties');
+    this.route('properties', function() {
+      this.route('add', function() {
+        this.route('property-data', {path: '/data'});
+      });
+      this.route('property-status', {path: ':id/status'});
+
+      this.route('edit', {path: ':id'}, function() {
+        this.route('property-data', {path: '/data'});
+        this.route('owner');
+        this.route('agent');
+        this.route('units', function() {
+          this.route('add-unit', {path: '/add'} );
+        });
+      });
+    });
   });
 });
 

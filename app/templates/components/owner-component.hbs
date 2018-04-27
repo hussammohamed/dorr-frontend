@@ -1,0 +1,36 @@
+<div class="u-side-padding">
+    <h4 class="page-title">بيانات صاحب العقار</h4>
+    {{#paper-card as |card|}}
+    <div class="md-padding">
+        {{#paper-form class="md-padding" onSubmit=(action "basicSubmitAction") as |form|}}
+        <div class="layout-row">
+            <div class="layout-column flex-50 md-padding">
+                {{form.input label=" الأسم بالكامل" value=user.name onChange=(action (mut user.full)) required=true}} 
+                {{#paper-select  label="نوع الهوية" options=idTypes selected=user.owner_id_type onChange=(action (mut user.owner_id_type))
+                as |idType|}} {{idType.name}} {{/paper-select}}
+                {{#paper-select  label=" جهة الأصدار" options=regions selected=user.owner_id_issuer onChange=(action (mut user.owner_id_issuer))
+                as |region|}} {{region.name}} {{/paper-select}}
+                {{form.input type="date" label="تاريخ الأنتهاء " value=user.owner_id_exp_date onChange=(action (mut  user.owner_id_exp_date)) required=true}}
+                {{form.input type="number" label="رقم الجوال" value=user.mobile onChange=(action (mut user.mobile)) required=true}}
+                {{form.input type="number" label="رقم الحساب البنكي IBAN" value=user.owner_bank_iban onChange=(action (mut user.owner_bank_iban)) required=true}}
+            </div>
+            <div class="layout-column flex-50 md-padding">
+                {{form.input type="text" label="عنوان المالك" value=user.address onChange=(action (mut user.address)) required=true}}
+                {{form.input type="number" label="رقم الهوية" value=user.owner_id_no onChange=(action (mut user.owner_id_no)) required=true}}
+                {{form.input type="date" label="تاريخ الأصدار" value=user.owner_id_issued_date onChange=(action (mut user.owner_id_issued_date)) required=true}}   
+                {{form.input type="email" label="البريد الألكتروني" value=user.email onChange=(action (mut user.email)) required=true}} 
+                {{#paper-select  label="الجنسية" options=nationalities selected=user.nationality onChange=(action (mut  user.nationality))
+                as |nationality|}} {{nationality.name}} {{/paper-select}}
+                {{#paper-select  label="البنك الخاص بالمالك" options=banks selected=user.owner_bank onChange=(action (mut  user.owner_bank))
+                as |bank|}} {{bank.name}} {{/paper-select}}
+            </div>
+        </div>
+        <div class="layout-row">
+            <span class="flex"></span>
+            {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+        </div>
+        {{/paper-form}}
+    </div>
+
+    {{/paper-card}}
+</div>

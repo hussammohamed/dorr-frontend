@@ -15,7 +15,6 @@ export default Ember.Service.extend({
         this.redirectToLogin();
     },
     authToken() {
-        console.log(Cookies.get('token'))
         return Cookies.get('token');
     },
     authUserId(){
@@ -45,7 +44,7 @@ export default Ember.Service.extend({
         window.location.href = ENV.mainUrl + "/login";
     },
     redirectToCorrectRoute() {
-        window.location.href = ENV.domainUrl + '/hospital/' + this.get('hospitalAdminId') + '/branches';
+        window.location.href = ENV.domainUrl + '/properties';
     },
     getCurrentLanguage() {
         return this.get('intl').get('locale');

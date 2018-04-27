@@ -1,21 +1,9 @@
-
-   
-
-        {{!-- {{#if currentLoginStatus}} --}}
-{{partial 'application/-authenticated-header'}}
-    {{#paper-sidenav-container class="inner-sidenav"}}
-    {{partial 'application/-side-bar'}}
-  {{#paper-card-content class=(if leftSideBarLockedOpen "flex main-content" "flex main-content full-width")}}
-   <div class="main-content">
+ {{!-- {{#if currentLoginStatus}} --}} {{partial 'application/-authenticated-header'}}
+<div class="main-content">
         {{outlet}}
-        </div>
-        {{partial 'application/-footer'}}
-      {{/paper-card-content}}
-{{/paper-sidenav-container}}
-{{!-- {{else}}
+</div>
+{{partial 'application/-footer'}} {{!-- {{else}}
 <div class="loading">
-  {{component 'spinner-loading'}}
-  </div>
-{{/if}} --}}
-
-{{component 'main-script-component'}}
+        {{component 'spinner-loading'}}
+</div>
+{{/if}} --}} {{component 'main-script-component'}}

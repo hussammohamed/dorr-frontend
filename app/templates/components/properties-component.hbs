@@ -1,1 +1,62 @@
-{{yield}}
+
+
+<div class="u-side-padding">
+  <div class="layout-row u-md-padding-top-bottom"> <span class="flex"></span><button onclick={{action "addProperty"}}  id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                أضف عقار جديد
+            </button></div>
+   <div class="table-card">
+  {{#paper-card class="" as  |card|}}
+    <div class="header-overlay"></div>
+    <div class="card-shadow"></div>
+{{#paper-data-table class="u-custom-table u-custome-menu"   as |table|}}
+{{#table.head as |head|}}
+  {{#head.column }}العقار{{/head.column}}
+  {{#head.column }}{{/head.column}}
+  {{#head.column }}عدد الوحدات{{/head.column}}
+  {{#head.column }}وحدات مؤجرة{{/head.column}}
+  {{#head.column}}وحدات شاغرة{{/head.column}}
+  {{#head.column }}الدخل السنوي{{/head.column}}
+  {{#head.column }}الصلة بالعقار{{/head.column}}
+  {{#head.column numeric=true}}{{/head.column}}
+
+{{/table.head}}
+{{#table.body as |body|}}
+  {{#each (sort-by table.sortDesc properties) as |property|}}
+    {{#body.row edit=true as |row|}}
+      {{#row.cell}}{{paper-icon "domain" size=36}}{{/row.cell}}
+      {{#row.cell }}{{property.name}}{{/row.cell}}
+      {{#row.cell}}5{{/row.cell}}
+      {{#row.cell }}3{{/row.cell}}
+      {{#row.cell }}5{{/row.cell}}
+      {{#row.cell}}٤٠ ,٠٠٠ريال{{/row.cell}}
+      {{#row.cell }}مستأجر{{/row.cell}}
+      {{#row.cell numeric=true}}{{/row.cell}}
+      {{#row.cell edit=true as |cell|}}
+         {{#paper-menu  offset="237 23" as |menu|}} 
+         {{#menu.trigger}} 
+         {{#paper-button iconButton=true}} {{paper-icon "more_vert" size=18 class="md-menu-origin"}} {{/paper-button}} 
+        {{/menu.trigger}} 
+        {{#menu.content class="u-custome-menu" width=4 as |content|}} {{#content.menu-item
+        onClick=(action "rentAction" patient.id patient.userType patient.name)}} {{paper-icon "label" size=18 class="md-menu-align-target"}}
+        <span>عرض للأيجار</span>
+        {{/content.menu-item}}
+        {{#content.menu-item
+        onClick=(action "rentAction" patient.id patient.userType patient.name)}} {{paper-icon "edit" size=18 class="md-menu-align-target"}}
+        <span>تعديل</span>
+        {{/content.menu-item}}
+        {{#content.menu-item
+        onClick=(action "rentAction" patient.id patient.userType patient.name)}} {{paper-icon "delete" size=18 class="md-menu-align-target"}}
+        <span>حذف</span>
+        {{/content.menu-item}}
+        
+         {{/menu.content}} {{/paper-menu}}
+      {{/row.cell}}
+    {{/body.row}}
+  {{/each}}
+{{/table.body}}
+{{/paper-data-table}}
+  {{/paper-card}}
+  </div>
+</div>
+
+

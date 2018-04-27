@@ -9,6 +9,7 @@
 
 @import 'material-design-lite';
 @import 'ember-paper';
+@import 'paper-data-table';
 
 // Layouts
 @import "Layout/_header";
@@ -22,3 +23,8 @@
 // @import "Base/_fonts";   
 // @import "Base/_extend";
 @import "Base/_typography";
+
+// Modules
+
+@import "Modules/_card";
+@import "Modules/_map";  

@@ -1,0 +1,60 @@
+<div class="u-side-padding">
+    <h4 class="page-title">أضف عقار</h4>
+    {{#paper-card as |card|}}
+    {{#unless isRelation}}
+    <div class="card-q-content text-center">
+        {{#card.title as |title|}}
+        {{#title.text as |text|}}
+          {{#text.headline}}  ماهي علاقتك بالعقار ؟{{/text.headline}}
+          
+        {{/title.text}}
+       
+      {{/card.title}}
+    {{#paper-radio-group  class="layout-row"
+  groupValue=(readonly selectedRelation)
+  onChange=(action "changeRelation") as |group|}}
+  <span class="flex"></span>
+  {{#group.radio value="1" primary=true}} مالك {{/group.radio}}
+  {{#group.radio value="2" warn=true}} وكيل {{/group.radio}}
+  <span class="flex"></span>
+{{/paper-radio-group}}
+</div>
+{{else}}
+<div class="md-padding">
+{{#paper-form class="md-padding" onSubmit=(action "basicSubmitAction") as |form|}}
+  <div class="layout-row">
+    <div class="layout-column flex-50 md-padding">
+      {{form.input label="أسم العقار" value=property.name onChange=(action (mut property.name)) required=true}}
+      {{form.input type="number" label="عدد الأدوار" value=property.floors onChange=(action (mut property.floors)) required=true}}
+       {{form.input type="number" label="عدد المصاعد" value=property.elevators onChange=(action (mut property.elevators)) required=true}}
+       {{form.input type="number" label="سنة البناء " value=property.year_of_construction	 onChange=(action (mut property.year_of_construction)) required=true}}
+       {{form.input type="text" label=" جهة الأصدار" required=true value=property.property_instrument_place	 onChange=(action (mut property.property_instrument_place)) required=true}}
+       {{#paper-select  label="المدينة" options=regions selected=property.region onChange=(action 'regionChange')
+        as |region|}} {{region.title}} {{/paper-select}}
+    </div>
+    <div class="layout-column flex-50 md-padding">
+         {{#paper-select  label="نوع العقار" options=types selected=property.type onChange=(action (mut property.type))
+        as |type|}} {{type.name}} {{/paper-select}}
+       {{form.input type="number" label="عدد الوحدات" value=property.units_no onChange=(action (mut property.units_no)) required=true}}
+       {{form.input type="number" label="عدد المواقف" value=property.parking onChange=(action (mut property.parking)) required=true}}
+       {{form.input type="number" label="صك الملكية" value=property.property_instrument_no onChange=(action (mut property.property_instrument_no)) required=true}}
+       {{form.input type="date" label="تاريخ الأصدار" value=property.property_instrument_date onChange=(action (mut property.property_instrument_date)) required=true}}
+       {{#paper-select  label="الحي" required=true options=districts disabled=(if property.region false true)  selected=property.district onChange=(action 'districtChange')
+        as |district|}} {{district.title}} {{/paper-select}}
+    </div>
+  </div>
+   <div class="layout-row md-padding">
+      {{form.input id="pac-input" class="flex-100" type="text"  placeholder=""label="العنوان بالكامل" value=property.address onChange=(action (mut property.address)) required=true}}
+   </div>
+   <div class="layout-row md-padding">
+     <div class="map" id="map"></div>
+   </div>
+  <div class="layout-row">
+      <span class="flex"></span>
+    {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+  </div>
+{{/paper-form}}
+</div>
+{{/unless}}
+    {{/paper-card}}
+</div>

@@ -8,6 +8,10 @@
 .u-no-padding{
     padding: 0 !important;
 }
+.u-md-padding-top-bottom{
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
 .u-padding-bottom-15{
     padding-bottom: 15px;
 }
@@ -31,6 +35,9 @@
 }
 .u-relative{
     position: relative;
+}
+.u-margin-8{
+    margin: 8px;
 }
 .u-flip{
     @if $direction == rtl{
@@ -59,6 +66,9 @@
 }
 .u-mbuttom30{
     margin-bottom: 30px 
+}
+.u-mtop30{
+    margin-top: 30px 
 }
 .u-margin-sides16{
     margin-left: 16px;
@@ -99,6 +109,10 @@
 .u-padding-side-20{
     padding-left: 20px;
     padding-right: 20px; 
+}
+.u-padding-side-60{
+    padding-left: 60px;
+    padding-right: 60px; 
 }
 .u-secondary-base-bg{
  background-color: $secondary-base;
@@ -150,4 +164,56 @@
 }
 .u-text-size-10{
     font-size: 10px;
+}
+.u-side-padding{
+ @include breakpoint(mid){
+     padding: 0 150px;
+ }
+}
+.u-side-padding-250{
+    @include breakpoint(mid){
+        padding: 0 250px;
+    }
+}
+
+.u-custom-table{
+    &.u-hidden-body{
+        .md-body{
+            visibility: hidden;
+            display: none;
+        }
+    }
+    .md-table{
+        .md-head{
+            .md-column{
+                text-align: center;
+            }
+        }
+
+        .md-body{
+            .md-cell{
+                text-align: center;
+            }
+        }
+    }
+}
+
+.u-custome-menu{
+    md-menu-content{
+        md-menu-item{
+            color: #91a4b2;
+        }
+        md-icon{
+            color: #91a4b2;
+        }
+        
+    }
+    
+}
+
+.ember-basic-dropdown-trigger{
+    .md-button{
+        z-index: 999;
+    }
+    
 }

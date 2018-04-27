@@ -1,0 +1,52 @@
+<div class="u-side-padding-250">
+    <h4 class="page-title">أضف عقار</h4>
+    {{#paper-card class="status-card"  as |card|}}
+    <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.property-data' property.id}}>
+        <h5 class="card-title">بيانات العقار</h5>
+        <span class="flex"></span>
+        <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
+    </div>
+        {{/paper-card}}
+        {{#paper-card class="status-card " as |card|}}
+    <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.owner' property.id}}>
+        <h5 class="card-title">بيانات المالك</h5>
+        <span class="flex"></span>
+        {{#if property.owner.id}}
+        <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
+        {{/if}}
+    </div>
+        {{/paper-card}}
+        {{#paper-card class="status-card " as |card|}}
+    <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.agent' property.id}}>
+        <h5 class="card-title">بيانات المدير</h5>
+        <span class="flex"></span>
+        {{#if property.agent.id}}
+            <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
+        {{/if}}
+    </div>
+        {{/paper-card}}
+        {{#paper-card class="status-card " as |card|}}
+    <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.agent' property.id}}>
+        <h5 class="card-title">بيانات السجل التجاري</h5>
+        <span class="flex"></span>
+        {{#if property.agent.id}}
+        <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
+        {{/if}}
+    </div>
+        {{/paper-card}}
+        {{#paper-card class="status-card " as |card|}}
+    <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.units.add-unit' property.id}}>
+        <h5 class="card-title">بيانات الوحدات</h5>
+        <span class="flex"></span>
+         {{#if property.units}}
+        <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
+        {{/if}}
+    </div>
+        {{/paper-card}}
+
+         <div class="layout-row md-padding">
+             <span class="flex"></span>
+             {{#paper-button class="u-padding-side-60 u-mbuttom30 u-mtop30" raised=true primary=true}}تم{{/paper-button}}
+             <span class="flex"></span>
+         </div>
+</div>
