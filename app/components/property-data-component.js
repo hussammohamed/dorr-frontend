@@ -52,6 +52,7 @@ export default Component.extend({
                     self.get('markersArray').push(marker);
                     infowindow.setContent(results[1].formatted_address);
                     infowindow.open(map, marker);
+                    console.log(results)
                     self.set('property.address', results[1].formatted_address);
                 }
             }
@@ -149,7 +150,23 @@ export default Component.extend({
             this.get('map').setZoom(15);
         },
         basicSubmitAction(){
-
+    
+            // console.log(JSON.stringify(this.get('property')))
+            let self = this;
+            let property =  this.get('property');
+            property.district = this.get('property.district.id');
+            property.region = this.get('property.region.id');
+            property.type = this.get('property.type.id');
+            new Ember.RSVP.Promise(function(resolve, reject) {
+                self.manager.ajaxRequest(self, self.get('urls').getUrl("mproperty"), 'POST', resolve, reject, property);
+            }).then(
+                success => {
+                    console.log(success)
+                },
+                errors => {
+                    console.log(errors)
+                }
+            )
         }
 
     }

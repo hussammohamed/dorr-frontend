@@ -22,7 +22,7 @@
 {{/table.head}}
 {{#table.body as |body|}}
   {{#each (sort-by table.sortDesc properties) as |property|}}
-    {{#body.row edit=true as |row|}}
+    {{#body.row edit=true onClick=(action "propertyView" property.id) as |row|}}
       {{#row.cell}}{{paper-icon "domain" size=36}}{{/row.cell}}
       {{#row.cell }}{{property.name}}{{/row.cell}}
       {{#row.cell}}5{{/row.cell}}
@@ -41,7 +41,7 @@
         <span>عرض للأيجار</span>
         {{/content.menu-item}}
         {{#content.menu-item
-        onClick=(action "rentAction" patient.id patient.userType patient.name)}} {{paper-icon "edit" size=18 class="md-menu-align-target"}}
+        onClick=(action "editProperty" property.id)}} {{paper-icon "edit" size=18 class="md-menu-align-target"}}
         <span>تعديل</span>
         {{/content.menu-item}}
         {{#content.menu-item

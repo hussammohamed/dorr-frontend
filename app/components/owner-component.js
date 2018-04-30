@@ -12,6 +12,7 @@ export default Component.extend({
     },
     actions:{
         basicSubmitAction(){
+           
 
         }
     }

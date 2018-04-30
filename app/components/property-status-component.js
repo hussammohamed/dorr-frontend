@@ -8,6 +8,9 @@ export default Component.extend({
      actions:{
         cardClick(route, id){
             this.get('router').transitionTo(route, id);
-        }
+        },
+        goHome(){
+            this.get('router').transitionTo('index.properties')
+        },
      }
 });

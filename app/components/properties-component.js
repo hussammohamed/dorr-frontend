@@ -7,6 +7,12 @@ export default Component.extend({
         rentAction(){
             
         },
+        propertyView(id){
+
+        },
+        editProperty(id){
+            this.get('router').transitionTo('index.properties.property-status', id)
+        },
         addProperty(){
             this.get('router').transitionTo('index.properties.add.property-data')
         }

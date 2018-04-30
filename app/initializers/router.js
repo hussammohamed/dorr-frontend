@@ -9,6 +9,7 @@ export function initialize(application) {
   application.inject('component', 'urls', 'service:urls');
   application.inject('component', 'paperToaster', 'service:paperToaster');
   application.inject('component', 'store', 'service:store');
+  application.inject('component', 'manager', 'service:manager');
 }
 
 export default {

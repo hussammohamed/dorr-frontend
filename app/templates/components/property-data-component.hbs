@@ -21,7 +21,7 @@
 </div>
 {{else}}
 <div class="md-padding">
-{{#paper-form class="md-padding" onSubmit=(action "basicSubmitAction") as |form|}}
+{{#paper-form class="md-padding"  as |form|}}
   <div class="layout-row">
     <div class="layout-column flex-50 md-padding">
       {{form.input label="أسم العقار" value=property.name onChange=(action (mut property.name)) required=true}}
@@ -51,7 +51,7 @@
    </div>
   <div class="layout-row">
       <span class="flex"></span>
-    {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+    {{#form.submit-button class="u-padding-side-60" onClick=(action 'basicSubmitAction') raised=true primary=true}}حفظ{{/form.submit-button}}
   </div>
 {{/paper-form}}
 </div>
