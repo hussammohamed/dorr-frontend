@@ -11,7 +11,7 @@
     <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.owner' property.id}}>
         <h5 class="card-title">بيانات المالك</h5>
         <span class="flex"></span>
-        {{#if property.owner.id}}
+        {{#if (eq property.data_status.owner 1)}}
         <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
         {{/if}}
     </div>
@@ -20,7 +20,7 @@
     <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.agent' property.id}}>
         <h5 class="card-title">بيانات المدير</h5>
         <span class="flex"></span>
-        {{#if property.agent.id}}
+        {{#if (eq property.data_status.agent 1)}}
             <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
         {{/if}}
     </div>
@@ -29,7 +29,7 @@
     <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.agency' property.id}}>
         <h5 class="card-title">بيانات السجل التجاري</h5>
         <span class="flex"></span>
-        {{#if property.agent.id}}
+        {{#if  (eq property.data_status.agency 1)}}
         <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
         {{/if}}
     </div>

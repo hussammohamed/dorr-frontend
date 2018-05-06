@@ -4,7 +4,7 @@ export default DS.Model.extend({
     name: DS.attr(),
     email: DS.attr(),
     address: DS.attr(),
-    mobile: DS.attr(),
+    mobile1: DS.attr(),
     owner_bank_iban: DS.attr(),
     owner_id_exp_date: DS.attr(),
     owner_id_issued_date: DS.attr(),

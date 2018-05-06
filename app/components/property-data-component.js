@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import district from '../models/district';
 
 export default Component.extend({
     isRelation: false,
@@ -130,7 +129,7 @@ export default Component.extend({
     },
     actions:{
         changeRelation(value){
-            this.set('selectedRelation', value);
+            this.set('property.user_relation', value);
             this.set('isRelation', true);
             setTimeout(() => {
                 this.initMap();
@@ -138,14 +137,14 @@ export default Component.extend({
            
         },
         regionChange(value){
-            this.set('property.region', value);
+            this.set('selectedRegion', value);
             this.set('districts', value.get('districts'))
             this.set('property.district', null);
             this.get('map').setCenter( new google.maps.LatLng(value.get('location').lat, value.get('location').long));
             this.get('map').setZoom(12);
         },
         districtChange(value){
-            this.set('property.district', value);
+            this.set('selectedDistrict', value);
             this.get('map').setCenter( new google.maps.LatLng(value.get('location').lat, value.get('location').long));
             this.get('map').setZoom(15);
         },
@@ -154,14 +153,15 @@ export default Component.extend({
             // console.log(JSON.stringify(this.get('property')))
             let self = this;
             let property =  this.get('property');
-            property.district = this.get('property.district.id');
-            property.region = this.get('property.region.id');
-            property.type = this.get('property.type.id');
+            property.district = this.get('selectedDistrict.id');
+            property.region = this.get('selectedRegion.id');
+            property.type = this.get('selectedType.id');
             new Ember.RSVP.Promise(function(resolve, reject) {
                 self.manager.ajaxRequest(self, self.get('urls').getUrl("mproperty"), 'POST', resolve, reject, property);
             }).then(
                 success => {
-                    console.log(success)
+                    this.get('manager').toaster(this, 'تم اكمال بيانات العقار بنجاح')
+                    this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
                 },
                 errors => {
                     console.log(errors)

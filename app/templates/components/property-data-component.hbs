@@ -11,7 +11,7 @@
        
       {{/card.title}}
     {{#paper-radio-group  class="layout-row"
-  groupValue=(readonly selectedRelation)
+  groupValue=(readonly property.user_relation)
   onChange=(action "changeRelation") as |group|}}
   <span class="flex"></span>
   {{#group.radio value="1" primary=true}} مالك {{/group.radio}}
@@ -29,17 +29,17 @@
        {{form.input type="number" label="عدد المصاعد" value=property.elevators onChange=(action (mut property.elevators)) required=true}}
        {{form.input type="number" label="سنة البناء " value=property.year_of_construction	 onChange=(action (mut property.year_of_construction)) required=true}}
        {{form.input type="text" label=" جهة الأصدار" required=true value=property.property_instrument_place	 onChange=(action (mut property.property_instrument_place)) required=true}}
-       {{#paper-select  label="المدينة" options=regions selected=property.region onChange=(action 'regionChange')
+       {{#paper-select  label="المدينة" options=regions selected=selectedRegion onChange=(action 'regionChange')
         as |region|}} {{region.title}} {{/paper-select}}
     </div>
     <div class="layout-column flex-50 md-padding">
-         {{#paper-select  label="نوع العقار" options=types selected=property.type onChange=(action (mut property.type))
+         {{#paper-select  label="نوع العقار" options=types selected=selectedType onChange=(action (mut selectedType))
         as |type|}} {{type.name}} {{/paper-select}}
        {{form.input type="number" label="عدد الوحدات" value=property.units_no onChange=(action (mut property.units_no)) required=true}}
        {{form.input type="number" label="عدد المواقف" value=property.parking onChange=(action (mut property.parking)) required=true}}
        {{form.input type="number" label="صك الملكية" value=property.property_instrument_no onChange=(action (mut property.property_instrument_no)) required=true}}
        {{form.input type="date" label="تاريخ الأصدار" value=property.property_instrument_date onChange=(action (mut property.property_instrument_date)) required=true}}
-       {{#paper-select  label="الحي" required=true options=districts disabled=(if property.region false true)  selected=property.district onChange=(action 'districtChange')
+       {{#paper-select  label="الحي" required=true options=districts disabled=(if selectedRegion false true)  selected=selectedDistrict onChange=(action 'districtChange')
         as |district|}} {{district.title}} {{/paper-select}}
     </div>
   </div>

@@ -14,7 +14,7 @@ Router.map(function() {
       });
       this.route('property-status', {path: ':id/status'});
 
-      this.route('edit', {path: ':id'}, function() {
+      this.route('edit', {path: ':id/edit'}, function() {
         this.route('property-data', {path: '/data'});
         this.route('owner');
         this.route('agent');
@@ -22,6 +22,10 @@ Router.map(function() {
           this.route('add-unit', {path: '/add'} );
         });
         this.route('agency');
+      });
+      this.route('show', {path: ':id'}, function() {
+        this.route('property-data', {path: '/data'});
+        this.route('units');
       });
     });
   });

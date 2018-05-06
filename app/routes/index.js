@@ -8,7 +8,8 @@ export default Route.extend({
             self.get('manager').ajaxRequest(self, self.get('urls').get('user'), 'GET', resolve, reject);
         }).then(
             success => {
-               return success.user
+                this.store.pushPayload('user', success);
+                return this.store.peekRecord('user', success.user.id);
             },
             errors => {
                 console.log(errors);

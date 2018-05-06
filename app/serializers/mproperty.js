@@ -5,6 +5,7 @@ export default ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
     region: { embedded: 'always' },
     district:{ embedded: 'always' },
     owner:{embedded: 'always'},
-    agent:{embedded: 'always'}
+    agent:{embedded: 'always'},
+    units:{embedded: 'always'}
 }
 });

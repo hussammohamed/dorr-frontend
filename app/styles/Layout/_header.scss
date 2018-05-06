@@ -21,6 +21,7 @@ $m-header-height: 75px;
     display: -ms-flexbox;
 	display: flex;
 	box-shadow: none;
+	z-index: 100;
 }
 .topbar{
 	height: $topbar-height;

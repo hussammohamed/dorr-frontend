@@ -1,0 +1,6 @@
+  {{#paper-sidenav-container class="inner-sidenav"}}
+    {{partial 'application/-side-bar'}}
+  {{#paper-card-content class=(if leftSideBarLockedOpen "flex main-content" "flex main-content full-width")}}
+        {{outlet}}
+      {{/paper-card-content}}
+{{/paper-sidenav-container}}

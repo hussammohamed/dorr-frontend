@@ -1,1 +1,41 @@
 
+{{#paper-sidenav
+    class="fixed"
+    name="left2"
+    open=ture
+    closeOnClick=true
+    lockedOpen=true
+    position="right"
+    onToggle=(action (mut leftSideBarOpen2))}}
+    {{#paper-content padding=true}}
+  
+      <ul class="nav-list">
+            
+      {{#link-to "index.properties.show.property-data"  tagName="li"}} 
+      <i class="material-icons">domain</i>
+      <span>بيانات العقار</span>
+    {{/link-to}}
+    {{#link-to "index.properties.show.units"  tagName="li"}} 
+      <i class="material-icons">border_all</i>
+      <span>الوحدات</span>
+    {{/link-to}}
+    {{#link-to "index.properties.show.units"  tagName="li"}} 
+      <i class="material-icons">build</i>
+      <span>طلبات الصيانة</span>
+    {{/link-to}}
+    {{#link-to "index.properties.show.units"  tagName="li"}} 
+      <i class="material-icons">account_balance_wallet</i>
+      <span>طلبات التحصيل</span>
+    {{/link-to}}
+    {{#link-to "index.properties.show.units"  tagName="li"}} 
+      <i class="material-icons">insert_drive_file</i>
+      <span>العقود</span>
+    {{/link-to}}
+
+     
+  
+    
+    
+    </ul>
+    {{/paper-content}}
+  {{/paper-sidenav}}

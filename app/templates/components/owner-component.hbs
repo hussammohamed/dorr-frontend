@@ -2,32 +2,69 @@
     <h4 class="page-title">بيانات صاحب العقار</h4>
     {{#paper-card as |card|}}
     <div class="md-padding">
-        {{#paper-form class="md-padding" onSubmit=(action "basicSubmitAction") as |form|}}
+        {{#if (not-eq currentUser.id user.id)}}
         <div class="layout-row">
+            <div class="layout-column card-search flex-50 md-padding">
+               
+            {{paper-input class="flex-30" label="البحث عن المستخدم" value=userSearchValue onChange=(action (mut userSearchValue))}}
+             {{#if isSearch}}
+             {{searchUserResult}}
+             {{#paper-list class="search-user-list"}}
+             {{#if searchUserResult.id}}
+             {{#paper-item onClick=(action "setUser" searchUserResult) class="md-3-line"}}
+            <img src={{searchUserResult.avatar}} class="md-avatar">
+            <div class="md-list-item-text">
+                <p>{{searchUserResult.name}}</p>
+                <p>{{searchUserResult.email}}</p>
+                <p>{{searchUserResult.mobile1}}</p>
+            </div>
+            {{/paper-item}}
+            {{else}}
+            <div class="md-list-item-text">
+                <p>dddd</p>
+            </div>
+            {{/if}}
+             {{/paper-list}}
+            {{/if}}
+            </div>
+              <div class="layout-column flex-10 md-padding">
+                  <div>
+                       {{#paper-button class="u-padding-side-60" onClick=(action 'userSearch') raised=true raised=true primary=true}}إبحث{{/paper-button}}
+                  </div>
+                 
+              </div>
+        </div>
+        {{/if}}
+        {{#paper-form  class="md-padding" onSubmit=(action (if user.id "updateUser" "saveUser")) as |form|}}
+        <div class="layout-row"  onClick={{action "formClick"}}>
             <div class="layout-column flex-50 md-padding">
-                {{form.input label=" الأسم بالكامل" value=user.name onChange=(action (mut user.full)) required=true}} 
-                {{#paper-select  label="نوع الهوية" options=idTypes selected=user.owner_id_type onChange=(action (mut user.owner_id_type))
+                {{form.input label=" الأسم بالكامل" disabled=(if (and (not-eq user.id currentUser.id) validationUser.name) true false)  value=user.name onChange=(action (mut user.name)) }} 
+                {{#paper-select  label="نوع الهوية" disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_type) true false)  options=idTypes selected=user.id_type onChange=(action (mut user.id_type))
                 as |idType|}} {{idType.name}} {{/paper-select}}
-                {{#paper-select  label=" جهة الأصدار" options=regions selected=user.owner_id_issuer onChange=(action (mut user.owner_id_issuer))
-                as |region|}} {{region.name}} {{/paper-select}}
-                {{form.input type="date" label="تاريخ الأنتهاء " value=user.owner_id_exp_date onChange=(action (mut  user.owner_id_exp_date)) required=true}}
-                {{form.input type="number" label="رقم الجوال" value=user.mobile onChange=(action (mut user.mobile)) required=true}}
-                {{form.input type="number" label="رقم الحساب البنكي IBAN" value=user.owner_bank_iban onChange=(action (mut user.owner_bank_iban)) required=true}}
+                {{#paper-select  label=" جهة الأصدار"  disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issuer) true false) options=regions selected=user.id_issuer onChange=(action (mut user.id_issuer))
+                as |region|}} {{region.title}} {{/paper-select}}
+                {{form.input type="date" label="تاريخ الأنتهاء " disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issuer) true false) value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) }}
+                {{form.input type="number" required=true disabled=(if user.id true false) label="رقم الجوال" value=user.mobile1 onChange=(action (mut user.mobile1)) }}
+                {{form.input type="number" label="رقم الحساب البنكي IBAN" disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issuer) true false) value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
             </div>
             <div class="layout-column flex-50 md-padding">
-                {{form.input type="text" label="عنوان المالك" value=user.address onChange=(action (mut user.address)) required=true}}
-                {{form.input type="number" label="رقم الهوية" value=user.owner_id_no onChange=(action (mut user.owner_id_no)) required=true}}
-                {{form.input type="date" label="تاريخ الأصدار" value=user.owner_id_issued_date onChange=(action (mut user.owner_id_issued_date)) required=true}}   
-                {{form.input type="email" label="البريد الألكتروني" value=user.email onChange=(action (mut user.email)) required=true}} 
-                {{#paper-select  label="الجنسية" options=nationalities selected=user.nationality onChange=(action (mut  user.nationality))
+                {{form.input type="text" label="عنوان المالك" disabled=(if (and (not-eq user.id currentUser.id) validationUser.address) true false) value=user.address onChange=(action (mut user.address)) }}
+                {{form.input type="number" label="رقم الهوية" disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_no) true false) value=user.id_no onChange=(action (mut user.id_no))}}
+                {{form.input type="date" label="تاريخ الأصدار" disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issued_date) true false) value=user.id_issued_date onChange=(action (mut user.id_issued_date)) }}   
+                {{form.input type="email" required=true disabled=(if user.id true false) label="البريد الألكتروني" value=user.email onChange=(action (mut user.email)) }} 
+                {{#paper-select  label="الجنسية" disabled=(if (and (not-eq user.id currentUser.id) validationUser.nationality) true false) options=nationalities selected=user.nationality onChange=(action (mut  user.nationality))
                 as |nationality|}} {{nationality.name}} {{/paper-select}}
-                {{#paper-select  label="البنك الخاص بالمالك" options=banks selected=user.owner_bank onChange=(action (mut  user.owner_bank))
+                {{#paper-select  label="البنك الخاص بالمالك" disabled=(if (and (not-eq user.id currentUser.id) validationUser.bank) true false) options=banks selected=user.bank onChange=(action (mut  user.bank))
                 as |bank|}} {{bank.name}} {{/paper-select}}
             </div>
         </div>
         <div class="layout-row">
             <span class="flex"></span>
+            {{#if (and user.id (or (eq user.registered 0) (eq user.id currentUser.id)))}}
+             {{#paper-button class="u-padding-side-60" onClick=(action 'deleteUser') raised=true raised=true warn=true}}حذف المالك{{/paper-button}}
+                {{/if}}
             {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+                
         </div>
         {{/paper-form}}
     </div>

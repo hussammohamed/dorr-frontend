@@ -14,6 +14,7 @@
 	padding: 8px 40px;
 	background-color:  $footer-bg ;
 	margin-top: 150px;
+	z-index: 100;
 	.footer-bg{
 	    background-image: url(/images/footer-background.svg);
 		position: absolute;

@@ -17,7 +17,6 @@ export default DS.Model.extend({
     agency_instrument_no: DS.attr(), 
     agency_instrument_date: DS.attr(),
     agency_instrument_exp_date: DS.attr(),
-    agency: DS.belongsTo('agency'),
     mproperty: DS.hasMany('mproperty'),
 
 
