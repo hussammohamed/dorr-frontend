@@ -7,11 +7,18 @@ export default Ember.Service.extend({
     mproperty:"/mproperties" ,
     searchUser: "/users/search",
     users: "/users",
+    agencies: "/agencies",
     getUrl: function(path) {
         return ENV.host + this.get(path) + "?lang=" + this.get('intl').get('locale');
     },
     updateUser(id){
         return ENV.host + "/users/" + id + "?lang=" + this.get('intl').get('locale');
+    },
+    updateProperty(id){
+        return ENV.host + "/mproperties/" + id + "?lang=" + this.get('intl').get('locale');
+    },
+    updateAgency(id){
+        return ENV.host + "/agencies/" + id + "?lang=" + this.get('intl').get('locale');
     }
 
 });

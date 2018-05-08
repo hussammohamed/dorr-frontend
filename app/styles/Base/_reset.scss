@@ -152,6 +152,7 @@ ul,ol{
 .main-content{
   min-height: calc(100vh - 384px);
   background-color: $body-bg;
+  padding-bottom: 48px; 
 .page-title{
   margin: 24px 8px;
   color: rgba(0,0,0, 0.68);

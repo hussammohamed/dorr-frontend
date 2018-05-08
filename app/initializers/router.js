@@ -10,6 +10,8 @@ export function initialize(application) {
   application.inject('component', 'paperToaster', 'service:paperToaster');
   application.inject('component', 'store', 'service:store');
   application.inject('component', 'manager', 'service:manager');
+  application.inject('component', 'dorrValidations', 'service:dorrValidations');
+
 }
 
 export default {

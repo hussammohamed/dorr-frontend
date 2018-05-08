@@ -57,7 +57,7 @@ export default Component.extend({
             }).then(
                 success => {
                    
-                    
+                    this.get('router').transitionTo('index.properties.property-status', this.get('property').get('id')); 
                 },
                 errors => {
                     console.log(errors)
@@ -79,10 +79,20 @@ export default Component.extend({
             },
                 function (isConfirm) {
                     if (isConfirm) {
-                          self.store.findRecord('mproperty', self.get('property').get('id')).then(function(property) {
-                            property.set('owner', null);
-                            property.save(); // => PATCH to '/posts/1'
-                          });
+                         let data = {
+                            "owner_user_id": null,
+                          }
+                        new Ember.RSVP.Promise(function(resolve, reject) {
+                            self.manager.ajaxRequest(self, self.get('urls').updateProperty(self.get('property').get('id')), 'PUT', resolve, reject, data);
+                        }).then(
+                            success => {
+                               
+                                
+                            },
+                            errors => {
+                                console.log(errors)
+                            }
+                        )
                     }})
 
         },
@@ -96,7 +106,7 @@ export default Component.extend({
             }).then(
                 success => {
                    
-                    
+                    this.get('router').transitionTo('index.properties.property-status', this.get('property').get('id')); 
                 },
                 errors => {
                     console.log(errors)

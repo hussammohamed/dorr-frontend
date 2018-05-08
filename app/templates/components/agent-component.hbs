@@ -2,36 +2,90 @@
     <h4 class="page-title">بيانات المدير</h4>
     {{#paper-card as |card|}}
     <div class="md-padding">
-        {{#paper-form class="md-padding" onSubmit=(action "basicSubmitAction") as |form|}}
+        {{#unless user.id}}
         <div class="layout-row">
-            <div class="layout-column flex-50 md-padding">
-                {{form.input label=" الأسم بالكامل" value=user.name onChange=(action (mut user.full)) required=true}} 
-                {{#paper-select  label="نوع الهوية" options=idTypes selected=user.agent_id_type onChange=(action (mut user.agent_id_type))
-                as |idType|}} {{idType.name}} {{/paper-select}}
-                {{#paper-select  label=" جهة الأصدار" options=regions selected=user.agent_id_issuer onChange=(action (mut user.agent_id_issuer))
-                as |region|}} {{region.name}} {{/paper-select}}
-                {{form.input type="date" label="تاريخ الأنتهاء " value=user.agent_id_exp_date onChange=(action (mut  user.agent_id_exp_date)) required=true}}
-                {{form.input type="number" label="رقم الجوال" value=user.mobile onChange=(action (mut user.mobile)) required=true}}
-                {{form.input type="number" label="رقم الحساب البنكي IBAN" value=user.agency_bank_iban onChange=(action (mut user.agency_bank_iban)) required=true}}
-                {{form.input type="number" label="رقم صك الوكالة" value=user.agency_instrument_no onChange=(action (mut user.agency_instrument_no)) required=true}}
-                {{form.input type="date" label="تاريخ الأصدار " value=user.agency_instrument_date onChange=(action (mut  user.agency_instrument_date)) required=true}}
+            <div class="layout-column card-search flex-50 md-padding">
+                {{paper-input class="flex-30" label="البحث عن المستخدم" value=userSearchValue onChange=(action (mut userSearchValue))}} {{#if
+                isSearch}} {{searchUserResult}} {{#paper-list class="search-user-list"}} {{#if searchUserResult.id}} {{#paper-item
+                onClick=(action "setUser" searchUserResult) class="md-3-line"}}
+                <img src={{searchUserResult.avatar}} class="md-avatar">
+                <div class="md-list-item-text">
+                    <p>{{searchUserResult.name}}</p>
+                    <p>{{searchUserResult.email}}</p>
+                    <p>{{searchUserResult.mobile1}}</p>
+                </div>
+                {{/paper-item}} {{else}}
+                <div class="md-list-item-text">
+                    <p>dddd</p>
+                </div>
+                {{/if}} {{/paper-list}} {{/if}}
             </div>
-            <div class="layout-column flex-50 md-padding">
-                {{form.input type="text" label="العنوان" value=user.address onChange=(action (mut user.address)) required=true}}
-                {{form.input type="number" label="رقم الهوية" value=user.agent_id_no onChange=(action (mut user.agent_id_no)) required=true}}
-                {{form.input type="date" label="تاريخ الأصدار" value=user.agent_id_issued_date onChange=(action (mut user.agent_id_issued_date)) required=true}}   
-                {{form.input type="email" label="البريد الألكتروني" value=user.email onChange=(action (mut user.email)) required=true}} 
-                {{#paper-select  label="الجنسية" options=nationalities selected=user.nationality onChange=(action (mut  user.nationality))
-                as |nationality|}} {{nationality.name}} {{/paper-select}}
-                {{#paper-select  label="البنك الخاص بالمالك" options=banks selected=user.agency_bank onChange=(action (mut  user.agency_bank))
-                as |bank|}} {{bank.name}} {{/paper-select}}
-                {{#paper-select  label=" جهة أصدارها" options=regions selected=user.agency_instrument_issuer onChange=(action (mut user.agency_instrument_issuer))
-                as |region|}} {{region.name}} {{/paper-select}}
-                {{form.input type="date" label="تاريخ الأنتهاء " value=user.agency_instrument_exp_date onChange=(action (mut  user.agency_instrument_exp_date)) required=true}}
+            <div class="layout-column flex-10 md-padding">
+                <div>
+                    {{#paper-button class="u-padding-side-60" onClick=(action 'userSearch') raised=true raised=true primary=true}}إبحث{{/paper-button}}
+                </div>
             </div>
         </div>
+        {{/unless}}
+        {{#paper-form class="md-padding"  onSubmit=(action (if user.id "updateUser" "saveUser")) as |form|}}
+        <div class="layout-row"  onClick={{action "formClick"}}>
+            <div class="layout-column flex-50 md-padding">
+                {{form.input label=" الأسم بالكامل" disabled=(if (and (not-eq user.id currentUser.id) validationUser.name) true false) errorMessages=regularValidation value=user.name onChange=(action (mut user.name)) }} 
+                {{#paper-select  label="نوع الهوية" disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_type) true false) errorMessages=regularValidation options=idTypes selected=user.id_type onChange=(action (mut user.id_type))
+                as |idType|}} {{idType.name}} {{/paper-select}}
+                {{#paper-select  label=" جهة الأصدار" disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issuer) true false) errorMessages=regularValidation options=regions selected=user.id_issuer onChange=(action (mut user.id_issuer))
+                as |region|}} {{region.name}} {{/paper-select}}
+                {{form.input type="date" label="تاريخ الأنتهاء " disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_exp_date) true false) errorMessages=regularValidation value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) required=true}}
+                {{form.input type="number" label="رقم الجوال" disabled=(if (and (not-eq user.id currentUser.id) validationUser.mobile1) true false) errorMessages=regularValidation value=user.mobile1 onChange=(action (mut user.mobile1)) required=true}}
+                {{form.input type="number" label="رقم الحساب البنكي IBAN" disabled=(if (and (not-eq user.id currentUser.id) validationUser.bank_iban) true false) errorMessages=regularValidation value=user.bank_iban onChange=(action (mut user.agency_bank_iban)) required=true}}
+                {{form.input type="number" label="رقم صك الوكالة" disabled=(if (and (not-eq user.id currentUser.id) validationProperty.agency_instrument_no) true false) errorMessages=regularValidation value=property.agency_instrument_no onChange=(action (mut property.agency_instrument_no)) required=true}}
+                {{form.input type="date" label="تاريخ الأصدار " disabled=(if (and (not-eq user.id currentUser.id) validationProperty.agency_instrument_date) true false) errorMessages=regularValidation value=property.agency_instrument_date onChange=(action (mut  property.agency_instrument_date)) required=true}}
+            </div>
+            <div class="layout-column flex-50 md-padding">
+                {{form.input type="text" label="العنوان" disabled=(if (and (not-eq user.id currentUser.id) validationUser.address) true false) errorMessages=regularValidation value=user.address onChange=(action (mut user.address)) required=true}}
+                {{form.input type="number" label="رقم الهوية" disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_no) true false) errorMessages=regularValidation value=user.id_no onChange=(action (mut user.id_no)) required=true}}
+                {{form.input type="date" label="تاريخ الأصدار" disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issued_date) true false) errorMessages=regularValidation value=user.id_issued_date onChange=(action (mut user.id_issued_date)) required=true}}   
+                {{form.input type="email" label="البريد الألكتروني" disabled=(if (and (not-eq user.id currentUser.id) validationUser.name) true false) errorMessages=regularValidation value=user.email onChange=(action (mut user.email)) errorMessages=regularValidation customValidations=emailValidation required=true}} 
+                {{#paper-select  label="الجنسية" disabled=(if (and (not-eq user.id currentUser.id) validationUser.nationality) true false) errorMessages=regularValidation options=nationalities selected=user.nationality onChange=(action (mut  user.nationality))
+                as |nationality|}} {{nationality.name}} {{/paper-select}}
+                {{#paper-select  label="البنك الخاص بالمالك" disabled=(if (and (not-eq user.id currentUser.id) validationUser.bank) true false) errorMessages=regularValidation options=banks selected=user.bank onChange=(action (mut  user.bank))
+                as |bank|}} {{bank.name}} {{/paper-select}}
+                {{#paper-select  label=" جهة أصدارها" disabled=(if (and (not-eq user.id currentUser.id) validationProperty.agency_instrument_issuer) true false) errorMessages=regularValidation options=regions selected=property.agency_instrument_issuer onChange=(action (mut property.agency_instrument_issuer))
+                as |region|}} {{region.name}} {{/paper-select}}
+                {{form.input type="date" label="تاريخ الأنتهاء " disabled=(if (and (not-eq user.id currentUser.id) validationProperty.agency_instrument_exp_date) true false) errorMessages=regularValidation value=property.agency_instrument_exp_date onChange=(action (mut  property.agency_instrument_exp_date)) required=true}}
+            </div>
+        </div>
+        <div class=" u-full-width mdl-grid u-mbuttom30">
+            <div class="mdl-cell mdl-cell--6-col md-padding">
+                <div class=" m-b-1">
+                    <div class="form-group inputDnD">
+                        <i class="material-icons">insert_drive_file</i>
+                        <input type="file" accept="image/jpeg, image/png" data-title="مرفق صورة الهوية" class="form-control-file text-primary font-weight-bold"
+                            id="inputFile" accept="image/*" name="attachment">
+        
+                    </div>
+                </div>
+        
+            </div>
+            <div class="mdl-cell mdl-cell--6-col md-padding">
+                <div class=" m-b-1">
+                    <div class="form-group inputDnD">
+                        <i class="material-icons">insert_drive_file</i>
+                        <input type="file" accept="image/jpeg, image/png" data-title="مرفق عقد إتفاقية إدارة ملكية " class="form-control-file text-primary font-weight-bold"
+                            id="inputFile" accept="image/*" name="attachment">
+        
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+        
+
         <div class="layout-row">
             <span class="flex"></span>
+            {{#if (and user.id (or (eq user.registered 0) (eq user.id currentUser.id)))}}
+             {{#paper-button class="u-padding-side-60" onClick=(action 'deleteUser') raised=true raised=true warn=true}}حذف المدير{{/paper-button}}
+                {{/if}}
             {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
         </div>
         {{/paper-form}}

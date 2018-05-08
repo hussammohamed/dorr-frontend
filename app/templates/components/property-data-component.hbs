@@ -21,37 +21,53 @@
 </div>
 {{else}}
 <div class="md-padding">
-{{#paper-form class="md-padding"  as |form|}}
+{{#paper-form class="md-padding" onSubmit=(action (if property.id "updateProperty" "saveProperty"))  as |form|}}
   <div class="layout-row">
     <div class="layout-column flex-50 md-padding">
       {{form.input label="أسم العقار" value=property.name onChange=(action (mut property.name)) required=true}}
       {{form.input type="number" label="عدد الأدوار" value=property.floors onChange=(action (mut property.floors)) required=true}}
        {{form.input type="number" label="عدد المصاعد" value=property.elevators onChange=(action (mut property.elevators)) required=true}}
        {{form.input type="number" label="سنة البناء " value=property.year_of_construction	 onChange=(action (mut property.year_of_construction)) required=true}}
-       {{form.input type="text" label=" جهة الأصدار" required=true value=property.property_instrument_place	 onChange=(action (mut property.property_instrument_place)) required=true}}
-       {{#paper-select  label="المدينة" options=regions selected=selectedRegion onChange=(action 'regionChange')
+       {{form.input type="text" label=" مكان الأصدار" required=true value=property.property_instrument_place	 onChange=(action (mut property.property_instrument_place)) required=true}}
+       {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation options=regions selected=property.property_instrument_issuer onChange=(action (mut property.property_instrument_issuer))
+                as |region|}} {{region.title}} {{/paper-select}}
+       {{#paper-select  label="المدينة" options=regions selected=property.region onChange=(action 'regionChange')
         as |region|}} {{region.title}} {{/paper-select}}
     </div>
     <div class="layout-column flex-50 md-padding">
-         {{#paper-select  label="نوع العقار" options=types selected=selectedType onChange=(action (mut selectedType))
+         {{#paper-select  label="نوع العقار" options=types selected=property.type onChange=(action (mut property.type))
         as |type|}} {{type.name}} {{/paper-select}}
        {{form.input type="number" label="عدد الوحدات" value=property.units_no onChange=(action (mut property.units_no)) required=true}}
        {{form.input type="number" label="عدد المواقف" value=property.parking onChange=(action (mut property.parking)) required=true}}
        {{form.input type="number" label="صك الملكية" value=property.property_instrument_no onChange=(action (mut property.property_instrument_no)) required=true}}
        {{form.input type="date" label="تاريخ الأصدار" value=property.property_instrument_date onChange=(action (mut property.property_instrument_date)) required=true}}
-       {{#paper-select  label="الحي" required=true options=districts disabled=(if selectedRegion false true)  selected=selectedDistrict onChange=(action 'districtChange')
+        <span class="flex"></span>
+       {{#paper-select  label="الحي" required=true options=districts disabled=(if property.region false true)  selected=property.district onChange=(action 'districtChange')
         as |district|}} {{district.title}} {{/paper-select}}
     </div>
   </div>
    <div class="layout-row md-padding">
       {{form.input id="pac-input" class="flex-100" type="text"  placeholder=""label="العنوان بالكامل" value=property.address onChange=(action (mut property.address)) required=true}}
    </div>
-   <div class="layout-row md-padding">
-     <div class="map" id="map"></div>
-   </div>
+  <div class="layout-row md-padding">
+    <div class="map" id="map"></div>
+  </div>
+  <div class=" u-full-width mdl-grid u-mbuttom30">
+    <div class="mdl-cell mdl-cell--12-col">
+      <div class=" m-b-1 w-80">
+        <div class="form-group inputDnD">
+          <i class="material-icons">insert_drive_file</i>
+          <input type="file" accept="image/jpeg, image/png" data-title="مرفق صك الملكية" class="form-control-file text-primary font-weight-bold"
+            id="inputFile" accept="image/*" name="attachment">
+  
+        </div>
+      </div>
+
+    </div>
+  </div>
   <div class="layout-row">
       <span class="flex"></span>
-    {{#form.submit-button class="u-padding-side-60" onClick=(action 'basicSubmitAction') raised=true primary=true}}حفظ{{/form.submit-button}}
+    {{#form.submit-button class="u-padding-side-60"  raised=true primary=true}}حفظ{{/form.submit-button}}
   </div>
 {{/paper-form}}
 </div>
