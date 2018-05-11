@@ -1,38 +1,68 @@
 <div class="u-side-padding">
-    <h4 class="page-title">أضف عقار</h4>
+  {{#each units as |unit|}}
+  <div class={{if unit.collapse "unit-card collapse" "unit-card"}}>
+  <div class="unit-header layout-row" onclick={{action "hideUnit" unit}}>
+ 
+    <h4 class="page-title">بيانات وحدة رقم {{unit.no}}</h4>
+    <div class="flex"></div>
+       {{#if unit.collapse}}
+       {{paper-icon "keyboard_arrow_down" size=32}}
+       {{else}}
+       {{paper-icon "keyboard_arrow_up" size=32}}
+
+       {{/if}}
+  </div>
+  
     {{#paper-card as |card|}}
     
-<div class="md-padding">
-{{#paper-form class="md-padding" onSubmit=(action (if property.id "updateUnit" "saveUnit"))  as |form|}}
+<div class="md-padding"> 
+{{#paper-form class="md-padding" onSubmit=(action "SubmitAction")  as |form|}}
   <div class="layout-row">
     <div class="layout-column flex-50 md-padding">
-      {{form.input label="أسم الوحدة" value=unit.name onChange=(action (mut unit.name)) required=true}}
-      {{#paper-select  label="التأثيث" options=types selected=furnished onChange=(action (mut furnished))
-        as |type|}} {{type.name}} {{/paper-select}}
-        {{#paper-select  label="خزائن للمطبخ" options=types selected=kitchen_cabinet onChange=(action (mut kitchen_cabinet))
-        as |type|}} {{type.name}} {{/paper-select}}
-      {{form.input type="number" label="رقم الدور" value=property.floor onChange=(action (mut property.floor)) required=true}}
-       {{form.input type="number" label="عدد المصاعد" value=property.elevators onChange=(action (mut property.elevators)) required=true}}
-       {{form.input type="number" label="سنة البناء " value=property.year_of_construction	 onChange=(action (mut property.year_of_construction)) required=true}}
-       {{form.input type="text" label=" مكان الأصدار" required=true value=property.property_instrument_place	 onChange=(action (mut property.property_instrument_place)) required=true}}
-       {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation options=regions selected=property.property_instrument_issuer onChange=(action (mut property.property_instrument_issuer))
-                as |region|}} {{region.title}} {{/paper-select}}
+      {{form.input type="number" label="رقم الوحدة" value=unit.no onChange=(action (mut unit.no)) required=true}}
+       {{form.input type="number" label="رقم الدور" value=unit.floor onChange=(action (mut unit.floor)) required=true}}
+        {{form.input type="number" label="رقم عداد الكهرباء" value=unit.floor onChange=(action (mut unit.floor)) required=true}}
+      {{#paper-select  label="التأثيث" required=true  options=furnished selected=unit.furnished onChange=(action (mut unit.furnished))
+        as |furnished|}} {{furnished.name}} {{/paper-select}}
+        {{#paper-select  label="خزائن للمطبخ" options=kitchen-cabinet selected=unit.kitchen_cabinet onChange=(action (mut kitchen_cabinet))
+        as |item|}} {{item.name}} {{/paper-select}}
+
+        {{form.input type="number" label=" عدد غرف النوم" value=unit.bed_rooms onChange=(action (mut unit.bed_rooms)) required=true}}
+        {{form.input type="number" label=" عدد الحمامات" value=unit.bath_rooms onChange=(action (mut unit.bath_rooms)) required=true}}
+        {{form.input type="number" label="عدد مكيفات سبلت" value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
+         
+       
     </div>
     <div class="layout-column flex-50 md-padding">
-         {{#paper-select  label="نوع الوحدة" options=types selected=name.type onChange=(action (mut name.type))
+         {{#paper-select  label="نوع الوحدة"  options=types required=true selected=unit.type onChange=(action (mut unit.type))
         as |type|}} {{type.name}} {{/paper-select}}
-       {{form.input type="number" label="حالة التأثيث" value=furnished_status onChange=(action (mut furnished_status)) required=true}}
-       {{form.input type="number" label="عدد الغرف" value=unit.bed_rooms onChange=(action (mut property.parking)) required=true}}
-       {{form.input type="number" label="صك الملكية" value=property.property_instrument_no onChange=(action (mut property.property_instrument_no)) required=true}}
-       {{form.input type="date" label="تاريخ الأصدار" value=property.property_instrument_date onChange=(action (mut property.property_instrument_date)) required=true}}
+        {{form.input type="number" label="رقم عداد المياه" value=unit.floor onChange=(action (mut unit.floor)) required=true}}
+         {{form.input type="number" label="رقم عداد الغاز" value=unit.floor onChange=(action (mut unit.floor)) required=true}}
+       {{#paper-select  label="حالة التأثيث" options=furnished-status selected=unit.furnished_status onChange=(action (mut unit.furnished_status))
+        as |item|}} {{item.name}} {{/paper-select}}
+       
+       {{form.input type="number" label=" عدد غرف المعيشة" value=unit.bed_rooms onChange=(action (mut unit.bed_rooms)) required=true}}
+       {{form.input type="number" label=" عدد غرف الأستقبال" value=unit.reception_rooms onChange=(action (mut unit.reception_rooms)) required=true}}
+       
+       {{form.input type="number" label="عدد مكيفات شباك" value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
+       
         <span class="flex"></span>
     </div>
   </div>
   <div class="layout-row">
       <span class="flex"></span>
-    {{#form.submit-button class="u-padding-side-60"  raised=true primary=true}}حفظ{{/form.submit-button}}
+      
   </div>
 {{/paper-form}}
 </div>
+    {{/paper-card}}
+    </div>
+    {{/each}}
+    {{#paper-card class="md-padding u-mtop30" as |card|}}
+     <div class="layout-row md-padding">
+    <span class="flex"></span>
+    {{#paper-button class="u-padding-side-60" onClick=(action 'setNewUnit') raised=true raised=true primary=true}}إضف وحده اخري{{/paper-button}}
+    {{#paper-button class="u-padding-side-60"  raised=true primary=true}}حفظ{{/paper-button}}
+    </div>
     {{/paper-card}}
 </div>

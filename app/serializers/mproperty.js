@@ -10,6 +10,6 @@ export default ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
     units:{embedded: 'always'},
     agency:{embedded: 'always'},
     property_instrument_issuer:{embedded: 'always'},
-    agency_instrument_issuer: {embedded: 'always'}
+    agency_instrument_issuer: {embedded: 'always'},
 }
 });

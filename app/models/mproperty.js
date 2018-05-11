@@ -25,7 +25,7 @@ export default DS.Model.extend({
     units_no: DS.attr(),
     elevators: DS.attr(),
     region: DS.belongsTo('region'),
-    district: DS.belongsTo('district'),
+    district: DS.belongsTo('district', {async: false}),
     type: DS.belongsTo('type'),
     year_of_construction: DS.attr(),
 
@@ -50,4 +50,5 @@ export default DS.Model.extend({
     long:DS.attr(),
     lat: DS.attr(),
     user_relation: DS.attr(),
+    
 });

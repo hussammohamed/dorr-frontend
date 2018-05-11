@@ -28,5 +28,9 @@ Router.map(function() {
     });
   });
 });
-
+Router.reopen({
+  doSomethingOnUrlChange: function() {
+    window.scrollTo(0, 0);
+  }.on('didTransition')
+});
 export default Router;

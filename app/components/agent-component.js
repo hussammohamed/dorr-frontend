@@ -9,9 +9,9 @@ export default Component.extend(dorrValidations, {
             this.set('validationProperty', this.get('property').toJSON());
         }
         this.set('nationalities', this.store.findAll('nationality'));
-        this.set('banks', this.store.findAll('bank'));
-        this.set('idTypes', this.store.findAll('id-type'));
-        this.set('regions', this.store.findAll('region'));
+        this.set('banks', this.store.peekAll('bank'));
+        this.set('idTypes', this.store.peekAll('id-type'));
+        this.set('regions', this.store.peekAll('region'));
      },
      actions:{
         formClick(){
@@ -115,12 +115,21 @@ export default Component.extend(dorrValidations, {
             user.mproperty_id = this.get('property').get('id');
             user.user_relation = 2;
             user.registered = 0;
+            var property = self.get('property').toJSON();
             new Ember.RSVP.Promise(function(resolve, reject) {
                 self.manager.ajaxRequest(self, self.get('urls').getUrl('users'), 'POST', resolve, reject, user);
             }).then(
                 success => {
-                   
-                    
+                    new Ember.RSVP.Promise(function(resolve, reject) {
+                        self.manager.ajaxRequest(self, self.get('urls').updateProperty(self.get('property').get('id')), 'PUT', resolve, reject, property);
+                    }).then(
+                        success => {
+                            this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
+                        },
+                        errors => {
+                            console.log(errors)
+                        }
+                    ) 
                 },
                 errors => {
                     console.log(errors)

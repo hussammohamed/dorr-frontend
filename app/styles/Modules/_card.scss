@@ -138,3 +138,48 @@ margin-bottom: 48px;
       }
     }
   }
+
+  .status-card.disabled{
+      box-shadow: none;
+      cursor: default;
+      .card-title{
+          color: #ccc;
+      }
+  }
+.unit-card{
+    md-card{
+     
+    }
+    &.collapse{
+        
+        md-card{
+            max-height: 0;
+            overflow: hidden;
+        }
+    }
+    .unit-header{
+        cursor: pointer;
+        padding-left: 24px;
+        md-icon{
+          color: #e0e0e0;
+       
+      }
+        .flex{
+            position: relative;
+           
+            &::after{
+                content: "";
+                border-bottom: 1px solid #e0e0e0;
+                width: calc(100% - 32px);
+                position: absolute;
+                top: 0;
+                height: 50%;
+                left: 16px;
+  
+  
+            }
+        }
+    }
+
+}
+  

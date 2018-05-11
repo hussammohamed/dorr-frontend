@@ -25,11 +25,11 @@
         {{/if}}
     </div>
         {{/paper-card}}
-        {{#paper-card class="status-card " as |card|}}
-    <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.agency' property.id}}>
+        {{#paper-card class=(if property.agent.id "status-card" "status-card disabled")  as |card|}}
+    <div class="layout-row md-padding" onClick={{action (if property.agent.id "cardClick" "fullAgent") 'index.properties.edit.agency' property.id}}>
         <h5 class="card-title">بيانات السجل التجاري</h5>
         <span class="flex"></span>
-        {{#if  (eq property.data_status.agency 1)}}
+        {{#if  (and (eq property.data_status.agency 1) (eq property.data_status.agent 1))}}
         <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
         {{/if}}
     </div>

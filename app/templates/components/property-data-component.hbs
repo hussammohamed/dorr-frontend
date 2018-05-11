@@ -31,11 +31,11 @@
        {{form.input type="text" label=" مكان الأصدار" required=true value=property.property_instrument_place	 onChange=(action (mut property.property_instrument_place)) required=true}}
        {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation options=regions selected=property.property_instrument_issuer onChange=(action (mut property.property_instrument_issuer))
                 as |region|}} {{region.title}} {{/paper-select}}
-       {{#paper-select  label="المدينة" options=regions selected=property.region onChange=(action 'regionChange')
+       {{#paper-select  label="المدينة" required=true options=regions selected=property.region onChange=(action 'regionChange')
         as |region|}} {{region.title}} {{/paper-select}}
     </div>
     <div class="layout-column flex-50 md-padding">
-         {{#paper-select  label="نوع العقار" options=types selected=property.type onChange=(action (mut property.type))
+         {{#paper-select  label="نوع العقار" required=true options=types selected=property.type onChange=(action (mut property.type))
         as |type|}} {{type.name}} {{/paper-select}}
        {{form.input type="number" label="عدد الوحدات" value=property.units_no onChange=(action (mut property.units_no)) required=true}}
        {{form.input type="number" label="عدد المواقف" value=property.parking onChange=(action (mut property.parking)) required=true}}

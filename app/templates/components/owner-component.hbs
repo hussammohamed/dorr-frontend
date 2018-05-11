@@ -38,23 +38,23 @@
         {{#paper-form  class="md-padding" onSubmit=(action (if user.id "updateUser" "saveUser")) as |form|}}
         <div class="layout-row"  onClick={{action "formClick"}}>
             <div class="layout-column flex-50 md-padding">
-                {{form.input label=" الأسم بالكامل" disabled=(if (and (not-eq user.id currentUser.id) validationUser.name) true false) errorMessages=regularValidation  value=user.name onChange=(action (mut user.name)) }} 
-                {{#paper-select  label="نوع الهوية" errorMessages=regularValidation  disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_type) true false)  options=idTypes selected=user.id_type onChange=(action (mut user.id_type))
+                {{form.input label=" الأسم بالكامل" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false)  errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)   value=user.name onChange=(action (mut user.name)) }} 
+                {{#paper-select  label="نوع الهوية" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) required=(if (and user.id (eq user.id currentUser.id)) true false)  options=idTypes selected=user.id_type onChange=(action (mut user.id_type))
                 as |idType|}} {{idType.name}} {{/paper-select}}
-                {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation   disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issuer) true false) options=regions selected=user.id_issuer onChange=(action (mut user.id_issuer))
+                {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) options=regions selected=user.id_issuer onChange=(action (mut user.id_issuer))
                 as |region|}} {{region.title}} {{/paper-select}}
-                {{form.input type="date" label="تاريخ الأنتهاء " errorMessages=regularValidation  disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issuer) true false) value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) }}
+                {{form.input type="date" label="تاريخ الأنتهاء " errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) }}
                 {{form.input type="number" errorMessages=regularValidation  required=true disabled=(if user.id true false) label="رقم الجوال" value=user.mobile1 onChange=(action (mut user.mobile1)) }}
-                {{form.input type="number" label="رقم الحساب البنكي IBAN" errorMessages=regularValidation  disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issuer) true false) value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
+                {{form.input type="number" label="رقم الحساب البنكي IBAN" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
             </div>
             <div class="layout-column flex-50 md-padding">
-                {{form.input type="text" label="عنوان المالك" errorMessages=regularValidation  disabled=(if (and (not-eq user.id currentUser.id) validationUser.address) true false) value=user.address onChange=(action (mut user.address)) }}
-                {{form.input type="number" label="رقم الهوية" errorMessages=regularValidation  disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_no) true false) value=user.id_no onChange=(action (mut user.id_no))}}
-                {{form.input type="date" label="تاريخ الأصدار" errorMessages=regularValidation  disabled=(if (and (not-eq user.id currentUser.id) validationUser.id_issued_date) true false) value=user.id_issued_date onChange=(action (mut user.id_issued_date)) }}   
+                {{form.input type="text" label="عنوان المالك" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) required=(if (and user.id (eq user.id currentUser.id)) true false) value=user.address onChange=(action (mut user.address)) }}
+                {{form.input type="number" label="رقم الهوية" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) required=(if (and user.id (eq user.id currentUser.id)) true false) value=user.id_no onChange=(action (mut user.id_no))}}
+                {{form.input type="date" label="تاريخ الأصدار" errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) value=user.id_issued_date onChange=(action (mut user.id_issued_date)) }}   
                 {{form.input type="email" errorMessages=regularValidation  required=true disabled=(if user.id true false) label="البريد الألكتروني" value=user.email onChange=(action (mut user.email)) }} 
-                {{#paper-select  label="الجنسية" errorMessages=regularValidation  disabled=(if (and (not-eq user.id currentUser.id) validationUser.nationality) true false) options=nationalities selected=user.nationality onChange=(action (mut  user.nationality))
+                {{#paper-select  label="الجنسية" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) options=nationalities selected=user.nationality onChange=(action (mut  user.nationality))
                 as |nationality|}} {{nationality.name}} {{/paper-select}}
-                {{#paper-select  label="البنك الخاص بالمالك" errorMessages=regularValidation  disabled=(if (and (not-eq user.id currentUser.id) validationUser.bank) true false) options=banks selected=user.bank onChange=(action (mut  user.bank))
+                {{#paper-select  label="البنك الخاص بالمالك" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) options=banks selected=user.bank onChange=(action (mut  user.bank))
                 as |bank|}} {{bank.name}} {{/paper-select}}
             </div>
         </div>
@@ -73,12 +73,12 @@
         </div>
         <div class="layout-row">
             <span class="flex"></span>
-             {{#if (and user.id (not property.agent.id))}}
+             {{#if (and user.id (not property.owner.id))}}
              {{#paper-button class="u-padding-side-60" onClick=(action 'deleteSearch') raised=true raised=true warn=true}}حذف المدير{{/paper-button}}
             {{/if}}
-            {{#if (and user.id (or (eq user.registered 0) (eq user.id currentUser.id)))}}
+            {{!-- {{#if (and user.id (or (eq user.registered 0) (eq user.id currentUser.id)))}}
              {{#paper-button class="u-padding-side-60" onClick=(action 'deleteUser') raised=true raised=true warn=true}}حذف المالك{{/paper-button}}
-                {{/if}}
+                {{/if}} --}}
             {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
                 
         </div>

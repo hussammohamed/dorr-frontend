@@ -9,10 +9,10 @@ export default Component.extend({
            this.set('validationUser',this.get('property').get('owner'))
 
        }
-       this.set('nationalities', this.store.findAll('nationality'));
-       this.set('banks', this.store.findAll('bank'));
-       this.set('idTypes', this.store.findAll('id-type'));
-       this.set('regions', this.store.findAll('region'));
+       this.set('nationalities', this.store.peekAll('nationality'));
+       this.set('banks', this.store.peekAll('bank'));
+       this.set('idTypes', this.store.peekAll('id-type'));
+       this.set('regions', this.store.peekAll('region'));
     },
     actions:{
         formClick(){

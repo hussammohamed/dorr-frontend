@@ -110,8 +110,8 @@ export default Component.extend({
 
     },
     didInsertElement() {
-       this.set('types', this.store.findAll('type'));
-       this.set('regions', this.store.findAll('region'));
+       this.set('types', this.store.peekAll('type'));
+       this.set('regions', this.store.peekAll('region'));
        if(this.get('currentProperty')){
         this.set('isRelation', true);
         setTimeout(() => {
