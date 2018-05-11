@@ -64,6 +64,9 @@ export default Component.extend({
                 }
             )
         },
+        deleteSearch(){
+            this.set('user', {});
+        },
         deleteUser(){
             var self = this;
             swal({

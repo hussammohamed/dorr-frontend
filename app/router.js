@@ -18,10 +18,8 @@ Router.map(function() {
         this.route('property-data', {path: '/data'});
         this.route('owner');
         this.route('agent');
-        this.route('units', function() {
-          this.route('add-unit', {path: '/add'} );
-        });
         this.route('agency');
+        this.route('add-unit', {path: '/units/add'});
       });
       this.route('show', {path: ':id'}, function() {
         this.route('property-data', {path: '/data'});

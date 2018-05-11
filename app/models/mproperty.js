@@ -33,6 +33,7 @@ export default DS.Model.extend({
     units: DS.hasMany('unit'),
     owner: DS.belongsTo('user'),
     agent: DS.belongsTo('user'),
+    agency: DS.belongsTo('agency'),
     data_status: DS.attr(),
     completed: Ember.computed('data_status', 'units',function() {
         let units = this.get('units');

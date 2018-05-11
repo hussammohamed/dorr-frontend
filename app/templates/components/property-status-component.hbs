@@ -35,7 +35,7 @@
     </div>
         {{/paper-card}}
         {{#paper-card class="status-card " as |card|}}
-    <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.units.add-unit' property.id}}>
+    <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.add-unit' property.id}}>
         <h5 class="card-title">بيانات الوحدات</h5>
         <span class="flex"></span>
          {{#if property.units}}

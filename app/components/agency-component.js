@@ -3,8 +3,8 @@ import Component from '@ember/component';
 export default Component.extend({
     agency:{},
     didInsertElement() {
-        if(this.get('property').get('agent').get('agency')){
-            this.set('agency', this.get('property').get('agent').get('agency'))
+        if(this.get('property').get('agency')){
+            this.set('agency', this.get('property').get('agency'))
         }
         this.set('regions', this.store.findAll('region'));
      },
@@ -14,7 +14,6 @@ export default Component.extend({
             var createdAgency = this.store.createRecord('agency', self.get('agency'));
             var agency = createdAgency.toJSON();
             var formData = new FormData();
-            agency.mproperty_id = this.get('property').get('id');
             agency.user_id = this.get('property').get('agent').get('id');
             agency.phone = 444444;
             agency.commercial_register_address = 'dddd';  

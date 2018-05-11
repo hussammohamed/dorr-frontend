@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import dorrValidations from '../mixins/dorr-validations'
 export default Component.extend(dorrValidations, {
+    user:{},
     didInsertElement() {
         if(this.get('property').get('agent').get('id')){
             this.set('user', this.store.peekRecord('user', this.get('property').get('agent').get('id')));
@@ -40,6 +41,7 @@ export default Component.extend(dorrValidations, {
             this.store.pushPayload('user', {'user':user});
             this.set('user', this.store.peekRecord('user', user.id));
             this.set('isSearch', false);
+            this.set('userSearchValue', null);
             this.set('validationUser', JSON.parse(JSON.stringify(user)));
         },
         updateUser(){
@@ -69,6 +71,9 @@ export default Component.extend(dorrValidations, {
                 }
             )
            
+        },
+        deleteSearch(){
+            this.set('user', {});
         },
         deleteUser(){
             var self = this;
