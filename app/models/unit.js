@@ -18,7 +18,7 @@ export default DS.Model.extend({
     type: DS.belongsTo('type', {async: false}),
     furnished: DS.belongsTo('furnished'),
     furnished_status: DS.belongsTo('furnished_status'),
-    kitchen_cabinet: DS.belongsTo('kitchen_cabinet'),
-    mproperty: DS.belongsTo('mproperty')
+    kitchen_cabinet: DS.belongsTo('kitchen_cabinet', {async: false}),
+    m_property_id: DS.belongsTo('mproperty')
 
 });

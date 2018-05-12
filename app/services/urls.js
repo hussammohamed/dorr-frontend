@@ -9,6 +9,7 @@ export default Ember.Service.extend({
     users: "/users",
     agencies: "/agencies",
     getFormData: "/forms/getFormData",
+    units: "/units",
     getUrl: function(path) {
         return ENV.host + this.get(path) + "?lang=" + this.get('intl').get('locale');
     },

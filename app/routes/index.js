@@ -22,6 +22,11 @@ export default Route.extend({
         this.get('session').ensureAuthenticated();
     },
     setupController: function (controller, model) {
+        controller.set('mainUrl', this.get('session').getMainUrl());
         controller.set('user', model);
+    },
+    actions: {
+       
     }
+
 });

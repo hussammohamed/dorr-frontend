@@ -14,6 +14,9 @@ export default Ember.Service.extend({
         Cookies.remove('token');
         this.redirectToLogin();
     },
+    getMainUrl(){
+        return ENV.mainUrl;
+    },
     authToken() {
         return Cookies.get('token');
     },
@@ -41,10 +44,15 @@ export default Ember.Service.extend({
         }
     },
     redirectToLogin() {
-        window.location.href = ENV.mainUrl + "/login";
+        window.location.href = ENV.mainUrl;
     },
     redirectToCorrectRoute() {
-        window.location.href = ENV.domainUrl + '/properties';
+        if (this.authToken() && this.authUserId()) {
+            window.location.href = ENV.domainUrl + '/properties';
+        } else {
+            this.redirectToLogin();
+        }
+       
     },
     getCurrentLanguage() {
         return this.get('intl').get('locale');

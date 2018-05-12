@@ -30,6 +30,7 @@ module.exports = function(environment) {
     ENV.domainUrl = "http://localhost:4200"
     ENV.host = "http://localhost:8000/api/v1"
     ENV.hostOuth = "http://localhost:8000/api"
+    ENV.mainUrl = "http://localhost:8000"
   }
 
   if (environment === 'test') {

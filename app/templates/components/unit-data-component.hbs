@@ -1,4 +1,5 @@
 <div class="u-side-padding">
+  {{#paper-form class="md-padding" onSubmit=(action "saveUnits")  as |form|}}
   {{#each units as |unit|}}
   <div class={{if unit.collapse "unit-card collapse" "unit-card"}}>
   <div class="unit-header layout-row" onclick={{action "hideUnit" unit}}>
@@ -16,35 +17,35 @@
     {{#paper-card as |card|}}
     
 <div class="md-padding"> 
-{{#paper-form class="md-padding" onSubmit=(action "SubmitAction")  as |form|}}
+
   <div class="layout-row">
     <div class="layout-column flex-50 md-padding">
-      {{form.input type="number" label="رقم الوحدة" value=unit.no onChange=(action (mut unit.no)) required=true}}
-       {{form.input type="number" label="رقم الدور" value=unit.floor onChange=(action (mut unit.floor)) required=true}}
-        {{form.input type="number" label="رقم عداد الكهرباء" value=unit.floor onChange=(action (mut unit.floor)) required=true}}
-      {{#paper-select  label="التأثيث" required=true  options=furnished selected=unit.furnished onChange=(action (mut unit.furnished))
+      {{form.input type="number" label="رقم الوحدة" errorMessages=regularValidation value=unit.no onChange=(action (mut unit.no)) required=true}}
+       {{form.input type="number" label="رقم الدور" errorMessages=regularValidation value=unit.floor onChange=(action (mut unit.floor)) required=true}}
+        {{form.input type="number" label="رقم عداد الكهرباء" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
+      {{#paper-select  label="التأثيث" required=true errorMessages=regularValidation  options=furnished selected=unit.furnished onChange=(action (mut unit.furnished))
         as |furnished|}} {{furnished.name}} {{/paper-select}}
-        {{#paper-select  label="خزائن للمطبخ" options=kitchen-cabinet selected=unit.kitchen_cabinet onChange=(action (mut kitchen_cabinet))
+        {{#paper-select  label="خزائن للمطبخ"  errorMessages=regularValidation options=kitchen-cabinet required=true selected=unit.kitchen_cabinet onChange=(action (mut unit.kitchen_cabinet))
         as |item|}} {{item.name}} {{/paper-select}}
 
-        {{form.input type="number" label=" عدد غرف النوم" value=unit.bed_rooms onChange=(action (mut unit.bed_rooms)) required=true}}
-        {{form.input type="number" label=" عدد الحمامات" value=unit.bath_rooms onChange=(action (mut unit.bath_rooms)) required=true}}
-        {{form.input type="number" label="عدد مكيفات سبلت" value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
+        {{form.input type="number" label=" عدد غرف النوم" errorMessages=regularValidation  value=unit.bed_rooms onChange=(action (mut unit.bed_rooms)) required=true}}
+        {{form.input type="number" label=" عدد الحمامات" errorMessages=regularValidation  value=unit.bath_rooms onChange=(action (mut unit.bath_rooms)) required=true}}
+        {{form.input type="number" label="عدد مكيفات سبلت" errorMessages=regularValidation value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
          
        
     </div>
     <div class="layout-column flex-50 md-padding">
-         {{#paper-select  label="نوع الوحدة"  options=types required=true selected=unit.type onChange=(action (mut unit.type))
+         {{#paper-select  label="نوع الوحدة"  errorMessages=regularValidation options=types required=true selected=unit.type onChange=(action (mut unit.type))
         as |type|}} {{type.name}} {{/paper-select}}
-        {{form.input type="number" label="رقم عداد المياه" value=unit.floor onChange=(action (mut unit.floor)) required=true}}
-         {{form.input type="number" label="رقم عداد الغاز" value=unit.floor onChange=(action (mut unit.floor)) required=true}}
-       {{#paper-select  label="حالة التأثيث" options=furnished-status selected=unit.furnished_status onChange=(action (mut unit.furnished_status))
+        {{form.input type="number" label="رقم عداد المياه" errorMessages=regularValidation value=unit.water_meter onChange=(action (mut unit.water_meter)) }}
+         {{form.input type="number" label="رقم عداد الغاز" errorMessages=regularValidation value=unit.gas_meter onChange=(action (mut unit.gas_meter)) }}
+       {{#paper-select  label="حالة التأثيث" errorMessages=regularValidation options=furnished-status selected=unit.furnished_status onChange=(action (mut unit.furnished_status))
         as |item|}} {{item.name}} {{/paper-select}}
        
-       {{form.input type="number" label=" عدد غرف المعيشة" value=unit.bed_rooms onChange=(action (mut unit.bed_rooms)) required=true}}
-       {{form.input type="number" label=" عدد غرف الأستقبال" value=unit.reception_rooms onChange=(action (mut unit.reception_rooms)) required=true}}
+       {{form.input type="number" label=" عدد غرف المعيشة" errorMessages=regularValidation value=unit.living_rooms onChange=(action (mut unit.living_rooms)) required=true}}
+       {{form.input type="number" label=" عدد غرف الأستقبال" errorMessages=regularValidation value=unit.reception_rooms onChange=(action (mut unit.reception_rooms)) required=true}}
        
-       {{form.input type="number" label="عدد مكيفات شباك" value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
+       {{form.input type="number" label="عدد مكيفات شباك" errorMessages=regularValidation value=unit.window_air_conditioner onChange=(action (mut unit.window_air_conditioner)) required=true}}
        
         <span class="flex"></span>
     </div>
@@ -53,16 +54,18 @@
       <span class="flex"></span>
       
   </div>
-{{/paper-form}}
+
 </div>
     {{/paper-card}}
     </div>
     {{/each}}
+    
     {{#paper-card class="md-padding u-mtop30" as |card|}}
      <div class="layout-row md-padding">
     <span class="flex"></span>
-    {{#paper-button class="u-padding-side-60" onClick=(action 'setNewUnit') raised=true raised=true primary=true}}إضف وحده اخري{{/paper-button}}
-    {{#paper-button class="u-padding-side-60"  raised=true primary=true}}حفظ{{/paper-button}}
+    {{#paper-button class="u-padding-side-60" onClick=(action 'setNewUnit' form.isInvalid) raised=true raised=true primary=true}}إضف وحده اخري{{/paper-button}}
+    {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
     </div>
     {{/paper-card}}
+    {{/paper-form}}
 </div>
