@@ -23,7 +23,10 @@ Router.map(function() {
       });
       this.route('show', {path: ':id'}, function() {
         this.route('property-data', {path: '/data'});
-        this.route('units');
+        this.route('units', function() {});
+        this.route('maintenance-requests');
+        this.route('collection-requests');
+        this.route('contracts');
       });
     });
   });

@@ -46,6 +46,10 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV.domainUrl = "pm.bareeqstudio.com"
+    ENV.host = "http://dorr.bareeqstudio.com/api/v1"
+    ENV.hostOuth = "http://dorr.bareeqstudio.com/api"
+    ENV.mainUrl = "http://dorr.bareeqstudio.com";
 
   }
 
