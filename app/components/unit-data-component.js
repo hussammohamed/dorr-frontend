@@ -53,8 +53,8 @@ export default Component.extend(dorrValidations, {
             }).then(
                 success => {
                     // this.store.unloadRecord(property)
-                    this.get('manager').toaster(this, 'تم اكمال بيانات العقار بنجاح')
-                    // this.get('router').replaceWith('index.properties.property-status', success.mproperty.id);
+                    
+                    this.get('router').replaceWith('index.properties.property-status', this.get('property').get('id'));
                 },
                 errors => {
                     console.log(errors)

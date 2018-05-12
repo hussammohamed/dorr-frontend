@@ -1,4 +1,58 @@
-<div class="u-side-padding">
+{{#if isShow}}
+ {{#paper-card as |card|}}
+{{#paper-form class="md-padding"  as |form|}}
+  <div class="layout-row">
+    <div class="layout-column flex-50 md-padding">
+     
+      {{form.input label="أسم العقار" value=property.name onChange=(action (mut none)) disabled=true }}
+      {{form.input type="number" label="عدد الأدوار" value=property.floors onChange=(action (mut none)) disabled=true }}
+       {{form.input type="number" label="عدد المصاعد" value=property.elevators onChange=(action (mut none)) disabled=true }}
+       {{form.input type="number" label="سنة البناء " value=property.year_of_construction	 onChange=(action (mut none)) disabled=true }}
+       {{form.input type="text" label=" مكان الأصدار"  value=property.property_instrument_place	 onChange=(action (mut none)) disabled=true }}
+       {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation options=regions selected=property.property_instrument_issuer onChange=(action (mut none)) disabled=true
+                as |region|}} {{region.title}} {{/paper-select}}
+       {{#paper-select  label="المدينة" required=true  options=regions selected=property.region onChange=(action (mut none)) disabled=true
+        as |region|}} {{region.title}} {{/paper-select}}
+    </div>
+    <div class="layout-column flex-50 md-padding">
+         {{#paper-select  label="نوع العقار"  options=types selected=property.type onChange=(action (mut none)) disabled=true
+        as |type|}} {{type.name}} {{/paper-select}}
+       {{form.input type="number" label="عدد الوحدات" value=property.units_no onChange=(action (mut none)) disabled=true }}
+       {{form.input type="number" label="عدد المواقف" value=property.parking onChange=(action (mut none)) disabled=true }}
+       {{form.input type="number" label="صك الملكية" value=property.property_instrument_no onChange=(action (mut none)) disabled=true }}
+       {{form.input type="date" label="تاريخ الأصدار" value=property.property_instrument_date onChange=(action (mut none)) disabled=true }}
+        <span class="flex"></span>
+       {{#paper-select  label="الحي"  options=districts   selected=property.district onChange=(action (mut none)) disabled=true
+        as |district|}} {{district.title}} {{/paper-select}}
+    </div>
+  </div>
+   <div class="layout-row md-padding">
+      {{form.input id="pac-input" class="flex-100" type="text"  placeholder=""label="العنوان بالكامل"  value=property.address  onChange=(action (mut none)) disabled=true}}
+   </div>
+  <div class="layout-row md-padding">
+    <div class="map" id="map"></div>
+  </div>
+  <div class=" u-full-width mdl-grid u-mbuttom30">
+    <div class="mdl-cell mdl-cell--12-col">
+      <div class=" m-b-1 w-80">
+        <div class="form-group inputDnD">
+          <i class="material-icons">insert_drive_file</i>
+          <input type="file" accept="image/jpeg, image/png" data-title="مرفق صك الملكية" class="form-control-file text-primary font-weight-bold"
+            id="inputFile" disabled accept="image/*" name="attachment">
+  
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="layout-row">
+      <span class="flex"></span>
+    {{!-- {{#paper-button class="u-padding-side-60"  raised=true primary=true onClick=(action 'propertyEdit')}}تعديل{{/paper-button}} --}}
+  </div>
+{{/paper-form}}
+{{/paper-card}}
+{{else}}
+<div class="u-side-padding content">
     <h4 class="page-title">أضف عقار</h4>
     {{#paper-card as |card|}}
     {{#unless isRelation}}
@@ -74,3 +128,4 @@
 {{/unless}}
     {{/paper-card}}
 </div>
+{{/if}}

@@ -14,9 +14,7 @@ export default Component.extend({
             var createdAgency = this.store.createRecord('agency', self.get('agency'));
             var agency = createdAgency.toJSON();
             var formData = new FormData();
-            agency.user_id = this.get('property').get('agent').get('id');
-            agency.phone = 444444;
-            agency.commercial_register_address = 'dddd';  
+            agency.user_id = this.get('property').get('agent').get('id'); 
             for ( var key in agency ) {
                 formData.append(key, agency[key]);
             }
@@ -35,6 +33,24 @@ export default Component.extend({
             
          },
          updateAgency(){
+             var self = this;
+            let agency = this.store.peekRecord('agency', this.get('agency').get('id')).toJSON({"includeId": true});
+            var formData = new FormData();
+            for ( var key in agency ) {
+                formData.append(key, agency[key]);
+            }
+            // formData.append('commercial_register_image', Ember.$('#inputFile')[0].files[0]);
+            new Ember.RSVP.Promise(function(resolve, reject) {
+                self.manager.ajaxRequest(self, self.get('urls').updateAgency(agency.id), 'put', resolve, reject, agency);
+            }).then(
+                success => {
+                    this.get('router').transitionTo('index.properties.property-status', this.get('property').get('id'));
+                    
+                },
+                errors => {
+                    console.log(errors)
+                }
+            )
 
          }
      }

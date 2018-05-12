@@ -1,4 +1,49 @@
-<div class="u-side-padding">
+{{#if isShow}}
+{{#paper-card as |card|}}
+        {{#paper-form class="md-padding" onSubmit=(action (if agency.id "updateAgency" "saveAgency")) as |form|}}
+        <div class="layout-row">
+            <div class="layout-column flex-50 md-padding">
+                {{form.input label=" الأسم"  disabled=true value=agency.commercial_register_name onChange=(action (mut agency.commercial_register_name)) required=true}} 
+                 {{#paper-select  label=" جهة الأصدار" disabled=true  options=regions selected=agency.commercial_register_issuer onChange=(action (mut agency.commercial_register_issuer))
+                as |region|}} {{region.name}} {{/paper-select}}
+                {{form.input type="date" label="تاريخ الأنتهاء " disabled=true  value=agency.commercial_register_exp_date onChange=(action (mut  agency.commercial_register_exp_date)) required=true}}
+                {{form.input type="number" label="رقم الجوال " disabled=true  value=agency.phone onChange=(action (mut agency.phone)) required=true}}
+            </div>
+            <div class="layout-column flex-50 md-padding">
+                {{form.input type="number" label="رقم السجل التجاري " disabled=true  value=agency.commercial_register_no onChange=(action (mut agency.commercial_register_no)) required=true}}
+                {{form.input type="text" label="العنوان" disabled=true  value=agency.commercial_register_address onChange=(action (mut  agency.commercial_register_address)) required=true}}   
+                {{form.input type="date" label="تاريخ الأصدار" disabled=true  value=agency.commercial_register_date onChange=(action (mut  agency.commercial_register_date)) required=true}} 
+                {{form.input type="number" label="رقم الفاكس " disabled=true  value=agency.fax onChange=(action (mut agency.fax)) }}  
+            </div>
+        </div>
+   
+        <div class=" u-full-width mdl-grid u-mbuttom30">
+            <div class="mdl-cell mdl-cell--12-col">
+                <div class=" m-b-1">
+                    <div class="form-group inputDnD">
+                        <i class="material-icons">insert_drive_file</i>
+                        <input disabled type="file" accept="image/jpeg, image/png" data-title="مرفق السجل التجاري" class="form-control-file text-primary font-weight-bold"
+                            id="inputFile" accept="image/*" name="attachment">
+        
+                    </div>
+                </div>
+        
+            </div>
+            <div id="files" class="mdl-cell mdl-cell--12-col"></div>
+        </div>
+     
+        <div class="layout-row">
+            <span class="flex"></span>
+            {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+        </div>
+        {{/paper-form}}
+
+    {{/paper-card}}
+
+
+{{else}}
+
+<div class="u-side-padding content">
     <h4 class="page-title">بيانات  السجل التجاري</h4>
     {{#paper-card as |card|}}
     <div class="md-padding">
@@ -15,7 +60,7 @@
                 {{form.input type="number" label="رقم السجل التجاري " value=agency.commercial_register_no onChange=(action (mut agency.commercial_register_no)) required=true}}
                 {{form.input type="text" label="العنوان" value=agency.commercial_register_address onChange=(action (mut  agency.commercial_register_address)) required=true}}   
                 {{form.input type="date" label="تاريخ الأصدار" value=agency.commercial_register_date onChange=(action (mut  agency.commercial_register_date)) required=true}} 
-                {{form.input type="number" label="رقم الفاكس " value=agency.fax onChange=(action (mut agency.fax)) required=true}}  
+                {{form.input type="number" label="رقم الفاكس " value=agency.fax onChange=(action (mut agency.fax)) }}  
             </div>
         </div>
    
@@ -43,3 +88,5 @@
 
     {{/paper-card}}
 </div>
+
+{{/if}}

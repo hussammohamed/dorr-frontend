@@ -1,6 +1,6 @@
 
 
-<div class="u-side-padding">
+<div class="content">
   <div class="layout-row u-md-padding-top-bottom"> <span class="flex"></span><button onclick={{action "addProperty"}}  id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                 أضف عقار جديد
             </button></div>
@@ -23,7 +23,7 @@
 {{/table.head}}
 {{#table.body as |body|}}
   {{#each properties as |property|}}
-    {{#body.row edit=true onClick=(action (if property.completed "propertyView" "editProperty") property.id) as |row|}}
+    {{#body.row edit=true onClick=(action 'propertyView' property.id) as |row|}}
       {{#row.cell}}{{paper-icon "domain" size=36}}{{/row.cell}}
       {{#row.cell }}{{property.name}}{{/row.cell}}
       {{#row.cell}}{{property.units.length}}{{/row.cell}}
@@ -42,6 +42,7 @@
        
        {{#row.cell}}
       {{#if property.completed}}
+      
       <span class="primery-col">مكتمل</span>
       {{else}}
       <span class="warn-col">غير مكتمل</span>

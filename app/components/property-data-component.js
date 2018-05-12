@@ -123,6 +123,9 @@ export default Component.extend({
        
     },
     actions:{
+        propertyEdit(){
+            this.get('router').transitionTo('index.properties.edit.property-data', this.get('property').get('id'));
+        },
         changeRelation(value){
             this.set('property.user_relation', value);
             this.set('isRelation', true);

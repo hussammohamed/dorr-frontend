@@ -8,10 +8,9 @@ md-sidenav{
         box-shadow: none;
         overflow: hidden;
     }
-    &.fixed{
-        position: absolute !important;
-        height: calc(100vh - 112px);
+    &.fixed{ 
         top: 112px;
+        bottom: 0;
     }
     md-content{
         overflow: hidden;

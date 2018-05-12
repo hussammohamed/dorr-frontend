@@ -39,7 +39,7 @@ export default DS.Model.extend({
         let units = this.get('units');
         let dataStatus = this.get('data_status');
         if(dataStatus){
-            if(dataStatus.owner && dataStatus.agent  && dataStatus.agency == 1 && (units.length > 0) ){
+            if(dataStatus.owner && dataStatus.agent  && dataStatus.agency == 1 && (units.get('length') > 0) ){
                 return true;
             }else {
                 return false;

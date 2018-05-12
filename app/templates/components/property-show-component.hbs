@@ -1,0 +1,68 @@
+ <div class="show-card">
+ <div class={{if PropertyCollapse "unit-card collapse" "unit-card"}}>
+ <div class="unit-header layout-row" onclick={{action "hideUnit" "PropertyCollapse"}}>
+ 
+    <h4 class="page-title"> بيانات العقار</h4>
+    <div class="flex"></div>
+       {{#if PropertyCollapse}}
+       {{paper-icon "keyboard_arrow_down" size=32}}
+       {{else}}
+       {{paper-icon "keyboard_arrow_up" size=32}}
+
+       {{/if}}
+  </div>
+{{component 'property-data-component' currentProperty=property isShow=true}}
+</div>
+
+ {{#if property.owner.id}}
+ <div class={{if ownerCollapse "unit-card collapse" "unit-card"}}>
+ <div class="unit-header layout-row" onclick={{action "hideUnit" "ownerCollapse"}}>
+ 
+    <h4 class="page-title"> بيانات صاحب العقار</h4>
+    <div class="flex"></div>
+       {{#if ownerCollapse}}
+       {{paper-icon "keyboard_arrow_down" size=32}}
+       {{else}}
+       {{paper-icon "keyboard_arrow_up" size=32}}
+
+       {{/if}}
+  </div>
+{{component 'owner-component' property=property isShow=true isShow=true}}
+</div>
+{{/if}}
+
+ {{#if property.agent.id}}
+ <div class={{if agentCollapse "unit-card collapse" "unit-card"}}>
+ <div class="unit-header layout-row" onclick={{action "hideUnit" "agentCollapse"}}>
+ 
+    <h4 class="page-title"> بيانات المدير</h4>
+    <div class="flex"></div>
+       {{#if agentCollapse}}
+       {{paper-icon "keyboard_arrow_down" size=32}}
+       {{else}}
+       {{paper-icon "keyboard_arrow_up" size=32}}
+
+       {{/if}}
+  </div>
+{{component 'agent-component' property=property isShow=true isShow=true}}
+</div>
+{{/if}}
+
+ {{#if property.agency.id}}
+ <div class={{if agencyCollapse "unit-card collapse" "unit-card"}}>
+ <div class="unit-header layout-row" onclick={{action "hideUnit" "agencyCollapse"}}>
+ 
+    <h4 class="page-title"> بيانات السجل التجاري</h4>
+    <div class="flex"></div>
+       {{#if agencyCollapse}}
+       {{paper-icon "keyboard_arrow_down" size=32}}
+       {{else}}
+       {{paper-icon "keyboard_arrow_up" size=32}}
+
+       {{/if}}
+  </div>
+{{component 'agency-component' property=property isShow=true isShow=true}}
+</div>
+{{/if}}
+
+</div>

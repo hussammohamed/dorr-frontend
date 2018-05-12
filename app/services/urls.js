@@ -23,4 +23,5 @@ export default Ember.Service.extend({
         return ENV.host + "/agencies/" + id + "?lang=" + this.get('intl').get('locale');
     }
 
+
 });
