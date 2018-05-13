@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
 
 export default Route.extend({
+    breadCrumb:{
+        title: "أضف وحدات"
+    },
     model(){
         return {
             "property": this.modelFor('index.properties.edit'),

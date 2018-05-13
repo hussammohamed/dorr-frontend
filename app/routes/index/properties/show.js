@@ -6,7 +6,8 @@ export default Route.extend({
      
     return {
         title:this.controller.model.get('name'),
-        linkable:false,
+        linkable:true,
+        path:"index.properties.show.property-data"
 }
       
     }

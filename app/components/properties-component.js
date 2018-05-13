@@ -12,7 +12,7 @@ export default Component.extend({
             this.get('router').transitionTo('index.properties.show.property-data', id)
         },
         editProperty(id){
-            this.get('router').transitionTo('index.properties.property-status', id)
+            this.get('router').transitionTo('index.properties.edit.status', id)
         },
         addProperty(){
             this.get('router').transitionTo('index.properties.add.property-data')

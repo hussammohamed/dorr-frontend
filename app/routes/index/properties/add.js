@@ -5,7 +5,7 @@ export default Route.extend({
         get() {
          
         return {
-            title:"Index",
+            title:"أضف عقار",
             linkable:false,
     }
           

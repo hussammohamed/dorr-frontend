@@ -20,6 +20,7 @@ Router.map(function() {
         this.route('agent');
         this.route('agency');
         this.route('add-unit', {path: '/units/add'});
+        this.route('status');
       });
       this.route('show', {path: ':id'}, function() {
         this.route('property-data', {path: '/data'});

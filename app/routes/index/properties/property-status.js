@@ -6,7 +6,7 @@
             get() {
              
             return {
-                title: this.controller.get('property').get('name'),
+                title: "أضف عقار",
                 linkable:false,
         }
               

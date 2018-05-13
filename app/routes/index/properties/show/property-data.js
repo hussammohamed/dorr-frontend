@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
     breadCrumb: {
-        title: 'بيانات العقار',
+        title: 'Index',
         linkable: true,
         path: 'index.properties'
       },

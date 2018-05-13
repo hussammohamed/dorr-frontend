@@ -7,7 +7,7 @@ export default Route.extend({
         return {
             title:this.controller.model.get('name'),
             linkable:true,
-            path:"index.properties"
+            path:"index.properties.edit.status"
     }
           
         }
