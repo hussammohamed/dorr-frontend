@@ -2,9 +2,13 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
     model(){
-        return this.store.findAll('MProperty');
+        return {
+            'currenUser': this.modelFor('index'),
+            'properties': this.store.findAll('MProperty'),
+        }  
     },
     setupController: function (controller, model) {
-        controller.set('properties', model);
+        controller.set('properties', model.properties);
+        controller.set('currentUser', model.currenUser);
     }
 });

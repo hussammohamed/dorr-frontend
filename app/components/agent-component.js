@@ -50,6 +50,7 @@ export default Component.extend(dorrValidations, {
             var property = self.get('property').toJSON();
             user.mproperty_id = this.get('property').get('id');
             user.user_relation = 2;
+            delete user.email; delete user.mobile1
             new Ember.RSVP.Promise(function(resolve, reject) {
                 self.manager.ajaxRequest(self, self.get('urls').updateUser(self.get('user').get('id')), 'PUT', resolve, reject, user);
             }).then(

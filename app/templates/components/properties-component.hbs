@@ -31,10 +31,11 @@
       {{#row.cell }}{{property.units.length}}{{/row.cell}}
       {{#row.cell}}0{{/row.cell}}
       {{#row.cell }}
-      {{#if (eq property.owner.id currentUserId)}}
+      
+      {{#if (eq property.owner.id currentUser.id)}}
       مالك
       {{else}}
-      {{#if (eq property.agent.id currentUserId)}}
+      {{#if (eq property.agent.id currentUser.id)}}
       مدير
       {{/if}}
       {{/if}}

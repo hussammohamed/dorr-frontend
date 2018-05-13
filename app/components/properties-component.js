@@ -2,7 +2,7 @@ import Component from '@ember/component';
 
 export default Component.extend({
     didInsertElement() {
-        this.set('currentUserId', this.get('session').authUserId())
+        this.set('currentUser', this.get('currentUser'))
     },
     actions:{
         rentAction(){
