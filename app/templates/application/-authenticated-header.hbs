@@ -52,8 +52,18 @@
             </nav>
         </div>
     </div>
-    <div class="m-header">
-        <div class="m-header--item m-header--item__user mdl-cell--hide-phone">
+    <div class="m-header layout-row">
+        <div class="m-header--item m-header--item__logo flex-10">
+            <a href="/" >
+
+
+                <img src="/images/dorr-logo.svg" alt="Dorr">
+            </a>
+        </div>
+        <div class="flex bread-crumb">
+        {{component 'bread-crumbs-component' }}
+        </div>
+        <div class="m-header--item m-header--item__user mdl-cell--hide-phone flex">
             <div class="user-menu mdl-cell--hide-phone" id="userMenu">
                 <div class="user-menu--overlay"></div>
                 <div class="user-menu--header">
@@ -88,13 +98,8 @@
                 </ul>
             </div>
         </div>
-        <div class="m-header--item m-header--item__logo">
-            <a href="/" >
-
-
-                <img src="/images/dorr-logo.svg" alt="Dorr">
-            </a>
-        </div>
+        
+        
     </div>
 </header>
 

@@ -1,6 +1,8 @@
 import Component from '@ember/component';
 
+  
 export default Component.extend({
+    
     didInsertElement() {
         var self =  this;
         new Ember.RSVP.Promise(function(resolve, reject) {

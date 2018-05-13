@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
 
 export default Route.extend({
+    breadCrumb:{
+        title: "تعديل بيانات العقار "
+    },
     model(){
         return this.modelFor('index.properties.edit');
     },

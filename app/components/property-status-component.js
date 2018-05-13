@@ -3,7 +3,8 @@ import Component from '@ember/component';
 export default Component.extend({
     didInsertElement() {
         this.store.unloadAll('unit');
-        this.set('property', this.store.find('mproperty', this.get('propertyId')))
+ 
+        console.log(this.get('router'));
         
      },
      actions:{

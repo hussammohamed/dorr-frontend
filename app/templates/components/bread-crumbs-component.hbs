@@ -1,0 +1,13 @@
+
+    <ul class="bread-crumb--list">
+
+    
+{{#each routeHierarchy as |route index|}}
+{{#if (not-eq route.title 'Index')}}
+
+{{#link-to  route.path disabled=(if route.linkable false true)    tagName="li"}}
+    {{route.title}}
+    {{/link-to}}
+    {{/if}}
+{{/each}}
+    </ul>
