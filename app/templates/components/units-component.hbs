@@ -2,7 +2,7 @@
 
 
   <div class="layout-row u-md-padding-top-bottom"> <span class="flex"></span><button onclick={{action "addProperty"}}  id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
-                أضف عقار جديد
+                أضف وحدة
             </button></div>
    <div class="table-card">
   {{#paper-card class="" as  |card|}}
@@ -52,6 +52,12 @@
          {{/menu.content}} {{/paper-menu}}
       {{/row.cell}}
     {{/body.row}}
+     
+    {{else}}
+ 
+    {{#body.row  as |row|}}
+     {{#row.cell colspan="6"}}لا يوجد وحدات برجاء إضف وحدة{{/row.cell}}
+     {{/body.row}}
   {{/each}}
 {{/table.body}}
 {{/paper-data-table}}

@@ -71,6 +71,10 @@
          {{/menu.content}} {{/paper-menu}}
       {{/row.cell}}
     {{/body.row}}
+    {{else}}
+    {{#body.row  as |row|}}
+    {{#row.cell colspan="9" }}لايوجد عقارات من فضلك إضف عقار {{/row.cell}}
+       {{/body.row}}
   {{/each}}
 {{/table.body}}
 {{/paper-data-table}}
