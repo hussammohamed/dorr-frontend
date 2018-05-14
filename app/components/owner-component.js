@@ -2,12 +2,13 @@ import Component from '@ember/component';
 import swal from 'sweetalert';
 
 export default Component.extend({
-    user: {},
     didInsertElement() {
        if(this.get('property').get('owner').get('id')){
            this.set('user', this.store.peekRecord('user', this.get('property').get('owner').get('id')));
            this.set('validationUser',this.get('property').get('owner'))
 
+       }else{
+        this.set('user', {});
        }
        this.set('nationalities', this.store.peekAll('nationality'));
        this.set('banks', this.store.peekAll('bank'));
@@ -52,8 +53,13 @@ export default Component.extend({
             user.mproperty_id = this.get('property').get('id');
             user.user_relation = 1;
             user.registered = 0;
+            var formData = new FormData();
+            formData.append('data', JSON.stringify(user));
+            formData.append('id_image', Ember.$('#idFile')[0].files[0]);
+            formData.append('mproperty_id', this.get('property').get('id'));
+            formData.append('user_relation', 1);
             new Ember.RSVP.Promise(function(resolve, reject) {
-                self.manager.ajaxRequest(self, self.get('urls').getUrl('users'), 'POST', resolve, reject, user);
+                self.manager.ajaxRequestFile(self, self.get('urls').getUrl('users'), 'POST', resolve, reject, formData);
             }).then(
                 success => {
                    
@@ -99,13 +105,38 @@ export default Component.extend({
                     }})
 
         },
+        fileInputChange(file){
+            this.set(file, Ember.$('#' + file)[0].files[0].name);
+             
+         },
         updateUser(){
             var self = this;
+            var property = self.get('property').toJSON();
             var user =  self.get('user').toJSON();
+            if(this.get('user').get('id') != this.get("currentUser").get('id')){
+                delete property.createdBy
+                property.owner_user_id = this.get('user').get('id');
+                property.user_relation = 1;
+                let data = new FormData();
+                data.append('data', JSON.stringify(property));
+                new Ember.RSVP.Promise(function(resolve, reject) {
+                    self.manager.ajaxRequestFile(self, self.get('urls').updateProperty(self.get('property').get('id')), 'POST', resolve, reject, data);
+                }).then(
+                    success => {
+                        this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
+                    },
+                    errors => {
+                        console.log(errors)
+                    }
+                ) 
+            }else{
             user.mproperty_id = this.get('property').get('id');
             user.user_relation = 1;
+            var formData = new FormData();
+            formData.append('data', JSON.stringify(user));
+            formData.append('id_image', Ember.$('#idFile')[0].files[0]);
             new Ember.RSVP.Promise(function(resolve, reject) {
-                self.manager.ajaxRequest(self, self.get('urls').updateUser(self.get('user').get('id')), 'PUT', resolve, reject, user);
+                self.manager.ajaxRequestFile(self, self.get('urls').updateUser(self.get('user').get('id')), 'POST', resolve, reject, formData);
             }).then(
                 success => {
                    
@@ -115,6 +146,7 @@ export default Component.extend({
                     console.log(errors)
                 }
             )
+        }
         },
     }
 });

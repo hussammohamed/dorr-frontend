@@ -29,7 +29,7 @@ export default DS.Model.extend({
     type: DS.belongsTo('type'),
     year_of_construction: DS.attr(),
 
-
+    property_instrument_image: DS.attr(),
     units: DS.hasMany('unit'),
     owner: DS.belongsTo('user'),
     agent: DS.belongsTo('user'),

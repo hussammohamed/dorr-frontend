@@ -27,9 +27,14 @@
             <div class="mdl-cell mdl-cell--12-col md-padding">
                 <div class=" m-b-1 w-80">
                     <div class="form-group inputDnD">
+                          
+                        {{#if user.id_image}}
+                        <a href="{{user.id_image}}">تنزيل</a>
+                         {{/if}}
                         <i class="material-icons">insert_drive_file</i>
                         <input type="file" disabled accept="image/jpeg, image/png" data-title="مرفق صورة الهوية" class="form-control-file text-primary font-weight-bold"
                             id="inputFile" accept="image/*" name="attachment">
+                           
         
                     </div>
                 </div>
@@ -106,10 +111,14 @@
             <div class="mdl-cell mdl-cell--12-col md-padding">
                 <div class=" m-b-1 w-80">
                     <div class="form-group inputDnD">
+                        
                         <i class="material-icons">insert_drive_file</i>
-                        <input type="file" accept="image/jpeg, image/png" data-title="مرفق صورة الهوية" class="form-control-file text-primary font-weight-bold"
-                            id="inputFile" accept="image/*" name="attachment">
-        
+                        <input type="file" accept="image/jpeg, image/png, application/pdf" data-title="مرفق صورة الهوية" data-file-name="{{idFile}}" data-title="مرفق صورة الهوية"  class={{if idFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                            id="idFile"  disabled={{if (and user.id (not-eq user.id currentUser.id)) true false}}  name="attachment"  onchange={{ action "fileInputChange" "idFile"}}>
+                            <div class="file-name">{{idFile}}</div>
+                              {{#if user.id_image}}
+                        <a href="{{user.id_image}}" target="_blank" download>تنزيل</a>
+                         {{/if}}
                     </div>
                 </div>
         

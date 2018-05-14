@@ -14,7 +14,7 @@ export default Ember.Service.extend({
         return ENV.host + this.get(path) + "?lang=" + this.get('intl').get('locale');
     },
     updateUser(id){
-        return ENV.host + "/users/" + id + "?lang=" + this.get('intl').get('locale');
+        return ENV.host + "/users/" + id;
     },
     updateProperty(id){
         return ENV.host + "/mproperties/" + id + "?lang=" + this.get('intl').get('locale');

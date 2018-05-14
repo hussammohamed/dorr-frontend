@@ -42,22 +42,47 @@ export default Component.extend(dorrValidations, {
             this.set('user', this.store.peekRecord('user', user.id));
             this.set('isSearch', false);
             this.set('userSearchValue', null);
+            this.set('isSearchUser', true);
             this.set('validationUser', JSON.parse(JSON.stringify(user)));
         },
-        updateUser(){
+        updateUser(searchUser){
             var self = this;
-            var user =  self.get('user').toJSON();
             var property = self.get('property').toJSON();
+            var user =  self.get('user').toJSON();
+            if(this.get('user').get('id') != this.get("currentUser").get('id')){
+                delete property.createdBy
+                property.agent_user_id = this.get('user').get('id');
+                property.user_relation = 2;
+                let data = new FormData();
+                data.append('property_management_contract_image', Ember.$('#agencyFile')[0].files[0]);
+                data.append('data', JSON.stringify(property));
+                new Ember.RSVP.Promise(function(resolve, reject) {
+                    self.manager.ajaxRequestFile(self, self.get('urls').updateProperty(self.get('property').get('id')), 'POST', resolve, reject, data);
+                }).then(
+                    success => {
+                        this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
+                    },
+                    errors => {
+                        console.log(errors)
+                    }
+                ) 
+            }else{
+            delete user.id_image;
             user.mproperty_id = this.get('property').get('id');
             user.user_relation = 2;
-            delete user.email; delete user.mobile1
+            var formData = new FormData();
+             formData.append('data',  JSON.stringify(user));
+             formData.append('id_image', Ember.$('#idFile')[0].files[0]);
+            var propertyData =  new FormData();
+            propertyData.append('data', JSON.stringify(property));
+            propertyData.append('property_management_contract_image', Ember.$('#agencyFile')[0].files[0]);
             new Ember.RSVP.Promise(function(resolve, reject) {
-                self.manager.ajaxRequest(self, self.get('urls').updateUser(self.get('user').get('id')), 'PUT', resolve, reject, user);
+                self.manager.ajaxRequestFile(self, self.get('urls').updateUser(self.get('user').get('id')), 'POST', resolve, reject, formData);
             }).then(
                 success => {
                    
                     new Ember.RSVP.Promise(function(resolve, reject) {
-                        self.manager.ajaxRequest(self, self.get('urls').updateProperty(self.get('property').get('id')), 'PUT', resolve, reject, property);
+                        self.manager.ajaxRequestFile(self, self.get('urls').updateProperty(self.get('property').get('id')), 'POST', resolve, reject, propertyData);
                     }).then(
                         success => {
                             this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
@@ -71,9 +96,10 @@ export default Component.extend(dorrValidations, {
                     console.log(errors)
                 }
             )
-           
+        }
         },
         deleteSearch(){
+            this.set('isSearchUser', false);
             this.set('user', {});
         },
         deleteUser(){
@@ -108,7 +134,10 @@ export default Component.extend(dorrValidations, {
                     }})
 
         },
-        
+        fileInputChange(file){
+           this.set(file, Ember.$('#' + file)[0].files[0].name);
+            
+        },
         saveUser(){
             var self = this;
             var createdUser = this.store.createRecord('user', self.get('user'));
@@ -117,20 +146,25 @@ export default Component.extend(dorrValidations, {
             user.user_relation = 2;
             user.registered = 0;
             var property = self.get('property').toJSON();
+            var formData = new FormData();
+            formData.append('data', JSON.stringify(user));
+            formData.append('id_image', Ember.$('#idFile')[0].files[0]);
+            formData.append('mproperty_id', this.get('property').get('id'));
+            formData.append('user_relation', 2);
             new Ember.RSVP.Promise(function(resolve, reject) {
-                self.manager.ajaxRequest(self, self.get('urls').getUrl('users'), 'POST', resolve, reject, user);
+                self.manager.ajaxRequestFile(self, self.get('urls').getUrl('users'), 'POST', resolve, reject, formData);
             }).then(
                 success => {
-                    new Ember.RSVP.Promise(function(resolve, reject) {
-                        self.manager.ajaxRequest(self, self.get('urls').updateProperty(self.get('property').get('id')), 'PUT', resolve, reject, property);
-                    }).then(
-                        success => {
-                            this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
-                        },
-                        errors => {
-                            console.log(errors)
-                        }
-                    ) 
+                    // new Ember.RSVP.Promise(function(resolve, reject) {
+                    //     self.manager.ajaxRequest(self, self.get('urls').updateProperty(self.get('property').get('id')), 'PUT', resolve, reject, property);
+                    // }).then(
+                    //     success => {
+                    //         this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
+                    //     },
+                    //     errors => {
+                    //         console.log(errors)
+                    //     }
+                    // ) 
                 },
                 errors => {
                     console.log(errors)

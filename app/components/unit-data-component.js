@@ -11,7 +11,7 @@ export default Component.extend(dorrValidations, {
         if(!units.linght){
             this.store.createRecord('unit', {
                 m_property_id: this.get('property'),
-                created_by: 2,
+                created_by: this.get('currentUser').get('id'),
             })
         }
         
@@ -26,11 +26,13 @@ export default Component.extend(dorrValidations, {
         },
         setNewUnit(formIsInvalid){
            if(formIsInvalid){
+               Ember.$('form').submit();
             this.manager.toaster(this, "يرجي إكمال بيانات الوحدات السابقة اولا")
            }else{
             this.get('units').get('lastObject').set('collapse', true);
             this.store.createRecord('unit', {
-                mproperty: this.get('property'),
+                m_property_id: this.get('property'),
+                created_by: this.get('currentUser').get('id'),
             })
             window.scrollTo(0, 0);
            }

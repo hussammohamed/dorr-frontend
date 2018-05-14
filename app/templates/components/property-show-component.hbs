@@ -65,4 +65,10 @@
 </div>
 {{/if}}
 
+ {{#paper-card class="md-padding u-mtop30" as |card|}}
+     <div class="layout-row md-padding">
+    <span class="flex"></span>
+    {{#paper-button class="u-padding-side-60" onClick=(action 'editProperty' form.isInvalid) raised=true raised=true primary=true}}تعديل{{/paper-button}}
+    </div>
+    {{/paper-card}}
 </div>

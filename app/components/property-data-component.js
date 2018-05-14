@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import json from 'ember-data/serializers/json';
 
 export default Component.extend({
     isRelation: false,
@@ -31,8 +32,10 @@ export default Component.extend({
     },
     geocodeLatLng(map, latlong) {
         var self = this;
-        self.set('property.long ', latlong.lng());  
-        self.set('property.lat', latlong.lat());
+        let lng = latlong.lng()
+        let lat = latlong.lat()
+        self.set('property.long', lng); 
+        self.set('property.lat', lat);
         var geocoder = new google.maps.Geocoder;
         var infowindow = new google.maps.InfoWindow;
         geocoder.geocode({
@@ -46,7 +49,7 @@ export default Component.extend({
                         map: map
                     });
                     map.setCenter(latlong)
-                    map.setZoom(15)
+                    map.setZoom(14)
                     self.deleteOverlays();
                     self.get('markersArray').push(marker);
                     infowindow.setContent(results[0].formatted_address);
@@ -58,40 +61,26 @@ export default Component.extend({
     },
     initMap() {
         var self = this;
-        this.set('property.lat', 23.128363);
-        this.set('property.long', 42.199707);
+        if(this.get('currentProperty')){
+            this.set('property.lat', this.get('property').get('location').lat);
+            this.set('property.long', this.get('property').get('location').long);
+            this.set('zoom', 14);
+            
+        }else{
+            this.set('property.lat', 23.128363);
+            this.set('property.long', 45.199707);
+            this.set('zoom', 6);
+        }
+     
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 6,
+            zoom: self.get('zoom'),
             center: new google.maps.LatLng(self.get('property.lat'), self.get('property.long')),
         });
 
-        // self.placeMarker(new google.maps.LatLng({
-        //     lat: parseFloat(self.get('meetingRoomLatitude')),
-        //     lng: parseFloat(self.get('meetingRoomLongitude'))
-        // }));
-        // var markersArray = [];
+
         /***************search box****************/
         var searchBox = new google.maps.places.SearchBox(document.getElementById('input-pac-input'));
-        // google.maps.event.addListener(searchBox, 'places_changed', function() {
-        //     self.deleteOverlays();
-        //     var places = searchBox.getPlaces();
-        //     // if(places[0].formatted_address){
-        //     //     self.set('property.address', places[0].formatted_address)
-        //     // }
-        //     var bounds = new google.maps.LatLngBounds();
-        //     var i, place;
-        //     // for (i = 0; place = places[i]; i++) {
-        //     //     bounds.extend(place.geometry.location);
-        //     //     // place a marker
-        //     //     // self.placeMarker(place.geometry.location);
-        //     //     // // display the lat/lng 
-        //     //     // self.set('property.lat', place.geometry.location.lat());
-        //     //     // self.set('property.long', place.geometry.location.lng());
-        //     // }
-        //     // self.get('map').fitBounds(bounds);
-        //     // self.get('map').setZoom(15);
-
-        // });
+    
         /***************map click*********/
         google.maps.event.addListener(map, "click", function(event) {
             // place a marker
@@ -106,7 +95,9 @@ export default Component.extend({
         });
 
         self.set('map', map);
-
+        if(this.get('currentProperty')){
+        self.placeMarker(new google.maps.LatLng(self.get('property.lat'), self.get('property.long')));
+        }
 
     },
     didInsertElement() {
@@ -114,10 +105,12 @@ export default Component.extend({
        this.set('regions', this.store.peekAll('region'));
        if(this.get('currentProperty')){
         this.set('isRelation', true);
+        
         setTimeout(() => {
             this.initMap();
         }, 10);
         this.set('property', this.get('currentProperty'))
+        this.set("districts", this.get('currentProperty').get('region').get('districts'))
        }
 
        
@@ -139,20 +132,24 @@ export default Component.extend({
             this.set('districts', value.get('districts'))
             this.set('property.district', null);
             this.get('map').setCenter( new google.maps.LatLng(value.get('location').lat, value.get('location').long));
-            this.get('map').setZoom(12);
+            this.get('map').setZoom(10);
         },
         districtChange(value){
             this.set('property.district', value);
             this.get('map').setCenter( new google.maps.LatLng(value.get('location').lat, value.get('location').long));
-            this.get('map').setZoom(15);
+            this.get('map').setZoom(14);
         },
         updateProperty(){
             let self = this;
             let property = this.get('property').toJSON();
-            delete property.agency_instrument_issuer;  delete property.agency_instrument_date; delete property.agency_instrument_no; delete property.agency_instrument_exp_date
-
+            delete property.agency_instrument_issuer;  delete property.agency_instrument_date; delete property.agency_instrument_no; delete property.agency_instrument_exp_date; delete property.agent; delete property.location; delete property.owner; delete property.agency; 
+            delete property.createdBy; 
+            console.log(property)
+            var formData = new FormData();
+            formData.append('property_instrument_image', Ember.$('#inputFile')[0].files[0]);
+            formData.append('data', JSON.stringify(property))
             new Ember.RSVP.Promise(function(resolve, reject) {
-                self.manager.ajaxRequest(self, self.get('urls').updateProperty(self.get('property').get('id')), 'PUT', resolve, reject, property);
+                self.manager.ajaxRequestFile(self, self.get('urls').updateProperty(self.get('property').get('id')), 'POST', resolve, reject, formData);
             }).then(
                 success => {
                    
@@ -164,14 +161,20 @@ export default Component.extend({
             )
 
         },
+        fileInputChange(file){
+            this.set(file, Ember.$('#' + file)[0].files[0].name);
+             
+         },
         saveProperty(){
             let self = this;
             let property = this.store.createRecord('mproperty', this.get('property'));
             let propertyToJson =  property.toJSON();
             delete propertyToJson.agency_instrument_date; delete propertyToJson.agency_instrument_issuer; delete propertyToJson.agency_instrument_no; delete propertyToJson.agency_instrument_place; delete propertyToJson.agency_instrument_exp_date;
-            console.log(property)
+            var formData = new FormData();
+            formData.append('property_instrument_image', Ember.$('#inputFile')[0].files[0]);
+            formData.append('data', JSON.stringify(propertyToJson))
             new Ember.RSVP.Promise(function(resolve, reject) {
-                self.manager.ajaxRequest(self, self.get('urls').getUrl("mproperty"), 'POST', resolve, reject, propertyToJson);
+                self.manager.ajaxRequestFile(self, self.get('urls').getUrl("mproperty"), 'POST', resolve, reject, formData);
             }).then(
                 success => {
                     this.store.unloadRecord(property)

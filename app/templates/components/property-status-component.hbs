@@ -35,13 +35,23 @@
     </div>
         {{/paper-card}}
         {{#paper-card class="status-card " as |card|}}
-    <div class="layout-row md-padding" onClick={{action "cardClick" 'index.properties.edit.add-unit' property.id}}>
+        {{#if property.units}}
+         <div class="layout-row md-padding" onClick={{action "cardClick"  'index.properties.show.units' property.id}}>
         <h5 class="card-title">بيانات الوحدات</h5>
         <span class="flex"></span>
-         {{#if property.units}}
+         
         <div class="flex-5">{{paper-icon "check-circle" size=36}}</div>
-        {{/if}}
+        
     </div>
+        {{else}}
+    <div class="layout-row md-padding" onClick={{action "cardClick"  'index.properties.edit.add-unit' property.id}}>
+        <h5 class="card-title">بيانات الوحدات</h5>
+        <span class="flex"></span>
+         
+       
+        
+    </div>
+    {{/if}}
         {{/paper-card}}
 
          <div class="layout-row md-padding">

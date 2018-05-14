@@ -326,3 +326,32 @@ td.header{
     width: 100%;
 }
 }
+
+
+md-input-container{
+  &:not(.md-input-invalid).md-input-focused{
+    .md-input{
+      border-color: $primary-base;
+    }
+    label{
+      color: $primary-base;
+    }
+  }
+  &.md-default-theme:not(.md-input-invalid).md-input-focused{
+    .md-input{
+      border-color: $primary-base;
+    }
+    label{
+      color: $primary-base;
+    }
+  }
+}
+
+md-select-menu.md-default-theme md-content md-option[selected], md-select-menu md-content md-option[selected]{
+  color: $primary-base;
+}
+md-select:not([disabled]):focus{
+  .md-select-value{
+    border-bottom-color: $primary-base;
+  }
+}

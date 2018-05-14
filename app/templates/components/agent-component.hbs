@@ -35,7 +35,9 @@
                         <i class="material-icons">insert_drive_file</i>
                         <input disabled type="file" accept="image/jpeg, image/png" data-title="مرفق صورة الهوية" class="form-control-file text-primary font-weight-bold"
                             id="inputFile" accept="image/*" name="attachment">
-        
+                            {{#if user.id_image}}
+                        <a href="{{user.id_image}}" target="_blank" download>تنزيل</a>
+                         {{/if}}
                     </div>
                 </div>
         
@@ -46,7 +48,9 @@
                         <i class="material-icons">insert_drive_file</i>
                         <input disabled type="file" accept="image/jpeg, image/png" data-title="مرفق عقد إتفاقية إدارة ملكية " class="form-control-file text-primary font-weight-bold"
                             id="inputFile" accept="image/*" name="attachment">
-        
+                              {{#if property.property_management_contract_image}}
+                                <a href="{{property.property_management_contract_image}}" target="_blank" download>تنزيل</a>
+                             {{/if}}
                     </div>
                 </div>
         
@@ -68,7 +72,7 @@
                 {{paper-input class="flex-30" label="البحث عن المستخدم" value=userSearchValue onChange=(action (mut userSearchValue))}} {{#if
                 isSearch}} {{searchUserResult}} {{#paper-list class="search-user-list"}} {{#if searchUserResult.id}} {{#paper-item
                 onClick=(action "setUser" searchUserResult) class="md-3-line"}}
-                <img src={{searchUserResult.avatar}} class="md-avatar">
+                <img src={{if searchUserResult.avatar searchUserResult.avatar "http://dorr.bareeqstudio.com/images/face.png"}} class="md-avatar">
                 <div class="md-list-item-text">
                     <p>{{searchUserResult.name}}</p>
                     <p>{{searchUserResult.email}}</p>
@@ -94,12 +98,12 @@
                 {{#paper-select  label="نوع الهوية" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation options=idTypes selected=user.id_type onChange=(action (mut user.id_type))
                 as |idType|}} {{idType.name}} {{/paper-select}}
                 {{#paper-select  label=" جهة الأصدار" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation options=regions selected=user.id_issuer onChange=(action (mut user.id_issuer))
-                as |region|}} {{region.name}} {{/paper-select}}
+                as |region|}} {{region.title}} {{/paper-select}}
                 {{form.input type="date" label="تاريخ الأنتهاء " required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) }}
                 {{form.input type="number" label="رقم الجوال" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=user.mobile1 onChange=(action (mut user.mobile1)) required=true}}
                 {{form.input type="number" label="رقم الحساب البنكي IBAN" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=user.bank_iban onChange=(action (mut user.bank_iban))   }}
-                {{form.input type="number" label="رقم صك الوكالة" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=property.agency_instrument_no onChange=(action (mut property.agency_instrument_no)) }}
-                {{form.input type="date" label="تاريخ الأصدار " required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=property.agency_instrument_date onChange=(action (mut  property.agency_instrument_date)) }}
+                {{form.input type="number" label="رقم صك الوكالة" required=true  errorMessages=regularValidation value=property.agency_instrument_no onChange=(action (mut property.agency_instrument_no)) }}
+                {{form.input type="date" label="تاريخ الأصدار " required=true errorMessages=regularValidation value=property.agency_instrument_date onChange=(action (mut  property.agency_instrument_date)) }}
             </div>
             <div class="layout-column flex-50 md-padding">
                 {{form.input type="text" label="العنوان" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=user.address onChange=(action (mut user.address)) }}
@@ -110,9 +114,9 @@
                 as |nationality|}} {{nationality.name}} {{/paper-select}}
                 {{#paper-select  label="البنك الخاص بالمالك" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation options=banks selected=user.bank onChange=(action (mut  user.bank))
                 as |bank|}} {{bank.name}} {{/paper-select}}
-                {{#paper-select  label=" جهة أصدارها" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation options=regions selected=property.agency_instrument_issuer onChange=(action (mut property.agency_instrument_issuer))
-                as |region|}} {{region.name}} {{/paper-select}}
-                {{form.input type="date" label="تاريخ الأنتهاء " required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=property.agency_instrument_exp_date onChange=(action (mut  property.agency_instrument_exp_date)) }}
+                {{#paper-select  label=" جهة أصدارها" required=true   errorMessages=regularValidation options=regions selected=property.agency_instrument_issuer onChange=(action (mut property.agency_instrument_issuer))
+                as |region|}} {{region.title}} {{/paper-select}}
+                {{form.input type="date" label="تاريخ الأنتهاء " required=true  errorMessages=regularValidation value=property.agency_instrument_exp_date onChange=(action (mut  property.agency_instrument_exp_date)) }}
             </div>
         </div>
         <div class=" u-full-width mdl-grid u-mbuttom30">
@@ -120,9 +124,12 @@
                 <div class=" m-b-1">
                     <div class="form-group inputDnD">
                         <i class="material-icons">insert_drive_file</i>
-                        <input type="file" accept="image/jpeg, image/png" data-title="مرفق صورة الهوية" class="form-control-file text-primary font-weight-bold"
-                            id="inputFile" accept="image/*" name="attachment">
-        
+                        <input type="file" accept="image/jpeg, image/png application/pdf" data-file-name="{{idFile}}" data-title="مرفق صورة الهوية"  class={{if idFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                            id="idFile" disabled={{if (and user.id (not-eq user.id currentUser.id)) true false}}  name="attachment" onchange={{ action "fileInputChange" "idFile"}}>
+                          <div class="file-name">{{idFile}}</div>
+                              {{#if user.id_image}}
+                        <a href="{{user.id_image}}" target="_blank" download>تنزيل</a>
+                         {{/if}}
                     </div>
                 </div>
         
@@ -131,9 +138,12 @@
                 <div class=" m-b-1">
                     <div class="form-group inputDnD">
                         <i class="material-icons">insert_drive_file</i>
-                        <input type="file" accept="image/jpeg, image/png" data-title="مرفق عقد إتفاقية إدارة ملكية " class="form-control-file text-primary font-weight-bold"
-                            id="inputFile" accept="image/*" name="attachment">
-        
+                        <input type="file" accept="image/jpeg, image/png" data-title="مرفق عقد إتفاقية إدارة ملكية " class={{if agencyFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                            id="agencyFile" accept="image/*" name="attachment" onchange={{ action "fileInputChange" "agencyFile"}}>
+                            <div class="file-name">{{agencyFile}}</div>
+                             {{#if property.property_management_contract_image}}
+                                <a href="{{property.property_management_contract_image}}" target="_blank" download>تنزيل</a>
+                             {{/if}}
                     </div>
                 </div>
         

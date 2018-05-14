@@ -79,6 +79,18 @@ margin-bottom: 48px;
     text-align: center;
     width: 100%;
     position: relative;
+    a{
+    position: absolute;
+    left: 24px;
+    top: 125%;
+    z-index: 999;
+    }
+    .file-name{
+        position: absolute;
+        top: 150%;
+        right: 75px;
+        color: rgba($color: #000000, $alpha: .54)
+    }
     i{
         position: absolute;
         font-size: 60px;
@@ -102,6 +114,11 @@ margin-bottom: 48px;
       height: 100%;
       outline: none;
       visibility: hidden;
+      &.has-name{
+          &::after{
+            top: 65%;
+          }
+      }
       cursor: pointer;
       &:after{
         content: attr(data-title);

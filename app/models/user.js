@@ -18,5 +18,6 @@ export default DS.Model.extend({
     registered: DS.attr(),
     mproperty_id: DS.attr(),
     user_relation: DS.attr(),
+    id_image: DS.attr()
 
 });

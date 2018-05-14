@@ -35,7 +35,7 @@ export default Ember.Service.extend({
    },
      toaster(self, text){
         self.get('paperToaster').show(text, {
-            duration: 4000,
+            duration: 2000,
             escapeToClose: true,
           });
     },

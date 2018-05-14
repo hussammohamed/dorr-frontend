@@ -39,7 +39,9 @@
           <i class="material-icons">insert_drive_file</i>
           <input type="file" accept="image/jpeg, image/png" data-title="مرفق صك الملكية" class="form-control-file text-primary font-weight-bold"
             id="inputFile" disabled accept="image/*" name="attachment">
-  
+            {{#if property.property_instrument_image}}
+          <a href="{{property.property_instrument_image}}" target="_blank" download>تنزيل</a>
+          {{/if}}
         </div>
       </div>
 
@@ -111,9 +113,13 @@
       <div class=" m-b-1 w-80">
         <div class="form-group inputDnD">
           <i class="material-icons">insert_drive_file</i>
-          <input type="file" accept="image/jpeg, image/png" data-title="مرفق صك الملكية" class="form-control-file text-primary font-weight-bold"
-            id="inputFile" accept="image/*" name="attachment">
-  
+          <input type="file" accept="image/jpeg, image/png, application/pdf" data-title="مرفق صك الملكية" class={{if inputFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+            id="inputFile"  name="attachment" onchange={{ action "fileInputChange" "inputFile"}}>
+          <div class="file-name">{{inputFile}}</div>
+          {{#if property.property_instrument_image}}
+          <a href="{{property.property_instrument_image}}" target="_blank" download>تنزيل</a>
+          {{/if}}
+      
         </div>
       </div>
 
