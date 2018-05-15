@@ -1,0 +1,26 @@
+ {{#paper-card class="md-padding u-mtop30 u-mbuttom30" as |card|}}
+     <div class="layout-row md-padding">
+         <span>   {{unit.type.name}}  رقم {{unit.no}}    </span>
+    <span class="flex"></span>
+      <span class="warn-col">شاغرة</span>
+    </div>
+    {{/paper-card}}
+    <h5 class="page-title u-mtop60">بيانات الأيجار</h5>
+     {{#paper-card class="md-padding " as |card|}}
+     <div class="layout-row md-padding">
+         
+    <span class="flex"></span>
+    <span>الوحده شاغرة ولايوجد بيانات للإيجار</span>
+    <span class="flex"></span>
+      
+    </div>
+     <div class="layout-row md-padding">
+         
+    <span class="flex"></span>
+    <button   id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+              أضف عقد إيحار
+            </button>
+    <span class="flex"></span>
+      
+    </div>
+    {{/paper-card}}

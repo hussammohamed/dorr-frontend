@@ -8,13 +8,13 @@ export default Component.extend({
         rentAction(){
             
         },
-        propertyView(){
+        unitView(id){
+            this.get('router').transitionTo('index.properties.show.units.unit-show', id)
+        },
+        editUnit(id){
             
         },
-        editProperty(id){
-            
-        },
-        addProperty(){
+        addUnit(){
             
         }
     }

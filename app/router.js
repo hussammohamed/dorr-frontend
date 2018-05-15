@@ -24,8 +24,13 @@ Router.map(function() {
       });
       this.route('show', {path: ':id'}, function() {
         this.route('property-data', {path: '/data'});
-        this.route('units', function() {});
-        this.route('maintenance-requests');
+        this.route('units', function() {
+          this.route('unit-show', {path: '/:unit_id'});
+        });
+        this.route('maintenance-requests', function() {
+          this.route('pending');
+          this.route('history');
+        });
         this.route('collection-requests');
         this.route('contracts');
       });

@@ -4,6 +4,6 @@ export default Route.extend({
     breadCrumb: {
         title: 'الوحدات',
         linkable: true,
-        path: 'index.properties'
+        path: 'index.properties.show.units'
       },
 });

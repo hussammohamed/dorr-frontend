@@ -1,7 +1,7 @@
 
 
 
-  <div class="layout-row u-md-padding-top-bottom"> <span class="flex"></span><button onclick={{action "addProperty"}}  id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+  <div class="layout-row u-md-padding-top-bottom"> <span class="flex"></span><button onclick={{action "addUnit"}}  id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                 أضف وحدة
             </button></div>
    <div class="table-card">
@@ -20,7 +20,7 @@
 {{/table.head}}
 {{#table.body as |body|}}
   {{#each units as |unit|}}
-    {{#body.row edit=true onClick=(action 'propertyView' property.id) as |row|}}
+    {{#body.row edit=true onClick=(action 'unitView' unit.id) as |row|}}
       {{#row.cell }}{{unit.no}}{{/row.cell}}
       {{#row.cell}}{{unit.type.name}}{{/row.cell}}
       {{#row.cell }}{{#if unit.completed}}
@@ -37,15 +37,15 @@
          {{#paper-button iconButton=true}} {{paper-icon "more_vert" size=18 class="md-menu-origin"}} {{/paper-button}} 
         {{/menu.trigger}} 
         {{#menu.content class="u-custome-menu" width=4 as |content|}} {{#content.menu-item
-        onClick=(action "rentAction" patient.id patient.userType patient.name)}} {{paper-icon "label" size=18 class="md-menu-align-target"}}
+        onClick=(action "rentAction" unit.id)}} {{paper-icon "label" size=18 class="md-menu-align-target"}}
         <span>عرض للأيجار</span>
         {{/content.menu-item}}
         {{#content.menu-item
-        onClick=(action "editProperty" property.id)}} {{paper-icon "edit" size=18 class="md-menu-align-target"}}
+        onClick=(action "editUnit" unit.id)}} {{paper-icon "edit" size=18 class="md-menu-align-target"}}
         <span>تعديل</span>
         {{/content.menu-item}}
         {{#content.menu-item
-        onClick=(action "rentAction" patient.id patient.userType patient.name)}} {{paper-icon "delete" size=18 class="md-menu-align-target"}}
+        onClick=(action "rentAction" unit.id)}} {{paper-icon "delete" size=18 class="md-menu-align-target"}}
         <span>حذف</span>
         {{/content.menu-item}}
         
