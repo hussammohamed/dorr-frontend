@@ -72,9 +72,15 @@
       {{/row.cell}}
     {{/body.row}}
     {{else}}
+    {{#if tableLoading}}
+      {{#body.row  as |row|}}
+     {{#row.cell colspan="9" }}جاري تحميل العقارات ...{{/row.cell}}
+      {{/body.row}}
+    {{else}}
     {{#body.row  as |row|}}
     {{#row.cell colspan="9" }}لايوجد عقارات من فضلك إضف عقار {{/row.cell}}
        {{/body.row}}
+       {{/if}}
   {{/each}}
 {{/table.body}}
 {{/paper-data-table}}

@@ -3,6 +3,13 @@ import Component from '@ember/component';
 export default Component.extend({
     didInsertElement() {
         this.set('currentUser', this.get('currentUser'))
+        this.set('tableLoading', true);
+        this.store.findAll('MProperty').then(
+            success => {
+                this.set('tableLoading', false)
+                this.set('properties', success)
+            }
+        );
     },
     actions:{
         rentAction(){
