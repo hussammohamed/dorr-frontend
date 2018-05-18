@@ -119,12 +119,12 @@
                 {{form.input type="date" label="تاريخ الأنتهاء " required=true  errorMessages=regularValidation value=property.agency_instrument_exp_date onChange=(action (mut  property.agency_instrument_exp_date)) }}
             </div>
         </div>
-        <div class=" u-full-width mdl-grid u-mbuttom30">
+        <div class=" u-full-width mdl-grid ">
             <div class="mdl-cell mdl-cell--6-col md-padding">
                 <div class=" m-b-1">
                     <div class="form-group inputDnD">
                         <i class="material-icons">insert_drive_file</i>
-                        <input type="file" accept="image/jpeg, image/png application/pdf" data-file-name="{{idFile}}" data-title="مرفق صورة الهوية"  class={{if idFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                        <input type="file" accept="image/jpeg, image/png, application/pdf" data-file-name="{{idFile}}" data-title="مرفق صورة الهوية"  class={{if idFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
                             id="idFile" disabled={{if (and user.id (not-eq user.id currentUser.id)) true false}}  name="attachment" onchange={{ action "fileInputChange" "idFile"}}>
                           <div class="file-name">{{idFile}}</div>
                               {{#if user.id_image}}
@@ -138,8 +138,24 @@
                 <div class=" m-b-1">
                     <div class="form-group inputDnD">
                         <i class="material-icons">insert_drive_file</i>
-                        <input type="file" accept="image/jpeg, image/png" data-title="مرفق عقد إتفاقية إدارة ملكية " class={{if agencyFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
-                            id="agencyFile" accept="image/*" name="attachment" onchange={{ action "fileInputChange" "agencyFile"}}>
+                        <input type="file" accept="image/jpeg, image/png, application/pdf" data-title="مرفق صك وكالة" class={{if agency_instrument_image "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                            id="agency_instrument_image"  name="attachment" onchange={{ action "fileInputChange" "agency_instrument_image"}}>
+                            <div class="file-name">{{agency_instrument_image}}</div>
+                             {{#if property.agency_instrument_image}}
+                                <a href="{{property.agency_instrument_image}}" target="_blank" download>تنزيل</a>
+                             {{/if}}
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+         <div class=" u-full-width mdl-grid u-mbuttom30">
+               <div class="mdl-cell mdl-cell--6-col md-padding">
+                <div class=" m-b-1">
+                    <div class="form-group inputDnD">
+                        <i class="material-icons">insert_drive_file</i>
+                        <input type="file" accept="image/jpeg, image/png, application/pdf" data-title="مرفق عقد إتفاقية إدارة ملكية " class={{if agencyFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                            id="agencyFile"  name="attachment" onchange={{ action "fileInputChange" "agencyFile"}}>
                             <div class="file-name">{{agencyFile}}</div>
                              {{#if property.property_management_contract_image}}
                                 <a href="{{property.property_management_contract_image}}" target="_blank" download>تنزيل</a>
@@ -148,8 +164,7 @@
                 </div>
         
             </div>
-        </div>
-        
+         </div>
 
         <div class="layout-row">
             <span class="flex"></span>

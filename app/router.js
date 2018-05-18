@@ -26,6 +26,8 @@ Router.map(function() {
         this.route('property-data', {path: '/data'});
         this.route('units', function() {
           this.route('unit-show', {path: '/:unit_id'});
+          this.route('unit-add', {path: '/add'});
+          this.route('unit-edit', {path: '/:unit_id/edit'});
         });
         this.route('maintenance-requests', function() {
           this.route('pending');

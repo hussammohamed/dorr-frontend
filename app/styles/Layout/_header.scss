@@ -22,6 +22,7 @@ $m-header-height: 75px;
 	display: flex;
 	box-shadow: none;
 	z-index: 100;
+	direction: rtl;
 }
 .topbar{
 	height: $topbar-height;
@@ -118,6 +119,7 @@ $m-header-height: 75px;
 	border-bottom: $border-color 1px solid;
 	.m-header--item__user{
 		float: $left;
+		position: relative;
 	}
 }
 .page-header{
@@ -134,7 +136,8 @@ $m-header-height: 75px;
 	margin-#{$left}:45px; 
 	position: absolute;
 	#{$left}:0;
-	top: 40px;
+	top: 50%;
+	@include translate(0, -50%);
 	height: 65px;
 	padding-#{$left}: 40px;
 	padding-#{$right}: 8px;

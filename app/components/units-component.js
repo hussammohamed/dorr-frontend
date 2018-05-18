@@ -12,10 +12,10 @@ export default Component.extend({
             this.get('router').transitionTo('index.properties.show.units.unit-show', id)
         },
         editUnit(id){
-            
+            this.get('router').transitionTo('index.properties.show.units.unit-edit', id)
         },
         addUnit(){
-            
+            this.get('router').transitionTo('index.properties.show.units.unit-add')
         }
     }
 });

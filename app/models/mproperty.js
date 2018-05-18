@@ -19,7 +19,7 @@ export default DS.Model.extend({
     agency_instrument_no: DS.attr(),
     agency_instrument_place: DS.attr(),
     agency_instrument_exp_date: DS.attr(),
-
+    agency_instrument_image: DS.attr(),
 
    
     units_no: DS.attr(),
@@ -50,5 +50,6 @@ export default DS.Model.extend({
     long:DS.attr(),
     lat: DS.attr(),
     user_relation: DS.attr(),
+    property_management_contract_image:DS.attr(),
     
 });

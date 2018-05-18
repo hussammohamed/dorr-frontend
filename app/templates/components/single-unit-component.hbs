@@ -1,26 +1,79 @@
- {{#paper-card class="md-padding u-mtop30 u-mbuttom30" as |card|}}
-     <div class="layout-row md-padding">
-         <span>   {{unit.type.name}}  رقم {{unit.no}}    </span>
-    <span class="flex"></span>
-      <span class="warn-col">شاغرة</span>
+{{#if isShow}} {{#paper-card class="md-padding u-mtop30 u-mbuttom30" as |card|}}
+<div class="layout-row md-padding">
+  <span> {{unit.type.name}} رقم {{unit.no}} </span>
+  <span class="flex"></span>
+  <span class="warn-col">شاغرة</span>
+</div>
+{{/paper-card}}
+<h5 class="page-title u-mtop60">بيانات الأيجار</h5>
+{{#paper-card class="md-padding " as |card|}}
+<div class="layout-row md-padding">
+
+  <span class="flex"></span>
+  <span>الوحده شاغرة ولايوجد بيانات للإيجار</span>
+  <span class="flex"></span>
+
+</div>
+<div class="layout-row md-padding">
+
+  <span class="flex"></span>
+  <button id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+    أضف عقد إيحار
+  </button>
+  <span class="flex"></span>
+
+</div>
+{{/paper-card}} {{else}}
+
+  {{#paper-form class="md-padding" onSubmit=(if unit.id 'updateUnit' 'saveUnit') as |form|}}
+  <div class={{if unit.collapse "unit-card collapse" "unit-card"}}>
+    <div class="unit-header">
+      {{#if unit.id}}
+      <h4 class="page-title">تعديل وحدة رقم {{unit.no}}</h4>
+      {{else}}
+          <h4 class="page-title">أضف وحدة </h4>
+      {{/if}}
+    </div>
+
+    {{#paper-card as |card|}}
+
+    <div class="md-padding">
+      <div class="layout-row">
+        <div class="layout-column flex-50 md-padding">
+          {{form.input type="number" label="رقم الوحدة" errorMessages=regularValidation value=unit.no onChange=(action (mut unit.no))
+          required=true}} {{form.input type="number" label="رقم الدور" errorMessages=regularValidation value=unit.floor onChange=(action
+          (mut unit.floor)) required=true}} {{form.input type="number" label="رقم عداد الكهرباء" errorMessages=regularValidation
+          value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}} {{#paper-select label="التأثيث" required=true
+          errorMessages=regularValidation options=furnished selected=unit.furnished onChange=(action (mut unit.furnished))
+          as |furnished|}} {{furnished.name}} {{/paper-select}} {{#paper-select label="خزائن للمطبخ" errorMessages=regularValidation
+          options=kitchen-cabinet required=true selected=unit.kitchen_cabinet onChange=(action (mut unit.kitchen_cabinet))
+          as |item|}} {{item.name}} {{/paper-select}} {{form.input type="number" label=" عدد غرف النوم" errorMessages=regularValidation
+          value=unit.bed_rooms onChange=(action (mut unit.bed_rooms)) required=true}} {{form.input type="number" label="
+          عدد الحمامات" errorMessages=regularValidation value=unit.bath_rooms onChange=(action (mut unit.bath_rooms)) required=true}}
+          {{form.input type="number" label="عدد مكيفات سبلت" errorMessages=regularValidation value=unit.split_air_conditioner
+          onChange=(action (mut unit.split_air_conditioner)) required=true}}
+        </div>
+        <div class="layout-column flex-50 md-padding">
+          {{#paper-select label="نوع الوحدة" errorMessages=regularValidation options=types required=true selected=unit.type onChange=(action
+          (mut unit.type)) as |type|}} {{type.name}} {{/paper-select}} {{form.input type="number" label="رقم عداد المياه"
+          errorMessages=regularValidation value=unit.water_meter onChange=(action (mut unit.water_meter)) }} {{form.input
+          type="number" label="رقم عداد الغاز" errorMessages=regularValidation value=unit.gas_meter onChange=(action (mut
+          unit.gas_meter)) }} {{#paper-select label="حالة التأثيث" errorMessages=regularValidation options=furnished-status
+          selected=unit.furnished_status onChange=(action (mut unit.furnished_status)) as |item|}} {{item.name}} {{/paper-select}}
+          {{form.input type="number" label=" عدد غرف المعيشة" errorMessages=regularValidation value=unit.living_rooms onChange=(action
+          (mut unit.living_rooms)) required=true}} {{form.input type="number" label=" عدد غرف الأستقبال" errorMessages=regularValidation
+          value=unit.reception_rooms onChange=(action (mut unit.reception_rooms)) required=true}} {{form.input type="number"
+          label="عدد مكيفات شباك" errorMessages=regularValidation value=unit.window_air_conditioner onChange=(action (mut
+          unit.window_air_conditioner)) required=true}}
+          <span class="flex"></span>
+        </div>
+      </div>
+      <div class="layout-row">
+        <span class="flex"></span>
+        {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+      </div>
     </div>
     {{/paper-card}}
-    <h5 class="page-title u-mtop60">بيانات الأيجار</h5>
-     {{#paper-card class="md-padding " as |card|}}
-     <div class="layout-row md-padding">
-         
-    <span class="flex"></span>
-    <span>الوحده شاغرة ولايوجد بيانات للإيجار</span>
-    <span class="flex"></span>
-      
-    </div>
-     <div class="layout-row md-padding">
-         
-    <span class="flex"></span>
-    <button   id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
-              أضف عقد إيحار
-            </button>
-    <span class="flex"></span>
-      
-    </div>
-    {{/paper-card}}
+  </div>
+  {{/paper-form}}
+{{/if}}

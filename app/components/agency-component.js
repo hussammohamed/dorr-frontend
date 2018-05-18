@@ -42,7 +42,7 @@ export default Component.extend({
             formData.append('data', JSON.stringify(agency));
             formData.append('commercial_register_image', Ember.$('#inputFile')[0].files[0]);
             new Ember.RSVP.Promise(function(resolve, reject) {
-                self.manager.ajaxRequestFile(self, self.get('urls').updateAgency(agency.id), 'POST', resolve, reject, agency);
+                self.manager.ajaxRequestFile(self, self.get('urls').updateAgency(agency.id), 'POST', resolve, reject, formData);
             }).then(
                 success => {
                     this.get('router').transitionTo('index.properties.property-status', this.get('property').get('id'));

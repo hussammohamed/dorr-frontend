@@ -1,9 +1,9 @@
 import Component from '@ember/component';
 
 export default Component.extend({
+    tableLoading: true,
     didInsertElement() {
         this.set('currentUser', this.get('currentUser'))
-        this.set('tableLoading', true);
         this.store.findAll('MProperty').then(
             success => {
                 this.set('tableLoading', false)

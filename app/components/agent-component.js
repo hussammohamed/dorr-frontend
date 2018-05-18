@@ -76,6 +76,7 @@ export default Component.extend(dorrValidations, {
             var propertyData =  new FormData();
             propertyData.append('data', JSON.stringify(property));
             propertyData.append('property_management_contract_image', Ember.$('#agencyFile')[0].files[0]);
+            propertyData.append('agency_instrument_image', Ember.$('#agency_instrument_image')[0].files[0]);
             new Ember.RSVP.Promise(function(resolve, reject) {
                 self.manager.ajaxRequestFile(self, self.get('urls').updateUser(self.get('user').get('id')), 'POST', resolve, reject, formData);
             }).then(
@@ -151,20 +152,24 @@ export default Component.extend(dorrValidations, {
             formData.append('id_image', Ember.$('#idFile')[0].files[0]);
             formData.append('mproperty_id', this.get('property').get('id'));
             formData.append('user_relation', 2);
+            var propertyData =  new FormData();
+            propertyData.append('data', JSON.stringify(property));
+            propertyData.append('property_management_contract_image', Ember.$('#agencyFile')[0].files[0]);
+            propertyData.append('agency_instrument_image', Ember.$('#agency_instrument_image')[0].files[0]);
             new Ember.RSVP.Promise(function(resolve, reject) {
                 self.manager.ajaxRequestFile(self, self.get('urls').getUrl('users'), 'POST', resolve, reject, formData);
             }).then(
                 success => {
-                    // new Ember.RSVP.Promise(function(resolve, reject) {
-                    //     self.manager.ajaxRequest(self, self.get('urls').updateProperty(self.get('property').get('id')), 'PUT', resolve, reject, property);
-                    // }).then(
-                    //     success => {
-                    //         this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
-                    //     },
-                    //     errors => {
-                    //         console.log(errors)
-                    //     }
-                    // ) 
+                    new Ember.RSVP.Promise(function(resolve, reject) {
+                        self.manager.ajaxRequestFile(self, self.get('urls').updateProperty(self.get('property').get('id')), 'POST', resolve, reject, propertyData);
+                    }).then(
+                        success => {
+                            this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
+                        },
+                        errors => {
+                            console.log(errors)
+                        }
+                    ) 
                 },
                 errors => {
                     console.log(errors)

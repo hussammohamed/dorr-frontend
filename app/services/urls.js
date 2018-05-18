@@ -21,7 +21,10 @@ export default Ember.Service.extend({
     },
     updateAgency(id){
         return ENV.host + "/agencies/" + id + "?lang=" + this.get('intl').get('locale');
-    }
+    },
+    updateUnit(id){
+        return ENV.host + "/units/" + id + "?lang=" + this.get('intl').get('locale');
+    },
 
 
 });

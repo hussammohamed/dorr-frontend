@@ -152,6 +152,7 @@ ul,ol{
 .main-content{
   min-height: calc(100vh - 384px);
   background-color: $body-bg;
+  direction: rtl;
   // padding-bottom: 48px; 
   .fix-content{
     height: 200px;
@@ -168,6 +169,7 @@ ul,ol{
    padding: 45px 10px 200px 10px;
    @include breakpoint(mid){
     padding: 45px 150px 200px 150px;
+    direction: rtl;
     // min-height: calc(100vh - 200px);
    }
 
@@ -354,4 +356,10 @@ md-select:not([disabled]):focus{
   .md-select-value{
     border-bottom-color: $primary-base;
   }
+}
+
+.app{
+  max-height: 100vh;
+  overflow: scroll;
+  direction: ltr;
 }
