@@ -19,13 +19,17 @@
       <i class="material-icons">border_all</i>
       <span>الوحدات</span>
     {{/link-to}}
-    {{#link-to "index.properties.show.maintenance-requests"  tagName="li"}} 
+    {{#link-to "index.properties.show.maintenance-requests" disabled=true  tagName="li"}} 
+       {{#link-to "index.properties.show.maintenance-requests.pending"  }} 
       <i class="material-icons">build</i>
       <span>طلبات الصيانة</span>
+         {{/link-to}}
     {{/link-to}}
-    {{#link-to "index.properties.show.collection-requests"  tagName="li"}} 
+    {{#link-to "index.properties.show.collection-requests" disabled=true  tagName="li"}}
+    {{#link-to "index.properties.show.collection-requests.pending"  }}  
       <i class="material-icons">account_balance_wallet</i>
       <span>طلبات التحصيل</span>
+      {{/link-to}}
     {{/link-to}}
     {{#link-to "index.properties.show.contracts"  tagName="li"}} 
       <i class="material-icons">insert_drive_file</i>

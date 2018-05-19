@@ -40,6 +40,7 @@
     "ember-composable-helpers": "^2.1.0",
     "ember-data": "~3.0.0",
     "ember-export-application-global": "^2.0.0",
+    "ember-href-to": "^1.15.1",
     "ember-intl": "^2.33.1",
     "ember-load": "0.0.12",
     "ember-load-initializers": "^1.0.0",

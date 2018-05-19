@@ -24,7 +24,7 @@ export default Ember.Service.extend({
         return Cookies.get('userId');
     },
     ensureAuthenticated() {
-        if (this.authToken() && this.authUserId()) {
+        if (this.authToken()) {
             return true;
         } else {
             this.redirectToLogin();

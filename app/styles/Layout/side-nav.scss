@@ -67,7 +67,11 @@ md-sidenav{
                 border-radius: 2px;
             }
             &.active{
-                color: #40A6A2;
+                color: $primary-base;
+                a{
+                    color: $primary-base;
+                }
+
                 
             }
         }

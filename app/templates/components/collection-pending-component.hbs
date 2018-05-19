@@ -1,20 +1,11 @@
 
 
-
-  <div class="layout-row u-md-padding-top-bottom"> <span class="flex"></span><button onclick={{action "addUnit"}}  id="loginBtn" class="mdl-button u-margin-8 u-padding-side-60 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
-                أضف وحدة
-            </button></div>
-   <div class="table-card">
-  {{#paper-card class="" as  |card|}}
-    <div class="header-overlay"></div>
-    <div class="card-shadow"></div>
 {{#paper-data-table class="u-custom-table u-custome-menu"   as |table|}}
 {{#table.head as |head|}}
-  {{#head.column }}رقم{{/head.column}}
-  {{#head.column }}النوع{{/head.column}}
+  {{#head.column }}نوع الطلب{{/head.column}}
+  {{#head.column }}العقار{{/head.column}}
+  {{#head.column }}رقم الوحدة{{/head.column}}
   {{#head.column }}الحالة{{/head.column}}
-  {{#head.column }}المستأجر{{/head.column}}
-  {{#head.column}}حالة التحصيل{{/head.column}}
   {{#head.column numeric=true}}{{/head.column}}
 
 {{/table.head}}
@@ -56,13 +47,8 @@
     {{else}}
  
     {{#body.row  as |row|}}
-     {{#row.cell colspan="6"}}لا يوجد وحدات برجاء إضف وحدة{{/row.cell}}
+     {{#row.cell colspan="5"}}لا يوجد طلبات برجاء إضف طلب{{/row.cell}}
      {{/body.row}}
   {{/each}}
 {{/table.body}}
 {{/paper-data-table}}
-  {{/paper-card}}
-  </div>
-
-
-

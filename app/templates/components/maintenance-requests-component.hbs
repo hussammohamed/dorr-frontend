@@ -1,0 +1,16 @@
+
+  <div class="layout-row u-md-padding-top-bottom "> <span class="flex"></span><button onclick={{action "addRequest"}}  id="loginBtn" class="mdl-button u-padding-side-60 u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                طلب جديد 
+            </button></div>
+{{#paper-card   as |card|}}
+{{#paper-tabs  selected=currentRouteName borderBottom=true  as |tabs|}}
+  {{#tabs.tab value="index.properties.show.maintenance-requests.pending" href=(href-to "index.properties.show.maintenance-requests.pending")}}
+    طلبات قائمة
+  {{/tabs.tab}}
+  {{#tabs.tab value="index.properties.show.maintenance-requests.history" href=(href-to "index.properties.show.maintenance-requests.history")}}
+    طلبات سابقة
+  {{/tabs.tab}}
+{{/paper-tabs}}
+
+{{outlet class="md-padding"}}
+   {{/paper-card}}

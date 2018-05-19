@@ -33,7 +33,10 @@ Router.map(function() {
           this.route('pending');
           this.route('history');
         });
-        this.route('collection-requests');
+        this.route('collection-requests', function() {
+          this.route('pending');
+          this.route('history');
+        });
         this.route('contracts');
       });
     });

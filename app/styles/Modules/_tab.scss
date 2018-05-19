@@ -1,0 +1,17 @@
+md-tabs-wrapper{
+    md-pagination-wrapper{
+        padding: 16px;
+    }
+    md-tabs-canvas{
+        height: 80px;
+    }
+   .md-tab.md-active{
+    color: $primary-base !important;
+   } 
+}
+
+md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar{
+    color:$primary-base;
+    background: $primary-base;
+    height: 4px;
+}
