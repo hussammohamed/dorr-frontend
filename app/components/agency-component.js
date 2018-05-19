@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 
 export default Component.extend({
+    isRequesting: false,
     didInsertElement() {
         if(this.get('property').get('agency').get('id')){
             this.set('agency', this.get('property').get('agency'))
@@ -11,6 +12,7 @@ export default Component.extend({
      },
      actions:{
          saveAgency(){
+            this.set('isRequesting', true);
              var self =  this;
             var createdAgency = this.store.createRecord('agency', self.get('agency'));
             var agency = createdAgency.toJSON();
@@ -23,10 +25,11 @@ export default Component.extend({
             }).then(
                 success => {
                     this.get('router').transitionTo('index.properties.property-status', this.get('property').get('id'));
-                    
+                    this.set('isRequesting', false);
                 },
                 errors => {
                     console.log(errors)
+                    this.set('isRequesting', false);
                 }
             )
             
@@ -36,6 +39,7 @@ export default Component.extend({
              
          },
          updateAgency(){
+            this.set('isRequesting', true);
              var self = this;
             let agency = this.store.peekRecord('agency', this.get('agency').get('id')).toJSON({"includeId": true});
             var formData = new FormData();
@@ -46,10 +50,11 @@ export default Component.extend({
             }).then(
                 success => {
                     this.get('router').transitionTo('index.properties.property-status', this.get('property').get('id'));
-                    
+                    this.set('isRequesting', false);
                 },
                 errors => {
                     console.log(errors)
+                    this.set('isRequesting', false);
                 }
             )
 

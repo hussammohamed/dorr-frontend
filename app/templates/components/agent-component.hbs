@@ -174,11 +174,13 @@
             {{!-- {{#if (and user.id (or (eq user.registered 0) (eq user.id currentUser.id)))}}
              {{#paper-button class="u-padding-side-60" onClick=(action 'deleteUser') raised=true raised=true warn=true}}حذف المدير{{/paper-button}}
                 {{/if}} --}}
-            {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+            {{#form.submit-button disabled=isRequesting  class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
         </div>
         {{/paper-form}}
     </div>
-
+    {{#if isRequesting}}
+{{paper-progress-linear}}
+{{/if}}
     {{/paper-card}}
 </div>
 {{/if}}

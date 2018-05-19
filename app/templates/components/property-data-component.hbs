@@ -127,11 +127,15 @@
   </div>
   <div class="layout-row">
       <span class="flex"></span>
-    {{#form.submit-button class="u-padding-side-60"  raised=true primary=true}}حفظ{{/form.submit-button}}
+    {{#form.submit-button disabled=isRequesting class="u-padding-side-60"  raised=true primary=true}}حفظ{{/form.submit-button}}
   </div>
 {{/paper-form}}
 </div>
 {{/unless}}
+{{#if isRequesting}}
+{{paper-progress-linear}}
+{{/if}}
+
     {{/paper-card}}
 </div>
 {{/if}}

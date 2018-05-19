@@ -44,7 +44,11 @@ Router.map(function() {
 });
 Router.reopen({
   doSomethingOnUrlChange: function() {
-    window.scrollTo(0, 0);
+    let app = document.getElementById('app');
+    if(app){
+      app.scrollTop = 0;
+    }
+    
   }.on('didTransition')
 });
 export default Router;

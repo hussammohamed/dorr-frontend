@@ -5,6 +5,7 @@ export default Component.extend({
     isRelation: false,
     property: {},
     markersArray: Array(),
+    isRequesting: false,
     deleteOverlays() {
         var self = this;
         if (this.get('markersArray')) {
@@ -140,11 +141,11 @@ export default Component.extend({
             this.get('map').setZoom(14);
         },
         updateProperty(){
+            this.set('isRequesting', true);
             let self = this;
             let property = this.get('property').toJSON();
             delete property.agency_instrument_issuer;  delete property.agency_instrument_date; delete property.agency_instrument_no; delete property.agency_instrument_exp_date; delete property.agent; delete property.location; delete property.owner; delete property.agency; 
             delete property.createdBy; 
-            console.log(property)
             var formData = new FormData();
             formData.append('property_instrument_image', Ember.$('#inputFile')[0].files[0]);
             formData.append('data', JSON.stringify(property))
@@ -154,9 +155,11 @@ export default Component.extend({
                 success => {
                    
                     this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
+                    this.set('isRequesting', false);
                 },
                 errors => {
                     console.log(errors)
+                    this.set('isRequesting', false);
                 }
             )
 
@@ -166,6 +169,7 @@ export default Component.extend({
              
          },
         saveProperty(){
+            this.set('isRequesting', true);
             let self = this;
             let property = this.store.createRecord('mproperty', this.get('property'));
             let propertyToJson =  property.toJSON();
@@ -180,10 +184,12 @@ export default Component.extend({
                     this.store.unloadRecord(property)
                     this.get('manager').toaster(this, 'تم اكمال بيانات العقار بنجاح')
                     this.get('router').replaceWith('index.properties.property-status', success.mproperty.id);
+                    this.set('isRequesting', false);
                 },
                 errors => {
                     console.log(errors)
                     this.store.unloadRecord(property)
+                    this.set('isRequesting', false);
                 }
             )
         }

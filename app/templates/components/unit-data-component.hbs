@@ -60,12 +60,19 @@
     </div>
     {{/each}}
     
-    {{#paper-card class="md-padding u-mtop30" as |card|}}
-     <div class="layout-row md-padding">
+    {{#paper-card class="u-mtop30" as |card|}}
+    <div class="md-padding">
+        <div class="layout-row md-padding">
     <span class="flex"></span>
-    {{#paper-button class="u-padding-side-60" onClick=(action 'setNewUnit' form.isInvalid) raised=true raised=true primary=true}}إضف وحده اخري{{/paper-button}}
-    {{#form.submit-button class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+    {{#paper-button class="u-padding-side-60" disabled=isRequesting onClick=(action 'setNewUnit' form.isInvalid) raised=true raised=true primary=true}}إضف وحده اخري{{/paper-button}}
+    {{#form.submit-button disabled=isRequesting class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}
+    </div>  
     </div>
+   
+{{#if isRequesting}}
+{{paper-progress-linear}}
+{{/if}}
+
     {{/paper-card}}
     {{/paper-form}}
 </div>

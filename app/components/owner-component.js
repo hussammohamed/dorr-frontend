@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import swal from 'sweetalert';
 
 export default Component.extend({
+    isRequesting: false,
     didInsertElement() {
        if(this.get('property').get('owner').get('id')){
            this.set('user', this.store.peekRecord('user', this.get('property').get('owner').get('id')));
@@ -47,6 +48,7 @@ export default Component.extend({
             this.set('validationUser', JSON.parse(JSON.stringify(user)));
         },
         saveUser(){
+            this.set('isRequesting', true);
             var self = this;
             var createdUser = this.store.createRecord('user', self.get('user'));
             var user = createdUser.toJSON();
@@ -62,11 +64,12 @@ export default Component.extend({
                 self.manager.ajaxRequestFile(self, self.get('urls').getUrl('users'), 'POST', resolve, reject, formData);
             }).then(
                 success => {
-                   
+                    this.set('isRequesting', false);
                     this.get('router').transitionTo('index.properties.property-status', this.get('property').get('id')); 
                 },
                 errors => {
                     console.log(errors)
+                    this.set('isRequesting', false);
                 }
             )
         },
@@ -110,6 +113,7 @@ export default Component.extend({
              
          },
         updateUser(){
+            this.set('isRequesting', true);
             var self = this;
             var property = self.get('property').toJSON();
             var user =  self.get('user').toJSON();
@@ -123,9 +127,11 @@ export default Component.extend({
                     self.manager.ajaxRequestFile(self, self.get('urls').updateProperty(self.get('property').get('id')), 'POST', resolve, reject, data);
                 }).then(
                     success => {
+                        this.set('isRequesting', false);
                         this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
                     },
                     errors => {
+                        this.set('isRequesting', false);
                         console.log(errors)
                     }
                 ) 
@@ -139,10 +145,11 @@ export default Component.extend({
                 self.manager.ajaxRequestFile(self, self.get('urls').updateUser(self.get('user').get('id')), 'POST', resolve, reject, formData);
             }).then(
                 success => {
-                   
+                    this.set('isRequesting', false);
                     this.get('router').transitionTo('index.properties.property-status', this.get('property').get('id')); 
                 },
                 errors => {
+                    this.set('isRequesting', false);
                     console.log(errors)
                 }
             )

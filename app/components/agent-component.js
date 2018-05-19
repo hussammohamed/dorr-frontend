@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import dorrValidations from '../mixins/dorr-validations'
 export default Component.extend(dorrValidations, {
     user:{},
+    isRequesting: false,
     didInsertElement() {
         if(this.get('property').get('agent').get('id')){
             this.set('user', this.store.peekRecord('user', this.get('property').get('agent').get('id')));
@@ -46,6 +47,7 @@ export default Component.extend(dorrValidations, {
             this.set('validationUser', JSON.parse(JSON.stringify(user)));
         },
         updateUser(searchUser){
+            this.set('isRequesting', true);
             var self = this;
             var property = self.get('property').toJSON();
             var user =  self.get('user').toJSON();
@@ -61,9 +63,11 @@ export default Component.extend(dorrValidations, {
                 }).then(
                     success => {
                         this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
+                        this.set('isRequesting', false);
                     },
                     errors => {
                         console.log(errors)
+                        this.set('isRequesting', false);
                     }
                 ) 
             }else{
@@ -87,14 +91,17 @@ export default Component.extend(dorrValidations, {
                     }).then(
                         success => {
                             this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
+                            this.set('isRequesting', false);
                         },
                         errors => {
                             console.log(errors)
+                            this.set('isRequesting', false);
                         }
                     ) 
                 },
                 errors => {
                     console.log(errors)
+                    this.set('isRequesting', false);
                 }
             )
         }
@@ -140,6 +147,7 @@ export default Component.extend(dorrValidations, {
             
         },
         saveUser(){
+            this.set('isRequesting', true);
             var self = this;
             var createdUser = this.store.createRecord('user', self.get('user'));
             var user = createdUser.toJSON();
@@ -165,14 +173,17 @@ export default Component.extend(dorrValidations, {
                     }).then(
                         success => {
                             this.get('router').transitionTo('index.properties.property-status', success.mproperty.id);
+                            this.set('isRequesting', false);
                         },
                         errors => {
                             console.log(errors)
+                            this.set('isRequesting', false);
                         }
                     ) 
                 },
                 errors => {
                     console.log(errors)
+                    this.set('isRequesting', false);
                 }
             )
         },

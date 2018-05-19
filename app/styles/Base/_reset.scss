@@ -363,3 +363,7 @@ md-select:not([disabled]):focus{
   overflow: scroll;
   direction: ltr;
 }
+
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar{
+  background-color: $primary-base;
+}
