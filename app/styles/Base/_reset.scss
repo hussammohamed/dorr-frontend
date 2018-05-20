@@ -360,10 +360,14 @@ md-select:not([disabled]):focus{
 
 .app{
   max-height: 100vh;
-  overflow: scroll;
+  overflow: auto;
   direction: ltr;
 }
 
 md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar{
   background-color: $primary-base;
+}
+
+.md-open-menu-container.md-active{
+  z-index: 999;
 }
