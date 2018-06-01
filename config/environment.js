@@ -19,6 +19,7 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
+    
   };
 
   if (environment === 'development') {
@@ -34,6 +35,7 @@ module.exports = function(environment) {
     ENV.host = "http://dorr.bareeqstudio.com/api/v1"
     ENV.hostOuth = "http://dorr.bareeqstudio.com/api"
     ENV.mainUrl = "http://dorr.bareeqstudio.com";
+    ENV.orginDomain = ".bareeqstudio.com"
   }
 
   if (environment === 'test') {
@@ -53,6 +55,7 @@ module.exports = function(environment) {
     ENV.host = "http://dorr.bareeqstudio.com/api/v1"
     ENV.hostOuth = "http://dorr.bareeqstudio.com/api"
     ENV.mainUrl = "http://dorr.bareeqstudio.com";
+    ENV.orginDomain = ".bareeqstudio.com"
 
   }
 

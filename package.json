@@ -30,6 +30,7 @@
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-js-cookie": "^0.1.1",
+    "ember-cli-moment-shim": "^3.7.1",
     "ember-cli-qunit": "^4.1.1",
     "ember-cli-sass": "^7.1.7",
     "ember-cli-shims": "^1.2.0",
@@ -47,6 +48,8 @@
     "ember-material-lite": "^0.2.6",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-paper": "^1.0.0-beta.4",
+    "ember-paper-pikaday": "^2.0.1",
+    "ember-pikaday": "^2.2.4",
     "ember-resolver": "^4.0.0",
     "ember-source": "~3.0.0",
     "ember-welcome-page": "^3.0.0",
@@ -56,5 +59,9 @@
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
+  },
+  "dependencies": {
+    "moment": "^2.22.1",
+    "moment-hijri": "^2.0.1"
   }
 }

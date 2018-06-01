@@ -1,0 +1,499 @@
+{{#if isShow}} {{#paper-card as |card|}} {{/paper-card}} {{else}}
+<div class="">
+  {{#unless isType}}
+  <h4 class="page-title">أضف عقد جديد</h4>
+  {{#paper-card as |card|}}
+  <div class="card-q-content text-center">
+    {{#card.title as |title|}} {{#title.text as |text|}} {{#text.headline}} ماهو نوع العقد ؟{{/text.headline}} {{/title.text}}
+    {{/card.title}} {{#paper-radio-group class="layout-row" groupValue=(readonly contract_type_id) onChange=(action
+    "changeContractType") as |group|}}
+    <span class="flex"></span>
+    {{#each contractTypes as |type|}} {{#group.radio value=type.id primary=true}}{{type.name}}{{/group.radio}} {{/each}}
+    <span class="flex"></span>
+    {{/paper-radio-group}}
+  </div>
+  {{/paper-card}} {{else}} {{#paper-form class="md-padding" onSubmit=(action 'addContract') as |form|}}
+    {{!-- بيانات العقد --}}
+    <div class={{if contractCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "contractCollapse"}}>
+        <h4 class="page-title"> بيانات العقد</h4>
+        <div class="flex"></div>
+        {{#if contractCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+      <div class="layout-row layout-wrap md-padding u-spacing-20">
+        {{#paper-select class="flex-50"  label="نوع العقد" errorMessages=regularValidation required=true  options=contractTypes selected=contract.contract_type_id onChange=(action (mut  contract.contract_type_id))
+                as |contractType|}} {{contractType.name}} {{/paper-select}}
+          {{#paper-select class="flex-50"  label="نوع التقويم" errorMessages=regularValidation required=true  options=calendarTypes selected=contract.contract_calender_type onChange=(action (mut  contract.contract_calender_type))
+                as |calendar|}} {{calendar.name}} {{/paper-select}}
+        {{form.input type="date" class="flex-50" label="تاريخ أبرام العقد الأيجار" value=contract.contract_date onChange=(action (mut contract.contract_date))}}
+         {{!-- {{paper-pikaday value=date class='flex-100' label='Paper Pikaday' position="bottom right" isRTL=true yearRange='1900,currentYear' onChange=(action (mut date))}}
+         {{paper-pikaday value=ttt class='flex-100' label='Paper Pikaday' position="bottom right" isRTL=true yearRange='1900,currentYear' onChange=(action (mut ttt))}} --}}
+        {{form.input class="flex-50" label="مكان أبرام العقد" value=contract.contract_place onChange=(action (mut contract.contract_place))}}
+        {{form.input type="date" class="flex-50" label="تاريخ بداية الأيجار" value=contract.contract_start_date onChange=(action (mut contract.contract_start_date))}}
+        {{form.input type="date" class="flex-50" label="تاريخ نهاية الأيجار" value=contract.contract_end_date onChange=(action (mut contract.contract_end_date))}}
+        {{#paper-select class="flex-50"  label="حالة العقد" errorMessages=regularValidation required=true  options=contractConditions selected=contract.contract_condition onChange=(action (mut  contract.contract_condition))
+                as |condition|}} {{condition.name}} {{/paper-select}}
+      </div>
+           <div class=" u-full-width mdl-grid u-mbuttom30">
+            <div class="mdl-cell mdl-cell--12-col md-padding">
+                <div class=" m-b-1 w-80">
+                    <div class="form-group inputDnD">
+                        <i class="material-icons">insert_drive_file</i>
+                        <input type="file" accept="image/jpeg, image/png, application/pdf" data-title="مرفق صورة من العقد" data-file-name="{{contractImageFile}}"  class={{if contractImageFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                            id="contractImageFile"    name="attachment"  onchange={{ action "fileInputChange" "contractImageFile"}}>
+                            <div class="file-name">{{contractImageFile}}</div>
+                              {{!-- {{#if owner.id_image}}
+                        <a href="{{owner.id_image}}" target="_blank" download>تنزيل</a>
+                         {{/if}} --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+      {{/paper-card}}
+    </div>
+    {{!-- بيانات صاحب العقار --}}
+    <div class={{if ownerCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "ownerCollapse"}}>
+        <h4 class="page-title"> بيانات صاحب العقار</h4>
+        <div class="flex"></div>
+        {{#if ownerCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+      <div class="layout-row layout-wrap md-padding u-spacing-20">
+        {{form.input class="flex-50" label=" الأسم بالكامل" disabled=true value=owner.name onChange=(action (mut owner.name))}}
+        {{form.input class="flex-50" label=" الجنسية" disabled=true value=owner.nationality.name onChange=(action (mut owner.nationality.name))}}
+        {{form.input class="flex-50" label=" نوع الهوية" disabled=true value=owner.id_type.name onChange=(action (mut owner.id_type.name))}}
+        {{form.input class="flex-50" label=" رقم الهوية" disabled=true value=owner.id_no onChange=(action (mut owner.id_no))}}
+        {{form.input class="flex-50" label=" رقم الجوال" disabled=true value=owner.mobile1 onChange=(action (mut owner.mobile1))}}
+        {{form.input class="flex-50" label=" البريد الإلكتروني" disabled=true value=owner.email onChange=(action (mut owner.email))}}
+      </div>
+           <div class=" u-full-width mdl-grid u-mbuttom30">
+            <div class="mdl-cell mdl-cell--12-col md-padding">
+                <div class=" m-b-1 w-80">
+                    <div class="form-group inputDnD">
+                        <i class="material-icons">insert_drive_file</i>
+                        <input type="file" accept="image/jpeg, image/png, application/pdf" data-title="مرفق صورة الهوية" data-file-name="{{ownerIdFile}}" data-title="مرفق صورة الهوية"  class={{if ownerIdFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                            id="ownerIdFile"  disabled={{if owner.id true false}}  name="attachment"  onchange={{ action "fileInputChange" "ownerIdFile"}}>
+                            <div class="file-name">{{ownerIdFile}}</div>
+                              {{#if owner.id_image}}
+                        <a href="{{owner.id_image}}" target="_blank" download>تنزيل</a>
+                         {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+      {{/paper-card}}
+    </div>
+       {{!-- بيانات المستأجر --}}
+    <div class={{if renterCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "renterCollapse"}}>
+        <h4 class="page-title"> بيانات المستأجر </h4>
+        <div class="flex"></div>
+        {{#if renterCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+        {{#unless renter.id}}
+        <div class="layout-row">
+            <div class="layout-column card-search flex-50 md-padding">
+               
+            {{paper-input class="flex-30" label="البحث عن المستخدم" value=userSearchValue onChange=(action (mut userSearchValue))}}
+             {{#if isSearch}}
+             {{searchUserResult}}
+             {{#paper-list class="search-user-list"}}
+             {{#if searchUserResult.id}}
+             {{#paper-item onClick=(action "setRenter" searchUserResult) class="md-3-line"}}
+            <img src={{searchUserResult.avatar}} class="md-avatar">
+            <div class="md-list-item-text">
+                <p>{{searchUserResult.name}}</p>
+                <p>{{searchUserResult.email}}</p>
+                <p>{{searchUserResult.mobile1}}</p>
+            </div>
+            {{/paper-item}}
+            {{else}}
+            <div class="md-list-item-text">
+                <p>dddd</p>
+            </div>
+            {{/if}}
+             {{/paper-list}}
+            {{/if}}
+            </div>
+              <div class="layout-column flex-10 md-padding">
+                  <div>
+                       {{#paper-button class="u-padding-side-60" onClick=(action 'renterSearch') raised=true raised=true primary=true}}إبحث{{/paper-button}}
+                  </div>
+                 
+              </div>
+        </div>
+        {{/unless}}
+     
+      <div class="layout-row layout-wrap md-padding u-spacing-20">
+         {{#if renter.id}}
+        {{form.input class="flex-50" label=" الأسم بالكامل" disabled=true value=renter.name onChange=(action (mut renter.name))}}
+        {{form.input class="flex-50" label=" الجنسية" disabled=true value=renter.nationality.name onChange=(action (mut renter.nationality.name))}}
+        {{form.input class="flex-50" label=" نوع الهوية" disabled=true value=renter.id_type.name onChange=(action (mut renter.id_type.name))}}
+        {{form.input class="flex-50" label=" رقم الهوية" disabled=true value=renter.id_no onChange=(action (mut renter.id_no))}}
+        {{form.input class="flex-50" label=" رقم الجوال" disabled=true value=renter.mobile1 onChange=(action (mut renter.mobile1))}}
+        {{form.input class="flex-50" label=" البريد الإلكتروني" disabled=true value=renter.email onChange=(action (mut renter.email))}}
+      {{else}}
+       {{form.input class="flex-50" label=" الأسم بالكامل" required=true value=contract.renter_name onChange=(action (mut contract.renter_name))}}
+       {{#paper-select class="flex-50"  label="الجنسية" errorMessages=regularValidation  options=nationalities selected=contract.renter_nationality onChange=(action (mut  contract.renter_nationality))
+                as |nationality|}} {{nationality.name}} {{/paper-select}}
+        {{#paper-select class="flex-50"  label="نوع الهوية" errorMessages=regularValidation  options=idTypes selected=contract.renter_id_type onChange=(action (mut contract.renter_id_type))
+                as |idType|}} {{idType.name}} {{/paper-select}}
+        {{form.input class="flex-50" label=" رقم الهوية"  value=contract.renter_id_no onChange=(action (mut contract.renter_id_no))}}
+        {{form.input class="flex-50" label=" رقم الجوال" required=true value=contract.renter_mobile onChange=(action (mut contract.renter_mobile))}}
+        {{form.input class="flex-50" label=" البريد الإلكتروني" required=true value=contract.renter_email onChange=(action (mut contract.renter_email))}}
+      {{/if}}
+
+
+      </div>
+        <div class=" u-full-width mdl-grid u-mbuttom30">
+            <div class="mdl-cell mdl-cell--12-col md-padding">
+                <div class=" m-b-1 w-80">
+                    <div class="form-group inputDnD">
+                        
+                        <i class="material-icons">insert_drive_file</i>
+                        <input type="file" accept="image/jpeg, image/png, application/pdf" data-title="مرفق صورة الهوية" data-file-name="{{renterIdFile}}" data-title="مرفق صورة الهوية"  class={{if renterIdFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                            id="renterIdFile"  disabled={{if renter.id true false}}  name="attachment"  onchange={{ action "fileInputChange" "renterIdFile"}}>
+                            <div class="file-name">{{renterIdFile}}</div>
+                              {{#if renter.id_image}}
+                        <a href="{{renter.id_image}}" target="_blank" download>تنزيل</a>
+                         {{/if}}
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+      
+      
+      {{/paper-card}}
+    </div>
+       {{!-- بيانات المراققين  --}}
+        {{#each companions as |companion index|}}
+  <div class={{if companion.collapse "unit-card collapse" "unit-card"}}>
+  <div class="unit-header layout-row" onclick={{action "hideUnit" unit}}>
+ 
+    <h4 class="page-title">بيانات المرافق {{companion.name}}</h4>
+    <div class="flex"></div>
+       {{#if companion.collapse}}
+       {{paper-icon "keyboard_arrow_down" size=32}}
+       {{else}}
+       {{paper-icon "keyboard_arrow_up" size=32}}
+
+       {{/if}}
+  </div>
+  
+    {{#paper-card as |card|}}
+    
+<div class="md-padding"> 
+
+  <div class="layout-row layout-wrap md-padding u-spacing-20">
+     {{form.input class="flex-50" label=" الأسم بالكامل"  value=companion.name onChange=(action (mut companion.name))}}
+       {{#paper-select class="flex-50"  label="الجنسية" errorMessages=regularValidation  options=nationalities selected=companion.nationality onChange=(action (mut  companion.nationality))
+                as |nationality|}} {{nationality.name}} {{/paper-select}}
+        {{#paper-select class="flex-50"  label="نوع الهوية" errorMessages=regularValidation  options=idTypes selected=companion.id_type onChange=(action (mut companion.id_type))
+                as |idType|}} {{idType.name}} {{/paper-select}}
+        {{form.input class="flex-50" label=" رقم الهوية"  value=companion.id_no onChange=(action (mut companion.id_no))}}
+        {{form.input class="flex-50" label=" رقم الجوال"  value=companion.mobile1 onChange=(action (mut companion.mobile1))}}
+        {{form.input class="flex-50" label=" البريد الإلكتروني" value=companion.email onChange=(action (mut companion.email))}}
+  </div>
+  <div class="layout-row">
+
+  <span class="flex"></span>
+   {{#paper-button class="u-padding-side-60"  raised=true warn=true onClick=(action 'deleteCompanion' index)}}حذف{{/paper-button}}
+   </div>
+</div>
+    {{/paper-card}}
+    </div>
+    {{/each}}
+<div class="layout-row">
+  <span class="flex"></span>
+  {{#paper-button class="u-padding-side-60"  raised=true primary=true onClick=(action 'addCompanion')}}أضف مرافق{{/paper-button}}
+  <span class="flex"></span>
+
+</div>
+
+
+
+
+
+      {{!-- بيانات الوسيط العقاري --}}
+    <div class={{if agentCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "agentCollapse"}}>
+        <h4 class="page-title"> بيانات الوسيط العقاري</h4>
+        <div class="flex"></div>
+        {{#if agentCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+      <div class="layout-row layout-wrap md-padding u-spacing-20">
+        {{form.input class="flex-50" label=" الأسم بالكامل" disabled=true value=agent.name onChange=(action (mut agent.name))}}
+        {{form.input class="flex-50" label=" الجنسية" disabled=true value=agent.nationality.name onChange=(action (mut agent.nationality.name))}}
+        {{form.input class="flex-50" label=" نوع الهوية" disabled=true value=agent.id_type.name onChange=(action (mut agent.id_type.name))}}
+        {{form.input class="flex-50" label=" رقم الهوية" disabled=true value=agent.id_no onChange=(action (mut agent.id_no))}}
+        {{form.input class="flex-50" label=" رقم الجوال" disabled=true value=agent.mobile1 onChange=(action (mut agent.mobile1))}}
+        {{form.input class="flex-50" label=" البريد الإلكتروني" disabled=true value=agent.email onChange=(action (mut agent.email))}}
+      </div>
+         <div class=" u-full-width mdl-grid u-mbuttom30">
+            <div class="mdl-cell mdl-cell--12-col md-padding">
+                <div class=" m-b-1 w-80">
+                    <div class="form-group inputDnD">
+                        <i class="material-icons">insert_drive_file</i>
+                        <input type="file" accept="image/jpeg, image/png, application/pdf" data-title="مرفق صورة الهوية" data-file-name="{{agentIdFile}}" data-title="مرفق صورة الهوية"  class={{if agentIdFile "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}}
+                            id="agentIdFile"  disabled={{if owner.id true false}}  name="attachment"  onchange={{ action "fileInputChange" "agentIdFile"}}>
+                            <div class="file-name">{{agentIdFile}}</div>
+                              {{#if agent.id_image}}
+                        <a href="{{agent.id_image}}" target="_blank" download>تنزيل</a>
+                         {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+      {{/paper-card}}
+    </div>
+    {{!-- بيانات المنشأة العقارية --}}
+    <div class={{if agencyCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "agencyCollapse"}}>
+        <h4 class="page-title"> بيانات المنشأة العقارية</h4>
+        <div class="flex"></div>
+        {{#if agencyCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+      <div class="layout-row layout-wrap md-padding u-spacing-20">
+        {{form.input class="flex-50" label="أسم المنشأة العقارية" disabled=true value=agency.commercial_register_name onChange=(action (mut agency.commercial_register_name))}}
+        {{form.input class="flex-50" label=" عنوان المنشأة العقارية" disabled=true value=agency.commercial_register_address onChange=(action (mut agency.commercial_register_address))}}
+        {{form.input class="flex-50" label="رقم السجل التجاري" disabled=true value=agency.commercial_register_no onChange=(action (mut agency.commercial_register_no))}}
+        {{form.input class="flex-50" label=" رقم الهاتف" disabled=true value=agency.phone onChange=(action (mut agency.phone))}}
+        {{form.input class="flex-50" label=" رقم الفاكس" disabled=true value=agency.fax onChange=(action (mut agency.fax))}}
+      </div>
+      {{/paper-card}}
+    </div>
+    {{!-- بيانات العقار --}}
+  <div class={{if PropertyCollapse "unit-card collapse" "unit-card"}}>
+    <div class="unit-header layout-row" onclick={{action "hideCard" "PropertyCollapse"}}>
+
+      <h4 class="page-title"> بيانات العقار</h4>
+      <div class="flex"></div>
+      {{#if PropertyCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}}
+      {{/if}}
+    </div>
+    {{#paper-card class="md-padding" as |card|}}
+    <div class="layout-row layout-wrap md-padding u-spacing-20">
+      {{#paper-select class="flex-50" label="المدينة" errorMessages=regularValidation disabled=true options=regions selected=property.region
+      onChange=(action (mut property.region)) as |region|}} {{region.title}} {{/paper-select}} {{#paper-select class="flex-50"
+      label="الحي" errorMessages=regularValidation options=districts disabled=true selected=property.district onChange=(action
+      (mut property.district)) as |district|}} {{district.title}} {{/paper-select}} {{form.input id="pac-input" class="flex-100"
+      type="text" errorMessages=regularValidation disabled=true placeholder=""label="العنوان بالكامل" value=property.address
+      onChange=(action (mut property.address))}} {{form.input class="flex-50" label="نوع بناء العقار" value=property.type.name
+      disabled=true onChange=(action (mut property.name)) errorMessages=regularValidation}} {{#paper-select class="flex-50"
+      label="نوع إستخدام العقار" errorMessages=regularValidation required=true options=usageTypes selected=contract.usage_type
+      onChange=(action (mut contract.usage_type)) as |type|}} {{type.name}} {{/paper-select}} {{form.input class="flex-50"
+      type="number" label="عدد الأدوار" value=property.floors disabled=true onChange=(action (mut property.floors)) errorMessages=regularValidation}}
+      {{form.input class="flex-50" type="number" label="عدد الوحدات" errorMessages=regularValidation disabled=true value=property.units_no
+      onChange=(action (mut property.units_no)) }} {{form.input class="flex-50" type="number" label="عدد المصاعد" value=property.elevators
+      disabled=true onChange=(action (mut property.elevators)) errorMessages=regularValidation}} {{form.input class="flex-50"
+      type="number" label="عدد المواقف" errorMessages=regularValidation disabled=true value=property.parking onChange=(action
+      (mut property.parking)) }}
+    </div>
+    {{/paper-card}}
+  </div>
+  {{#if (eq contract.contract_type_id.id "1")}}
+   {{!-- بيانات صكوك الملكية  --}}
+    <div class={{if instrumentCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "instrumentCollapse"}}>
+        <h4 class="page-title"> بيانات صكوك المليكة</h4>
+        <div class="flex"></div>
+        {{#if instrumentCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+      <div class="layout-row layout-wrap md-padding u-spacing-20">
+                {{form.input class="flex-50" label="جهة الأصدار" disabled=true value=property.property_instrument_issuer.title onChange=(action (mut property.property_instrument_issuer))}}
+                {{form.input class="flex-50" label="رقم الصك" disabled=true value=property.property_instrument_no onChange=(action (mut property.property_instrument_no))}}
+                 {{form.input class="flex-50" label="مكان الأصدار" disabled=true value=property.property_instrument_place onChange=(action (mut property.property_instrument_place))}}
+        {{form.input class="flex-50" label="تاريخ الأصدار" disabled=true value=property.property_instrument_date onChange=(action (mut property.property_instrument_date))}}
+      </div>
+      {{/paper-card}}
+    </div>
+    {{/if}}
+    {{!-- بيانات الوحدات  --}}
+    {{#each units as |unit index|}}
+  <div class={{if unit.collapse "unit-card collapse" "unit-card"}}>
+  <div class="unit-header layout-row" onclick={{action "hideUnit" unit}}>
+ 
+    <h4 class="page-title">بيانات وحدة رقم {{unit.no}}</h4>
+    <div class="flex"></div>
+       {{#if unit.collapse}}
+       {{paper-icon "keyboard_arrow_down" size=32}}
+       {{else}}
+       {{paper-icon "keyboard_arrow_up" size=32}}
+
+       {{/if}}
+  </div>
+  
+    {{#paper-card as |card|}}
+    
+<div class="md-padding"> 
+
+  <div class="layout-row layout-wrap md-padding u-spacing-20">
+   
+      {{#paper-select class="flex-50"  label="رقم الوحدة" required=true errorMessages=regularValidation  options=selctedUnits selected=unit.selected onChange=(action "chooseUnit" index)
+        as |unit|}} {{unit.no}} {{/paper-select}}
+       {{#paper-select class="flex-50"  label="نوع الوحدة"   errorMessages=regularValidation options=types required=true selected=unit.type onChange=(action (mut unit.type))
+        as |type|}} {{type.name}} {{/paper-select}}
+       {{form.input class="flex-50" type="number" label="رقم الدور"  errorMessages=regularValidation value=unit.floor onChange=(action (mut unit.floor)) required=true}}
+        {{#paper-select class="flex-50"  label="خزائن للمطبخ"  errorMessages=regularValidation options=kitchen-cabinet required=true selected=unit.kitchen_cabinet onChange=(action (mut unit.kitchen_cabinet))
+        as |item|}} {{item.name}} {{/paper-select}}
+        {{#paper-select class="flex-50"  label="التأثيث" required=true errorMessages=regularValidation  options=furnished selected=unit.furnished onChange=(action (mut unit.furnished))
+        as |furnished|}} {{furnished.name}} {{/paper-select}}
+        {{#paper-select class="flex-50"  label="حالة التأثيث" errorMessages=regularValidation options=furnished-status selected=unit.furnished_status onChange=(action (mut unit.furnished_status))
+        as |item|}} {{item.name}} {{/paper-select}}
+        {{form.input class="flex-50" type="number" label=" عدد غرف النوم" errorMessages=regularValidation  value=unit.bed_rooms onChange=(action (mut unit.bed_rooms)) required=true}}
+        {{form.input class="flex-50" type="number" label=" عدد غرف المعيشة" errorMessages=regularValidation value=unit.living_rooms onChange=(action (mut unit.living_rooms)) required=true}}
+        {{form.input class="flex-50" type="number" label=" عدد غرف الأستقبال" errorMessages=regularValidation value=unit.reception_rooms onChange=(action (mut unit.reception_rooms)) required=true}}
+         {{form.input class="flex-50" type="number" label=" عدد الحمامات" errorMessages=regularValidation  value=unit.bath_rooms onChange=(action (mut unit.bath_rooms)) required=true}}
+        {{form.input class="flex-50" type="number" label="عدد مكيفات سبلت" errorMessages=regularValidation value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
+        {{form.input class="flex-50" type="number" label="عدد مكيفات شباك" errorMessages=regularValidation value=unit.window_air_conditioner onChange=(action (mut unit.window_air_conditioner)) required=true}}
+        {{form.input class="flex-50" type="number" label="رقم عداد الكهرباء" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
+        {{form.input class="flex-50" type="number" label="القراءة الحالية" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
+        {{form.input class="flex-50" type="number" label="رقم عداد المياه" errorMessages=regularValidation value=unit.water_meter onChange=(action (mut unit.water_meter)) }}
+         {{form.input class="flex-50" type="number" label="القراءة الحالية" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
+         {{form.input class="flex-50" type="number" label="رقم عداد الغاز" errorMessages=regularValidation value=unit.gas_meter onChange=(action (mut unit.gas_meter)) }}
+          {{form.input class="flex-50" type="number" label="القراءة الحالية" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
+  </div>
+  <div class="layout-row">
+  {{#if (gt index 0)}}
+  <span class="flex"></span>
+   {{#paper-button class="u-padding-side-60"  raised=true warn=true onClick=(action 'deleteUnit' index)}}حذف{{/paper-button}}
+   {{/if}}
+   </div>
+</div>
+    {{/paper-card}}
+    </div>
+    {{/each}}
+<div class="layout-row">
+  <span class="flex"></span>
+  {{#paper-button class="u-padding-side-60"  raised=true primary=true onClick=(action 'addUnit')}}أضف وحدة أخري{{/paper-button}}
+  <span class="flex"></span>
+
+</div>
+ {{!-- بيانات التأجير  --}}
+  {{#if (eq contract.contract_type_id.id "1")}}
+    <div class={{if rentCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "rentCollapse"}}>
+        <h4 class="page-title"> بيانات التأجير </h4>
+        <div class="flex"></div>
+        {{#if rentCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+      <div class="layout-row layout-wrap md-padding">
+        {{#paper-checkbox value=value5 onChange=(action (mut value5))}}
+            التأجير من الباطن
+      {{/paper-checkbox}}
+
+        
+      </div>
+      {{/paper-card}}
+    </div>
+    {{/if}}
+    {{!-- البيانات المالية  --}}
+    <div class={{if fCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "fCollapse"}}>
+        <h4 class="page-title"> البيانات المالية </h4>
+        <div class="flex"></div>
+        {{#if fCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+      <div class="layout-row layout-wrap md-padding u-spacing-20">
+        <div class="layout-row layout-wrap md-padding u-spacing-20">
+           {{#if (eq contract.contract_type_id.id "1")}}
+        {{form.input class="flex-50" label="أجرة السعي" value=contract.agency_amount onChange=(action (mut contract.agency_amount))}}
+        {{form.input class="flex-50" label="مبلغ الضمان" value=contract.guarantee_amount onChange=(action (mut contract.guarantee_amount))}}
+        {{form.input class="flex-50" label="الأجره الشهرية للكهرباء"  value=contract.electricity_monthly_amount onChange=(action (mut contract.electricity_monthly_amount))}}
+        {{form.input class="flex-50" label="الأجرة الشهرية للغاز"  value=contract.gas_monthly_amount onChange=(action (mut contract.gas_monthly_amount))}}
+        {{form.input class="flex-50" label="الأجرة الشهرية للمياة"  value=contract.water_monthly_amount onChange=(action (mut contract.water_monthly_amount))}}
+        {{form.input class="flex-50" label="الأجرة الشهرية للمواقف"  value=contract.parking_monthly_amount onChange=(action (mut contract.parking_monthly_amount))}}
+         {{form.input class="flex-50" label="عدد المواقف المستأجرة"  value=contract.rented_parking_no onChange=(action (mut contract.rented_parking_no))}}
+         {{/if}}
+         {{form.input class="flex-50" label="الأجرة الشهرية للإيجار"  value=contract.rent_monthly_amount onChange=(action (mut contract.rent_monthly_amount))}}
+          {{form.input class="flex-50" label="دفعة الأيجار الدورية"  value=contract.rent_period onChange=(action (mut contract.rent_period))}}
+           {{#if (eq contract.contract_type_id.id "1")}}
+          {{form.input class="flex-50" label="دفعة سداد الأيجار"  value=contract.rent_period_amount onChange=(action (mut contract.rent_period_amount))}}
+          {{form.input class="flex-50" label="دفعة الإيجار الأخيرة"  value=contract.last_rent_amount onChange=(action (mut contract.last_rent_amount))}}
+          {{/if}}
+          {{form.input class="flex-50" label="عدد دفعات الإيجار"  value=contract.rent_payments onChange=(action (mut contract.rent_payments))}}
+        {{form.input class="flex-50" label="أجمالي قيمة العقد"  value=contract.rent_total onChange=(action (mut contract.rent_total))}}
+      </div>
+
+        
+      </div>
+      {{/paper-card}}
+    </div>
+     {{!-- جدول سداد الدفعات  --}}
+    <div class={{if pCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "pCollapse"}}>
+        <h4 class="page-title"> جدول سداد الدفعات </h4>
+        <div class="flex"></div>
+        {{#if pCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+      
+    {{#paper-data-table class="u-right-table payment-table"  as |table|}}
+{{#table.head as |head|}}
+  {{#head.column }}الرقم المسلسل{{/head.column}}
+  {{#head.column }}تاريخ الأصدار{{/head.column}}
+  {{#head.column }}تاريخ الإستحقاق{{/head.column}}
+  {{#head.column }}القيمة{{/head.column}}
+{{/table.head}}
+{{#table.body as |body|}}
+  {{#each payments as |payment index|}}
+    {{#body.row as |row|}}
+       {{#row.cell  edit=true as |cell|}} {{#if cell.showEdit}} {{#cell.edit-dialog onClose=cell.toggleEdit}} {{paper-input type="number" value=payment.rent_payment_no
+      onChange=(action (mut payment.rent_payment_no))}} {{/cell.edit-dialog}} {{else}} {{payment.rent_payment_no}} {{#paper-button iconButton=true
+      onClick=row.toggleEdit}}  {{/paper-button}} {{/if}} {{/row.cell}}
+      {{#row.cell  edit=true as |cell|}} {{#if cell.showEdit}} {{#cell.edit-dialog onClose=cell.toggleEdit}} {{paper-input type="date" value=payment.rent_payment_issued_date
+      onChange=(action (mut payment.rent_payment_issued_date))}} {{/cell.edit-dialog}} {{else}} {{payment.rent_payment_issued_date}} {{#paper-button iconButton=true
+      onClick=row.toggleEdit}}  {{/paper-button}} {{/if}} {{/row.cell}}
+       {{#row.cell edit=true as |cell|}} {{#if cell.showEdit}} {{#cell.edit-dialog onClose=cell.toggleEdit}} 
+       {{paper-input type="date" value=payment.rent_payment_due_date onChange=(action (mut payment.rent_payment_due_date))}} 
+       {{/cell.edit-dialog}} {{else}} {{payment.rent_payment_due_date}} {{#paper-button iconButton=true
+      onClick=row.toggleEdit}}  {{/paper-button}} {{/if}} {{/row.cell}}
+        {{#row.cell edit=true as |cell|}} {{#if cell.showEdit}} {{#cell.edit-dialog onClose=cell.toggleEdit}} {{paper-input type="number" value=payment.rent_payment_amount
+      onChange=(action (mut payment.rent_payment_amount))}} {{/cell.edit-dialog}} {{else}} {{payment.rent_payment_amount}} {{#paper-button iconButton=true
+      onClick=row.toggleEdit}}  {{/paper-button}} {{/if}} {{/row.cell}}
+    {{/body.row}}
+  {{/each}}
+      {{#body.row  as |row|}}
+     {{#row.cell class="u-center" colspan="4"}}
+      {{#paper-button class="no-padding" iconButton=true primary=true raised=true primary=true onClick=(action 'addPayment')}}{{paper-icon "add" }}{{/paper-button}}
+     {{/row.cell}}
+     {{/body.row}}
+{{/table.body}}
+{{/paper-data-table}}
+        
+      
+      {{/paper-card}}
+    </div>  
+    {{!-- بنود أضافية  --}}
+    {{#if (eq contract.contract_type_id.id "3")}}
+    <div class={{if termsCollapse "unit-card collapse" "unit-card"}}>
+      <div class="unit-header layout-row" onclick={{action "hideCard" "termsCollapse"}}>
+        <h4 class="page-title">بنود أخري </h4>
+        <div class="flex"></div>
+        {{#if termsCollapse}} {{paper-icon "keyboard_arrow_down" size=32}} {{else}} {{paper-icon "keyboard_arrow_up" size=32}} {{/if}}
+      </div>
+      {{#paper-card class="md-padding" as |card|}}
+
+          {{paper-input class="flex-100" textarea=true block=true label="الشروط"  passThru=(hash rows=5 maxRows=5)
+            value=contract.terms onChange=(action (mut contract.terms))}}
+ 
+
+
+      {{/paper-card}}
+    </div>
+    {{/if}}
+
+  {{/paper-form}} {{/unless}} {{#if isRequesting}} {{paper-progress-linear}} {{/if}}
+
+
+</div>
+{{/if}}

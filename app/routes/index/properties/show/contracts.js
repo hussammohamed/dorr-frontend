@@ -2,6 +2,9 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
     breadCrumb: {
-        title: "العقود"
-    }
+        title: "العقود",
+        linkable: true,
+        path: 'index.properties.show.contracts'
+    },
+
 });

@@ -1,9 +1,7 @@
 import Component from '@ember/component';
-import json from 'ember-data/serializers/json';
-
-export default Component.extend({
+import dorrValidations from '../mixins/dorr-validations'
+export default Component.extend(dorrValidations, {
     isRelation: false,
-    property: {},
     markersArray: Array(),
     isRequesting: false,
     deleteOverlays() {
@@ -112,6 +110,8 @@ export default Component.extend({
         }, 10);
         this.set('property', this.get('currentProperty'))
         this.set("districts", this.get('currentProperty').get('region').get('districts'))
+       }else{
+            this.set('property', {});
        }
 
        

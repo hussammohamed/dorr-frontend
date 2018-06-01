@@ -54,7 +54,7 @@ export default Component.extend(dorrValidations, {
             units.map(function(record){
                 data.push(record.toJSON());
             })
-            console.log(JSON.stringify(data))
+            
             new Ember.RSVP.Promise(function(resolve, reject) {
                 self.manager.ajaxRequest(self, self.get('urls').getUrl("units"), 'POST', resolve, reject, {data:data});
             }).then(

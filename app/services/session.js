@@ -10,8 +10,10 @@ export default Ember.Service.extend({
         return Ember.$.inArray(permission, this.getUserPermissions());
     },
     deleteUserSession() {
-        Cookies.remove('userId');
-        Cookies.remove('token');
+        let domain = ENV.orginDomain;
+        Cookies.remove('userId', {domain: domain});
+        Cookies.remove('token', {domain: domain});
+        Cookies.remove('dorr_session', {domain: domain});
         this.redirectToLogin();
     },
     getMainUrl(){

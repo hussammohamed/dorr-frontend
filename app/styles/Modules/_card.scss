@@ -172,6 +172,7 @@ margin-bottom: 48px;
         md-card{
             max-height: 0;
             overflow: hidden;
+            padding: 0;
         }
     }
     .unit-header{
@@ -208,4 +209,24 @@ margin-bottom: 48px;
     }
 
 }
-  
+.u-right-table{
+
+    table{
+        th.md-column{
+            text-align: right;
+        }
+        td.md-cell{
+            text-align: right;
+        }
+    }
+}
+
+.payment-table{
+    .md-button{
+        height: auto;
+        width: auto;
+        padding: 0;
+        
+    }
+    border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+}

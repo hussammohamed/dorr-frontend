@@ -224,3 +224,9 @@
     color: $warn-color;
 }
 
+.u-spacing-20{
+    justify-content: space-between;
+    .flex-50{
+        max-width: calc(50% - 20px)
+    }
+}

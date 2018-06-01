@@ -26,11 +26,11 @@ export default DS.Model.extend({
     elevators: DS.attr(),
     region: DS.belongsTo('region'),
     district: DS.belongsTo('district', {async: false}),
-    type: DS.belongsTo('type'),
+    type: DS.belongsTo('type', {async: true}),
     year_of_construction: DS.attr(),
 
     property_instrument_image: DS.attr(),
-    units: DS.hasMany('unit'),
+    units: DS.hasMany('unit', {async: false}),
     owner: DS.belongsTo('user'),
     agent: DS.belongsTo('user'),
     agency: DS.belongsTo('agency'),

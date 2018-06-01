@@ -42,6 +42,9 @@ export default Component.extend(dorrValidations, {
             )
 
         },
+        addContract(){
+            this.get('router').transitionTo('index.properties.show.units.add-contrarct', this.get('unit').get('id'));
+        },
         updateUnit(){
             var self = this;
             let unit  =  this.get('unit').toJSON();

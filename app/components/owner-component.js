@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import swal from 'sweetalert';
-
-export default Component.extend({
+import dorrValidations from '../mixins/dorr-validations'
+export default Component.extend(dorrValidations, {
     isRequesting: false,
     didInsertElement() {
        if(this.get('property').get('owner').get('id')){
@@ -41,7 +41,6 @@ export default Component.extend({
             )
         },
         setUser(user){
-            console.log(user)
             this.store.pushPayload('user', {'user':user});
             this.set('user', this.store.peekRecord('user', user.id));
             this.set('isSearch', false);

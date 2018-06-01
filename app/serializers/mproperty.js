@@ -2,7 +2,6 @@ import DS from 'ember-data';
 import { ActiveModelSerializer } from 'active-model-adapter';
 export default ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
   attrs: {
-    type: { embedded: 'always' },
     region: { embedded: 'always' },
     district:{ embedded: 'always' },
     owner:{embedded: 'always'},

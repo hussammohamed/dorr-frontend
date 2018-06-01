@@ -8,6 +8,8 @@ export default Component.extend(dorrValidations, {
             this.set('user', this.store.peekRecord('user', this.get('property').get('agent').get('id')));
             this.set('validationUser',this.get('property').get('agent'))
             this.set('validationProperty', this.get('property').toJSON());
+        }else{
+            this.set('user', {});
         }
         this.set('nationalities', this.store.findAll('nationality'));
         this.set('banks', this.store.peekAll('bank'));

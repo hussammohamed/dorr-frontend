@@ -28,6 +28,7 @@ Router.map(function() {
           this.route('unit-show', {path: '/:unit_id'});
           this.route('unit-add', {path: '/add'});
           this.route('unit-edit', {path: '/:unit_id/edit'});
+          this.route('add-contrarct', {path: '/:unit_id/add-contract'});
         });
         this.route('maintenance-requests', function() {
           this.route('pending');
@@ -37,7 +38,10 @@ Router.map(function() {
           this.route('pending');
           this.route('history');
         });
-        this.route('contracts');
+        this.route('contracts', function() {
+          this.route('add');
+          this.route('edit');
+        });
       });
     });
   });
