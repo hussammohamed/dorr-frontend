@@ -10,7 +10,7 @@ export default Component.extend({
     },
     actions:{
         addRequest(){
-
+            this.get('router').transitionTo('index.properties.show.maintenance-requests.add')
         }
     }
 

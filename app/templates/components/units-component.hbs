@@ -23,11 +23,11 @@
     {{#body.row edit=true onClick=(action 'unitView' unit.id) as |row|}}
       {{#row.cell }}{{unit.no}}{{/row.cell}}
       {{#row.cell}}{{unit.type.name}}{{/row.cell}}
-      {{#row.cell }}{{#if unit.completed}}
+      {{#row.cell }}{{#if (eq unit.available 1)}}
+       <span class="warn-col">شاغرة</span>
       
-      <span class="primery-col">مكتمل</span>
       {{else}}
-      <span class="warn-col">شاغرة</span>
+      <span class="primery-col">مؤجرة</span>
       {{/if}}{{/row.cell}}
       {{#row.cell }}ــــــــ{{/row.cell}}
       {{#row.cell numeric=true}}ــــــــ{{/row.cell}}

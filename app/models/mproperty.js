@@ -51,5 +51,16 @@ export default DS.Model.extend({
     lat: DS.attr(),
     user_relation: DS.attr(),
     property_management_contract_image:DS.attr(),
+
+    availableUnits: Ember.computed('data_status', 'units',function() { 
+        let units = this.get('units');
+        let filteredUnits = units.filter(function(unit) {return unit.get('available') == 1 });
+        return filteredUnits.length;
+    }),
     
+    renterUnits: Ember.computed('data_status', 'units',function() { 
+        let units = this.get('units');
+        let filteredUnits = units.filter(function(unit) {return unit.get('available') == 0 });
+        return filteredUnits.length;
+    }),
 });

@@ -22,7 +22,37 @@ export default Component.extend(dorrValidations, {
         
      },
     actions:{
-       
+        editUnit(id){
+            this.get('router').transitionTo('index.properties.show.units.unit-edit', id)
+        },
+        deleteUnit(id) {
+            var self = this;
+             swal({
+                 title: "هل أنت متأكد",
+                 text: "لايمكنك استرجاع هذة الوحدة",
+                 type: "warning",
+                 showCancelButton: true,
+                 confirmButtonColor: "#DD6B55",
+                 confirmButtonText: "نعم",
+                 cancelButtonText: "إلغاء",
+                 closeOnConfirm: true,
+                 closeOnCancel: true
+             },
+                 function (isConfirm) {
+                     if (isConfirm) {
+                        self.store.findRecord('unit', id, { backgroundReload: false }).then(function(unit) {
+                            unit.deleteRecord();
+                            unit.get('isDeleted');
+                            unit.save(); 
+                            self.manager.toaster(self, 'تم حذف الوحدة بنجاح   ')
+                            self.get('router').transitionTo('index.properties.show.units')
+                          });
+                         
+                     }
+                 })
+ 
+ 
+         },
         saveUnit(){
             var self = this;
             let createdUnit  =  this.store.createRecord('unit', this.get('unit'));
@@ -30,7 +60,7 @@ export default Component.extend(dorrValidations, {
             unit.m_property_id = this.get('property').get('id');
             unit.created_by = this.get('currentUser').get('id');
             new Ember.RSVP.Promise(function(resolve, reject) {
-                self.manager.ajaxRequest(self, self.get('urls').getUrl("units"), 'POST', resolve, reject, {data:[unit]});
+                self.manager.ajaxRequest(self, self.get('urls').getUrl("units"), 'POST', resolve, reject, JSON.stringify([unit]));
             }).then(
                 success => {
                     this.store.pushPayload('mproperty', success);

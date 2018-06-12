@@ -4,10 +4,10 @@
             </button></div>
 {{#paper-card   as |card|}}
 {{#paper-tabs  selected=currentRouteName borderBottom=true  as |tabs|}}
-  {{#tabs.tab value="index.properties.show.maintenance-requests.pending" href=(href-to "index.properties.show.maintenance-requests.pending")}}
+  {{#tabs.tab value="index.properties.show.maintenance-requests.lists.pending" href=(href-to "index.properties.show.maintenance-requests.lists.pending")}}
     طلبات قائمة
   {{/tabs.tab}}
-  {{#tabs.tab value="index.properties.show.maintenance-requests.history" href=(href-to "index.properties.show.maintenance-requests.history")}}
+  {{#tabs.tab value="index.properties.show.maintenance-requests.lists.history" href=(href-to "index.properties.show.maintenance-requests.lists.history")}}
     طلبات سابقة
   {{/tabs.tab}}
 {{/paper-tabs}}

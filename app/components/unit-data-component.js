@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import dorrValidations from '../mixins/dorr-validations'
+import json from 'ember-data/serializers/json';
 export default Component.extend(dorrValidations, {
     isRequesting: false,
     didInsertElement() {
@@ -56,7 +57,7 @@ export default Component.extend(dorrValidations, {
             })
             
             new Ember.RSVP.Promise(function(resolve, reject) {
-                self.manager.ajaxRequest(self, self.get('urls').getUrl("units"), 'POST', resolve, reject, {data:data});
+                self.manager.ajaxRequest(self, self.get('urls').getUrl("units"), 'POST', resolve, reject, JSON.stringify(data));
             }).then(
                 success => {
                     // this.store.unloadRecord(property)

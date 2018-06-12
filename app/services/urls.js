@@ -25,6 +25,15 @@ export default Ember.Service.extend({
     updateUnit(id){
         return ENV.host + "/units/" + id + "?lang=" + this.get('intl').get('locale');
     },
+    saveContract(){
+        return ENV.host + "/contracts" + "?lang=" + this.get('intl').get('locale');
+    },
+    getContractsByMproperty(mpropertyId){
+        return ENV.host +"/mproperties/" + mpropertyId + "/contracts" + "?lang=" + this.get('intl').get('locale');
+    },
+    getContrarct(contract_id){
+        return ENV.host + "/contracts/" + contract_id + "?lang=" + this.get('intl').get('locale');
+    }
 
 
 });

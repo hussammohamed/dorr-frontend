@@ -1,0 +1,25 @@
+
+    {{#paper-card as |card|}}
+    <div class="md-padding">
+        <h4 class="page-title">طلبات الصيانة</h4>
+        {{#paper-form  class="md-padding" onSubmit=(action (if user.id "updateRequest" "saveRequest")) as |form|}}
+        <div class="layout-row ayout-row layout-wrap md-padding u-spacing-20">
+       {{#paper-select class="flex-50"  label="رقم الوحدة" required=true errorMessages=regularValidation  options=selectedUnits selected=request.unit_id onChange=(action (mut request.unit_id))
+        as |unit|}} {{unit.no}} {{/paper-select}}
+        {{form.input class="flex-50" label="نوع الخدمة"   errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)   value=user.name onChange=(action (mut user.name)) }}
+        {{form.input class="flex-50" label=" الخدمة"   errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)   value=user.name onChange=(action (mut user.name)) }} 
+        {{paper-input class="flex-100" textarea=true block=true label=" وصف المشكلة"  passThru=(hash rows=6 )
+  value=biography onChange=(action (mut biography))}} 
+  <div class=" flex-100 u-empty-space"></div>
+       </div>
+        <div class="layout-row">
+            <span class="flex"></span>
+            {{#form.submit-button disabled=isRequesting  class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}  
+        </div>
+        {{/paper-form}}
+    </div>
+    {{#if isRequesting}}
+{{paper-progress-linear}}
+{{/if}}
+
+    {{/paper-card}}

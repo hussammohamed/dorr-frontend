@@ -19,33 +19,50 @@
 
 {{/table.head}}
 {{#table.body as |body|}}
-  {{#each units as |unit|}}
-    {{#body.row edit=true onClick=(action 'unitView' unit.id) as |row|}}
-      {{#row.cell }}{{unit.no}}{{/row.cell}}
-      {{#row.cell}}{{unit.type.name}}{{/row.cell}}
-      {{#row.cell }}{{#if unit.completed}}
-      
-      <span class="primery-col">مكتمل</span>
-      {{else}}
-      <span class="warn-col">شاغرة</span>
-      {{/if}}{{/row.cell}}
-      {{#row.cell }}ــــــــ{{/row.cell}}
-      {{#row.cell numeric=true}}ــــــــ{{/row.cell}}
+  {{#each contracts as |contract|}}
+    {{#body.row edit=true onClick=(action (if (eq contract.contract_status 0) 'contractEdit' 'contractView') contract.id) as |row|}}
+      {{#row.cell }}{{contract.id}}{{/row.cell}}
+      {{#row.cell}}{{contract.m_property_type.name}}{{/row.cell}}
+      {{#row.cell }}{{contract.contract_type.name}}{{/row.cell}}
+      {{#row.cell }}{{contract.renter_name}}{{/row.cell}}
+      {{#row.cell}}
+      {{#if (eq contract.contract_status 0)}}
+      <span class="">تم الحفظ كمسودة</span>
+      {{/if}}
+      {{#if (eq contract.contract_status 1)}}
+      <span class="warn-col">إنتظار موافقة المستأجر والمالك</span>
+      {{/if}}
+      {{#if (eq contract.contract_status 2)}}
+      <span class="warn-col">إنتظار موافقة المستأجر </span>
+      {{/if}}
+       {{#if (eq contract.contract_status 3)}}
+       <span class="warn-col">إنتظار موافقة المالك </span>
+      {{/if}}
+      {{#if (eq contract.contract_status 4)}}
+      <span class="primery-col">تم</span>
+      {{/if}}
+      {{#if (eq contract.contract_status 5)}}
+       <span class="warn-col">عدم موافقة المالك </span>
+      {{/if}}
+      {{#if (eq contract.contract_status 6)}}
+       <span class="warn-col">عدم موافقة المستأجر </span>
+      {{/if}}
+      {{#if (eq contract.contract_status 6)}}
+       <span class="warn-col">العقد ملغي </span>
+      {{/if}}
+      {{/row.cell}}
       {{#row.cell edit=true as |cell|}}
          {{#paper-menu  offset="237 23" as |menu|}} 
          {{#menu.trigger}} 
          {{#paper-button iconButton=true}} {{paper-icon "more_vert" size=18 class="md-menu-origin"}} {{/paper-button}} 
         {{/menu.trigger}} 
-        {{#menu.content class="u-custome-menu" width=4 as |content|}} {{#content.menu-item
-        onClick=(action "rentAction" unit.id)}} {{paper-icon "label" size=18 class="md-menu-align-target"}}
-        <span>عرض للأيجار</span>
-        {{/content.menu-item}}
+        {{#menu.content class="u-custome-menu" width=4 as |content|}}
         {{#content.menu-item
         onClick=(action "editUnit" unit.id)}} {{paper-icon "edit" size=18 class="md-menu-align-target"}}
-        <span>تعديل</span>
+        <span>سحب</span>
         {{/content.menu-item}}
         {{#content.menu-item
-        onClick=(action "deleteUnit" unit.id)}} {{paper-icon "delete" size=18 class="md-menu-align-target"}}
+        onClick=(action "deleteContract" contract.id)}} {{paper-icon "delete" size=18 class="md-menu-align-target"}}
         <span>حذف</span>
         {{/content.menu-item}}
         
@@ -53,11 +70,16 @@
       {{/row.cell}}
     {{/body.row}}
      
+   {{else}}
+    {{#if tableLoading}}
+      {{#body.row  as |row|}}
+     {{#row.cell colspan="6" }}جاري تحميل العقود ...{{/row.cell}}
+      {{/body.row}}
     {{else}}
- 
     {{#body.row  as |row|}}
-     {{#row.cell colspan="6"}}لا يوجد عقود برجاء أضف عقد{{/row.cell}}
-     {{/body.row}}
+    {{#row.cell colspan="6" }}لايوجد عقود من فضلك إضف عقد {{/row.cell}}
+       {{/body.row}}
+       {{/if}}
   {{/each}}
 {{/table.body}}
 {{/paper-data-table}}

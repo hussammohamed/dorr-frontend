@@ -5,14 +5,14 @@
   {{#paper-card as |card|}}
   <div class="card-q-content text-center">
     {{#card.title as |title|}} {{#title.text as |text|}} {{#text.headline}} ماهو نوع العقد ؟{{/text.headline}} {{/title.text}}
-    {{/card.title}} {{#paper-radio-group class="layout-row" groupValue=(readonly contract_type_id) onChange=(action
+    {{/card.title}} {{#paper-radio-group class="layout-row" groupValue=(readonly contract_type) onChange=(action
     "changeContractType") as |group|}}
     <span class="flex"></span>
     {{#each contractTypes as |type|}} {{#group.radio value=type.id primary=true}}{{type.name}}{{/group.radio}} {{/each}}
     <span class="flex"></span>
     {{/paper-radio-group}}
   </div>
-  {{/paper-card}} {{else}} {{#paper-form class="md-padding" onSubmit=(action 'addContract') as |form|}}
+  {{/paper-card}} {{else}} {{#paper-form   autocomplete="off" class="md-padding"  as |form|}}
     {{!-- بيانات العقد --}}
     <div class={{if contractCollapse "unit-card collapse" "unit-card"}}>
       <div class="unit-header layout-row" onclick={{action "hideCard" "contractCollapse"}}>
@@ -22,16 +22,15 @@
       </div>
       {{#paper-card class="md-padding" as |card|}}
       <div class="layout-row layout-wrap md-padding u-spacing-20">
-        {{#paper-select class="flex-50"  label="نوع العقد" errorMessages=regularValidation required=true  options=contractTypes selected=contract.contract_type_id onChange=(action (mut  contract.contract_type_id))
+        {{#paper-select class="flex-50"  label="نوع العقد" errorMessages=regularValidation required=true  options=contractTypes selected=contract.contract_type onChange=(action (mut  contract.contract_type))
                 as |contractType|}} {{contractType.name}} {{/paper-select}}
           {{#paper-select class="flex-50"  label="نوع التقويم" errorMessages=regularValidation required=true  options=calendarTypes selected=contract.contract_calender_type onChange=(action (mut  contract.contract_calender_type))
                 as |calendar|}} {{calendar.name}} {{/paper-select}}
-        {{form.input type="date" class="flex-50" label="تاريخ أبرام العقد الأيجار" value=contract.contract_date onChange=(action (mut contract.contract_date))}}
-         {{!-- {{paper-pikaday value=date class='flex-100' label='Paper Pikaday' position="bottom right" isRTL=true yearRange='1900,currentYear' onChange=(action (mut date))}}
-         {{paper-pikaday value=ttt class='flex-100' label='Paper Pikaday' position="bottom right" isRTL=true yearRange='1900,currentYear' onChange=(action (mut ttt))}} --}}
-        {{form.input class="flex-50" label="مكان أبرام العقد" value=contract.contract_place onChange=(action (mut contract.contract_place))}}
-        {{form.input type="date" class="flex-50" label="تاريخ بداية الأيجار" value=contract.contract_start_date onChange=(action (mut contract.contract_start_date))}}
-        {{form.input type="date" class="flex-50" label="تاريخ نهاية الأيجار" value=contract.contract_end_date onChange=(action (mut contract.contract_end_date))}}
+         {{paper-pikaday value=contract.contract_date class='flex-50' autocomplete="off" label="تاريخ أبرام العقد الأيجار" calenderType=(if (eq contract.contract_calender_type.id "2") 'UmmAlQura' 'gregorian') isRTL=true yearRange='1900,currentYear' onChange=(action (mut contract.contract_date))}}
+          {{#paper-select class="flex-50"  label="مكان أبرام العقد" errorMessages=regularValidation required=true  options=regions selected=contract.contract_place onChange=(action (mut  contract.contract_place))
+                as |region|}} {{region.title}} {{/paper-select}}
+         {{paper-pikaday value=contract.contract_start_date class='flex-50' label="تاريخ بداية الأيجار" calenderType=(if (eq contract.contract_calender_type.id "2") 'UmmAlQura' 'gregorian') isRTL=true yearRange='1900,currentYear' onChange=(action (mut contract.contract_start_date))}}
+        {{paper-pikaday value=contract.contract_end_date class='flex-50' label="تاريخ نهاية الأيجار" calenderType=(if (eq contract.contract_calender_type.id "2") 'UmmAlQura' 'gregorian') isRTL=true yearRange='1900,currentYear' onChange=(action (mut contract.contract_end_date))}}
         {{#paper-select class="flex-50"  label="حالة العقد" errorMessages=regularValidation required=true  options=contractConditions selected=contract.contract_condition onChange=(action (mut  contract.contract_condition))
                 as |condition|}} {{condition.name}} {{/paper-select}}
       </div>
@@ -172,7 +171,7 @@
        {{!-- بيانات المراققين  --}}
         {{#each companions as |companion index|}}
   <div class={{if companion.collapse "unit-card collapse" "unit-card"}}>
-  <div class="unit-header layout-row" onclick={{action "hideUnit" unit}}>
+  <div class="unit-header layout-row" onclick={{action "hideUnit" companion}}>
  
     <h4 class="page-title">بيانات المرافق {{companion.name}}</h4>
     <div class="flex"></div>
@@ -190,12 +189,13 @@
 
   <div class="layout-row layout-wrap md-padding u-spacing-20">
      {{form.input class="flex-50" label=" الأسم بالكامل"  value=companion.name onChange=(action (mut companion.name))}}
+      {{form.input class="flex-50" label="العلاقة"  value=companion.relation onChange=(action (mut companion.relation))}}
        {{#paper-select class="flex-50"  label="الجنسية" errorMessages=regularValidation  options=nationalities selected=companion.nationality onChange=(action (mut  companion.nationality))
                 as |nationality|}} {{nationality.name}} {{/paper-select}}
         {{#paper-select class="flex-50"  label="نوع الهوية" errorMessages=regularValidation  options=idTypes selected=companion.id_type onChange=(action (mut companion.id_type))
                 as |idType|}} {{idType.name}} {{/paper-select}}
         {{form.input class="flex-50" label=" رقم الهوية"  value=companion.id_no onChange=(action (mut companion.id_no))}}
-        {{form.input class="flex-50" label=" رقم الجوال"  value=companion.mobile1 onChange=(action (mut companion.mobile1))}}
+        {{form.input class="flex-50" label=" رقم الجوال"  value=companion.mobile onChange=(action (mut companion.mobile))}}
         {{form.input class="flex-50" label=" البريد الإلكتروني" value=companion.email onChange=(action (mut companion.email))}}
   </div>
   <div class="layout-row">
@@ -297,7 +297,7 @@
     </div>
     {{/paper-card}}
   </div>
-  {{#if (eq contract.contract_type_id.id "1")}}
+  {{#if (eq contract.contract_type.id "1")}}
    {{!-- بيانات صكوك الملكية  --}}
     <div class={{if instrumentCollapse "unit-card collapse" "unit-card"}}>
       <div class="unit-header layout-row" onclick={{action "hideCard" "instrumentCollapse"}}>
@@ -336,29 +336,29 @@
 
   <div class="layout-row layout-wrap md-padding u-spacing-20">
    
-      {{#paper-select class="flex-50"  label="رقم الوحدة" required=true errorMessages=regularValidation  options=selctedUnits selected=unit.selected onChange=(action "chooseUnit" index)
+      {{#paper-select class="flex-50"  label="رقم الوحدة" required=true errorMessages=regularValidation  options=selectedUnits selected=unit.selected onChange=(action "chooseUnit" index)
         as |unit|}} {{unit.no}} {{/paper-select}}
-       {{#paper-select class="flex-50"  label="نوع الوحدة"   errorMessages=regularValidation options=types required=true selected=unit.type onChange=(action (mut unit.type))
+       {{#paper-select class="flex-50"  label="نوع الوحدة" disabled=true   errorMessages=regularValidation options=types required=true selected=unit.type onChange=(action (mut unit.type))
         as |type|}} {{type.name}} {{/paper-select}}
-       {{form.input class="flex-50" type="number" label="رقم الدور"  errorMessages=regularValidation value=unit.floor onChange=(action (mut unit.floor)) required=true}}
-        {{#paper-select class="flex-50"  label="خزائن للمطبخ"  errorMessages=regularValidation options=kitchen-cabinet required=true selected=unit.kitchen_cabinet onChange=(action (mut unit.kitchen_cabinet))
+       {{form.input class="flex-50" type="number" label="رقم الدور" disabled=true  errorMessages=regularValidation value=unit.floor onChange=(action (mut unit.floor)) required=true}}
+        {{#paper-select class="flex-50"  label="خزائن للمطبخ" disabled=true  errorMessages=regularValidation options=kitchen-cabinet required=true selected=unit.kitchen_cabinet onChange=(action (mut unit.kitchen_cabinet))
         as |item|}} {{item.name}} {{/paper-select}}
-        {{#paper-select class="flex-50"  label="التأثيث" required=true errorMessages=regularValidation  options=furnished selected=unit.furnished onChange=(action (mut unit.furnished))
+        {{#paper-select class="flex-50"  label="التأثيث" disabled=true required=true errorMessages=regularValidation  options=furnished selected=unit.furnished onChange=(action (mut unit.furnished))
         as |furnished|}} {{furnished.name}} {{/paper-select}}
-        {{#paper-select class="flex-50"  label="حالة التأثيث" errorMessages=regularValidation options=furnished-status selected=unit.furnished_status onChange=(action (mut unit.furnished_status))
+        {{#paper-select class="flex-50"  label="حالة التأثيث" disabled=true errorMessages=regularValidation options=furnished-status selected=unit.furnished_status onChange=(action (mut unit.furnished_status))
         as |item|}} {{item.name}} {{/paper-select}}
-        {{form.input class="flex-50" type="number" label=" عدد غرف النوم" errorMessages=regularValidation  value=unit.bed_rooms onChange=(action (mut unit.bed_rooms)) required=true}}
-        {{form.input class="flex-50" type="number" label=" عدد غرف المعيشة" errorMessages=regularValidation value=unit.living_rooms onChange=(action (mut unit.living_rooms)) required=true}}
-        {{form.input class="flex-50" type="number" label=" عدد غرف الأستقبال" errorMessages=regularValidation value=unit.reception_rooms onChange=(action (mut unit.reception_rooms)) required=true}}
-         {{form.input class="flex-50" type="number" label=" عدد الحمامات" errorMessages=regularValidation  value=unit.bath_rooms onChange=(action (mut unit.bath_rooms)) required=true}}
-        {{form.input class="flex-50" type="number" label="عدد مكيفات سبلت" errorMessages=regularValidation value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
-        {{form.input class="flex-50" type="number" label="عدد مكيفات شباك" errorMessages=regularValidation value=unit.window_air_conditioner onChange=(action (mut unit.window_air_conditioner)) required=true}}
-        {{form.input class="flex-50" type="number" label="رقم عداد الكهرباء" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
-        {{form.input class="flex-50" type="number" label="القراءة الحالية" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
-        {{form.input class="flex-50" type="number" label="رقم عداد المياه" errorMessages=regularValidation value=unit.water_meter onChange=(action (mut unit.water_meter)) }}
-         {{form.input class="flex-50" type="number" label="القراءة الحالية" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
-         {{form.input class="flex-50" type="number" label="رقم عداد الغاز" errorMessages=regularValidation value=unit.gas_meter onChange=(action (mut unit.gas_meter)) }}
-          {{form.input class="flex-50" type="number" label="القراءة الحالية" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
+        {{form.input class="flex-50" type="number" disabled=true label=" عدد غرف النوم" errorMessages=regularValidation  value=unit.bed_rooms onChange=(action (mut unit.bed_rooms)) required=true}}
+        {{form.input class="flex-50" type="number" disabled=true label=" عدد غرف المعيشة" errorMessages=regularValidation value=unit.living_rooms onChange=(action (mut unit.living_rooms)) required=true}}
+        {{form.input class="flex-50" type="number" disabled=true label=" عدد غرف الأستقبال" errorMessages=regularValidation value=unit.reception_rooms onChange=(action (mut unit.reception_rooms)) required=true}}
+         {{form.input class="flex-50" type="number" disabled=true  label=" عدد الحمامات" errorMessages=regularValidation  value=unit.bath_rooms onChange=(action (mut unit.bath_rooms)) required=true}}
+        {{form.input class="flex-50" type="number" disabled=true label="عدد مكيفات سبلت" errorMessages=regularValidation value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
+        {{form.input class="flex-50" type="number" disabled=true label="عدد مكيفات شباك" errorMessages=regularValidation value=unit.window_air_conditioner onChange=(action (mut unit.window_air_conditioner)) required=true}}
+        {{form.input class="flex-50" type="number" disabled=true label="رقم عداد الكهرباء" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
+        {{form.input class="flex-50" type="number" label="القراءة الحالية" errorMessages=regularValidation value=unit.electricity_measurement onChange=(action (mut unit.electricity_measurement))}}
+        {{form.input class="flex-50" type="number" disabled=true label="رقم عداد المياه" errorMessages=regularValidation value=unit.water_meter onChange=(action (mut unit.water_meter)) }}
+         {{form.input class="flex-50" type="number" label="القراءة الحالية" errorMessages=regularValidation value=unit.water_measurement onChange=(action (mut unit.water_measurement))}}
+         {{form.input class="flex-50" type="number" disabled=true label="رقم عداد الغاز" errorMessages=regularValidation value=unit.gas_meter onChange=(action (mut unit.gas_meter)) }}
+          {{form.input class="flex-50" type="number" label="القراءة الحالية" errorMessages=regularValidation value=unit.gas_measurement onChange=(action (mut unit.gas_measurement))}}
   </div>
   <div class="layout-row">
   {{#if (gt index 0)}}
@@ -377,7 +377,7 @@
 
 </div>
  {{!-- بيانات التأجير  --}}
-  {{#if (eq contract.contract_type_id.id "1")}}
+  {{#if (eq contract.contract_type.id "1")}}
     <div class={{if rentCollapse "unit-card collapse" "unit-card"}}>
       <div class="unit-header layout-row" onclick={{action "hideCard" "rentCollapse"}}>
         <h4 class="page-title"> بيانات التأجير </h4>
@@ -405,7 +405,7 @@
       {{#paper-card class="md-padding" as |card|}}
       <div class="layout-row layout-wrap md-padding u-spacing-20">
         <div class="layout-row layout-wrap md-padding u-spacing-20">
-           {{#if (eq contract.contract_type_id.id "1")}}
+           {{#if (eq contract.contract_type.id "1")}}
         {{form.input class="flex-50" label="أجرة السعي" value=contract.agency_amount onChange=(action (mut contract.agency_amount))}}
         {{form.input class="flex-50" label="مبلغ الضمان" value=contract.guarantee_amount onChange=(action (mut contract.guarantee_amount))}}
         {{form.input class="flex-50" label="الأجره الشهرية للكهرباء"  value=contract.electricity_monthly_amount onChange=(action (mut contract.electricity_monthly_amount))}}
@@ -416,7 +416,7 @@
          {{/if}}
          {{form.input class="flex-50" label="الأجرة الشهرية للإيجار"  value=contract.rent_monthly_amount onChange=(action (mut contract.rent_monthly_amount))}}
           {{form.input class="flex-50" label="دفعة الأيجار الدورية"  value=contract.rent_period onChange=(action (mut contract.rent_period))}}
-           {{#if (eq contract.contract_type_id.id "1")}}
+           {{#if (eq contract.contract_type.id "1")}}
           {{form.input class="flex-50" label="دفعة سداد الأيجار"  value=contract.rent_period_amount onChange=(action (mut contract.rent_period_amount))}}
           {{form.input class="flex-50" label="دفعة الإيجار الأخيرة"  value=contract.last_rent_amount onChange=(action (mut contract.last_rent_amount))}}
           {{/if}}
@@ -443,38 +443,37 @@
   {{#head.column }}تاريخ الأصدار{{/head.column}}
   {{#head.column }}تاريخ الإستحقاق{{/head.column}}
   {{#head.column }}القيمة{{/head.column}}
+  {{#head.column }}{{/head.column}}
 {{/table.head}}
 {{#table.body as |body|}}
   {{#each payments as |payment index|}}
     {{#body.row as |row|}}
-       {{#row.cell  edit=true as |cell|}} {{#if cell.showEdit}} {{#cell.edit-dialog onClose=cell.toggleEdit}} {{paper-input type="number" value=payment.rent_payment_no
-      onChange=(action (mut payment.rent_payment_no))}} {{/cell.edit-dialog}} {{else}} {{payment.rent_payment_no}} {{#paper-button iconButton=true
-      onClick=row.toggleEdit}}  {{/paper-button}} {{/if}} {{/row.cell}}
-      {{#row.cell  edit=true as |cell|}} {{#if cell.showEdit}} {{#cell.edit-dialog onClose=cell.toggleEdit}} {{paper-input type="date" value=payment.rent_payment_issued_date
-      onChange=(action (mut payment.rent_payment_issued_date))}} {{/cell.edit-dialog}} {{else}} {{payment.rent_payment_issued_date}} {{#paper-button iconButton=true
-      onClick=row.toggleEdit}}  {{/paper-button}} {{/if}} {{/row.cell}}
-       {{#row.cell edit=true as |cell|}} {{#if cell.showEdit}} {{#cell.edit-dialog onClose=cell.toggleEdit}} 
-       {{paper-input type="date" value=payment.rent_payment_due_date onChange=(action (mut payment.rent_payment_due_date))}} 
-       {{/cell.edit-dialog}} {{else}} {{payment.rent_payment_due_date}} {{#paper-button iconButton=true
-      onClick=row.toggleEdit}}  {{/paper-button}} {{/if}} {{/row.cell}}
-        {{#row.cell edit=true as |cell|}} {{#if cell.showEdit}} {{#cell.edit-dialog onClose=cell.toggleEdit}} {{paper-input type="number" value=payment.rent_payment_amount
-      onChange=(action (mut payment.rent_payment_amount))}} {{/cell.edit-dialog}} {{else}} {{payment.rent_payment_amount}} {{#paper-button iconButton=true
-      onClick=row.toggleEdit}}  {{/paper-button}} {{/if}} {{/row.cell}}
+       {{#row.cell  as |cell|}} {{sum index 1}} {{/row.cell}}
+      {{#row.cell  as |cell|}} 
+        {{paper-pikaday value=payment.issued_date   calenderType=(if (eq contract.contract_calender_type.id "2") 'UmmAlQura' 'gregorian') isRTL=true  onChange=(action (mut payment.issued_date))}}
+      {{/row.cell}}
+       {{#row.cell  as |cell|}} 
+        {{paper-pikaday value=payment.due_date   calenderType=(if (eq contract.contract_calender_type.id "2") 'UmmAlQura' 'gregorian') isRTL=true yearRange='1900,currentYear' onChange=(action (mut payment.due_date))}}
+       {{/row.cell}}
+        {{#row.cell  as |cell|}} 
+        {{paper-input type="number" value=payment.amount onChange=(action (mut payment.amount))}} {{/row.cell}}
+    {{#row.cell  as |cell|}} {{#paper-button iconButton=true onClick=(action "deletePayment" index)}} {{paper-icon "delete" size=18}} {{/paper-button}} {{/row.cell}}
     {{/body.row}}
+    
   {{/each}}
       {{#body.row  as |row|}}
-     {{#row.cell class="u-center" colspan="4"}}
+     {{#row.cell class="u-center" colspan="5"}}
       {{#paper-button class="no-padding" iconButton=true primary=true raised=true primary=true onClick=(action 'addPayment')}}{{paper-icon "add" }}{{/paper-button}}
      {{/row.cell}}
      {{/body.row}}
 {{/table.body}}
 {{/paper-data-table}}
         
-      
+      {{#if isRequesting}} {{paper-progress-linear}} {{/if}}
       {{/paper-card}}
     </div>  
     {{!-- بنود أضافية  --}}
-    {{#if (eq contract.contract_type_id.id "3")}}
+    {{#if (eq contract.contract_type.id "3")}}
     <div class={{if termsCollapse "unit-card collapse" "unit-card"}}>
       <div class="unit-header layout-row" onclick={{action "hideCard" "termsCollapse"}}>
         <h4 class="page-title">بنود أخري </h4>
@@ -487,12 +486,24 @@
             value=contract.terms onChange=(action (mut contract.terms))}}
  
 
-
+      {{#if isRequesting}} {{paper-progress-linear}} {{/if}}
       {{/paper-card}}
     </div>
     {{/if}}
+    <div class="layout-row u-mtop30">
+    
+      <span class="flex"></span>
+      {{#if contract.id}}
+        {{#form.submit-button disabled=isRequesting onClick=(action (if form.isInvalid 'submitInvalid' 'updateContract') 1 contract.id) class="u-padding-side-60" raised=true primary=true}}إتمام العقد{{/form.submit-button}}
+        {{#paper-button disabled=isRequesting class="u-padding-side-60" onClick=(action  'updateContract' 0 contract.id)  primary=true}}حفظ العقد{{/paper-button}}
+      {{else}}
+      {{#form.submit-button disabled=isRequesting onClick=(action (if form.isInvalid 'submitInvalid' 'addContract') 1) class="u-padding-side-60" raised=true primary=true}}إتمام العقد{{/form.submit-button}}
+       {{#paper-button disabled=isRequesting class="u-padding-side-60" onClick=(action  'addContract' 0)  primary=true}}حفظ العقد{{/paper-button}}
+       {{/if}}
+      <span class="flex"></span>
+    </div>
 
-  {{/paper-form}} {{/unless}} {{#if isRequesting}} {{paper-progress-linear}} {{/if}}
+  {{/paper-form}} {{/unless}} 
 
 
 </div>

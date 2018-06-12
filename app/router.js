@@ -31,8 +31,11 @@ Router.map(function() {
           this.route('add-contrarct', {path: '/:unit_id/add-contract'});
         });
         this.route('maintenance-requests', function() {
-          this.route('pending');
-          this.route('history');
+          this.route('add');
+          this.route('lists', { path: '/' }, function() {
+            this.route('pending');
+            this.route('history');
+          });
         });
         this.route('collection-requests', function() {
           this.route('pending');
@@ -40,7 +43,8 @@ Router.map(function() {
         });
         this.route('contracts', function() {
           this.route('add');
-          this.route('edit');
+          this.route('edit', {path: '/:contract_id/complete'});
+          this.route('contract-view', {path: '/:contract_id'});
         });
       });
     });

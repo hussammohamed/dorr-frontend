@@ -1,9 +1,10 @@
 import Component from '@ember/component';
 import swal from 'sweetalert';
 export default Component.extend({
-    tableLoading: true,
     didInsertElement() {
         this.set('currentUser', this.get('currentUser'))
+        this.store.unloadAll('MProperty')
+        this.set('tableLoading', true)
         this.store.findAll('MProperty').then(
             success => {
                 this.set('tableLoading', false)

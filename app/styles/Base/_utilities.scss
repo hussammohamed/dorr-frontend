@@ -218,10 +218,10 @@
     
 }
 .primery-col{
-    color: $primary-base;
+    color: $primary-base !important;
 }
 .warn-col{
-    color: $warn-color;
+    color: $warn-color !important;
 }
 
 .u-spacing-20{
@@ -229,4 +229,7 @@
     .flex-50{
         max-width: calc(50% - 20px)
     }
+}
+.u-empty-space{
+    min-height: 3rem;
 }
