@@ -6,10 +6,11 @@
         <div class="layout-row ayout-row layout-wrap md-padding u-spacing-20">
        {{#paper-select class="flex-50"  label="رقم الوحدة" required=true errorMessages=regularValidation  options=selectedUnits selected=request.unit_id onChange=(action (mut request.unit_id))
         as |unit|}} {{unit.no}} {{/paper-select}}
-        {{form.input class="flex-50" label="نوع الخدمة"   errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)   value=user.name onChange=(action (mut user.name)) }}
-        {{form.input class="flex-50" label=" الخدمة"   errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)   value=user.name onChange=(action (mut user.name)) }} 
+         {{#paper-select class="flex-50"  label="نوع الخدمة" required=true errorMessages=regularValidation  options=types selected=request.service_type onChange=(action (mut request.service_type))
+        as |type|}} {{type.name_ar}} {{/paper-select}}
+        {{form.input class="flex-50" label=" الخدمة"   errorMessages=regularValidation required=true   value=request.service onChange=(action (mut request.service)) }} 
         {{paper-input class="flex-100" textarea=true block=true label=" وصف المشكلة"  passThru=(hash rows=6 )
-  value=biography onChange=(action (mut biography))}} 
+  value=request.description onChange=(action (mut request.description))}} 
   <div class=" flex-100 u-empty-space"></div>
        </div>
         <div class="layout-row">
