@@ -23,7 +23,7 @@ export default DS.Model.extend({
     kitchen_cabinet: DS.belongsTo('kitchen_cabinet', {async: false}),
     m_property_id: DS.belongsTo('mproperty'),
 
-
+    unit_id: DS.attr(),
     selected: DS.attr(),
     available: DS.attr(),
     contract: DS.belongsTo('contract', {async: false}),

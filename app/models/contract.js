@@ -84,6 +84,9 @@ export default DS.Model.extend({
     payments: DS.hasMany('payment'),
    
     companions: DS.hasMany('user'),
-    
+
+
+    // created_data
+    created_by: DS.attr(),
 
 });

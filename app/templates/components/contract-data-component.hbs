@@ -494,10 +494,10 @@
     
       <span class="flex"></span>
       {{#if contract.id}}
-        {{#form.submit-button disabled=isRequesting onClick=(action (if form.isInvalid 'submitInvalid' 'updateContract') 1 contract.id) class="u-padding-side-60" raised=true primary=true}}إتمام العقد{{/form.submit-button}}
+        {{#form.submit-button disabled=isRequesting onClick=(action (if form.isInvalid 'submitInvalid' 'updateContract') (if (eq currentUser.id  owner.id) 2 1) contract.id) class="u-padding-side-60" raised=true primary=true}}إتمام العقد{{/form.submit-button}}
         {{#paper-button disabled=isRequesting class="u-padding-side-60" onClick=(action  'updateContract' 0 contract.id)  primary=true}}حفظ العقد{{/paper-button}}
       {{else}}
-      {{#form.submit-button disabled=isRequesting onClick=(action (if form.isInvalid 'submitInvalid' 'addContract') 1) class="u-padding-side-60" raised=true primary=true}}إتمام العقد{{/form.submit-button}}
+      {{#form.submit-button disabled=isRequesting onClick=(action (if form.isInvalid 'submitInvalid' 'addContract') (if (eq currentUser.id owner.id) 2 1)) class="u-padding-side-60" raised=true primary=true}}إتمام العقد{{/form.submit-button}}
        {{#paper-button disabled=isRequesting class="u-padding-side-60" onClick=(action  'addContract' 0)  primary=true}}حفظ العقد{{/paper-button}}
        {{/if}}
       <span class="flex"></span>

@@ -399,20 +399,28 @@
       {{/paper-card}}
     </div>
     {{/if}}
-    {{!-- <div class="layout-row u-mtop30">
+     <div class="layout-row u-mtop30">
     
       <span class="flex"></span>
-      {{#if contract.id}}
-        {{#form.submit-button disabled=isRequesting onClick=(action (if form.isInvalid 'submitInvalid' 'updateContract') 1 contract.id) class="u-padding-side-60" raised=true primary=true}}إتمام العقد{{/form.submit-button}}
-        {{#paper-button disabled=isRequesting class="u-padding-side-60" onClick=(action  'updateContract' 0 contract.id)  primary=true}}حفظ العقد{{/paper-button}}
+      {{#if (eq contract.created_by currentUser.id)}}
+        {{#paper-button disabled=isRequesting class="u-padding-side-60" onClick=(action  'cancelContract' contract.id ) raised=true primary=true}}سحب{{/paper-button}}
+        {{#paper-button disabled=isRequesting onClick=(action "deleteContract" contract.id) class="u-padding-side-60" raised=true warn=true}}حذف{{/paper-button}}
       {{else}}
-      {{#form.submit-button disabled=isRequesting onClick=(action (if form.isInvalid 'submitInvalid' 'addContract') 1) class="u-padding-side-60" raised=true primary=true}}إتمام العقد{{/form.submit-button}}
-       {{#paper-button disabled=isRequesting class="u-padding-side-60" onClick=(action  'addContract' 0)  primary=true}}حفظ العقد{{/paper-button}}
+        {{#if isOwnerAndNeedAprroved}}
+       {{#paper-button disabled=isRequesting onClick=(action "contractAgree"  (if (eq contract.contract_status 3) 4 2)) class="u-padding-side-60" raised=true primary=true}}موافق{{/paper-button}}
+       {{#paper-button disabled=isRequesting onClick=(action "contractDisagree"  (if (eq contract.contract_status 6) 7 5)) class="u-padding-side-60" raised=true warn=true}}رفض{{/paper-button}}
+        {{/if}}
+        {{#if isRenterAndNeedAprroved}}
+       {{#paper-button disabled=isRequesting onClick=(action "contractAgree"  (if (eq contract.contract_status 2) 4 3)) class="u-padding-side-60" raised=true primary=true}}موافق{{/paper-button}}
+       {{#paper-button disabled=isRequesting onClick=(action "contractDisagree"  (if (eq contract.contract_status 5) 7 6)) class="u-padding-side-60" raised=true warn=true}}رفض{{/paper-button}}
+        {{/if}}
+        {{#if noNeedAprroved}}
+       {{#paper-button disabled=isRequesting onClick=(action "backToContracts") class="u-padding-side-60" raised=true primary=true}}الرجوع{{/paper-button}}
+        {{/if}}
+
        {{/if}}
       <span class="flex"></span>
-    </div> --}}
+    </div>
 
   {{/paper-form}}
-
-
 </div>

@@ -33,6 +33,9 @@ export default Ember.Service.extend({
     },
     getContrarct(contract_id){
         return ENV.host + "/contracts/" + contract_id + "?lang=" + this.get('intl').get('locale');
+    },
+    changeContractStatus(id, value){
+        return ENV.host + "/contracts/" + id + "/status/" + value + "?lang=" + this.get('intl').get('locale');
     }
 
 

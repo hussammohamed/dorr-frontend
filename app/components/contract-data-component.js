@@ -75,7 +75,7 @@ export default Component.extend({
             contratct.contract_status = contractStatus
             delete contratct.units; delete contratct.payments; delete contratct.companions;
             let units = this.get('units').map(function (unit) {
-                return { "id": unit.id, "electricity_measurement": unit.get('electricity_measurement'), "water_measurement": unit.get('water_measurement'), "gas_measurement": unit.get('gas_measurement') }
+                return { "id": unit.get('unit_id'), "electricity_measurement": unit.get('electricity_measurement'), "water_measurement": unit.get('water_measurement'), "gas_measurement": unit.get('gas_measurement') }
             })
             let companions = this.get('companions').map(function (user) {
                 return user.toJSON();
