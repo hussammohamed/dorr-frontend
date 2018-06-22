@@ -20,7 +20,7 @@
 {{/table.head}}
 {{#table.body as |body|}}
   {{#each contracts as |contract|}}
-    {{#body.row edit=true onClick=(action (if (eq contract.contract_status 0) 'contractEdit' 'contractView') contract.id) as |row|}}
+    {{#body.row edit=true onClick=(action (if (and (eq contract.contract_status 0) (eq currentUser.id contract.created_by))'contractEdit' 'contractView') contract.id) as |row|}}
       {{#row.cell }}{{contract.id}}{{/row.cell}}
       {{#row.cell}}{{contract.m_property_type.name}}{{/row.cell}}
       {{#row.cell }}{{contract.contract_type.name}}{{/row.cell}}
