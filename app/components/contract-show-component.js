@@ -43,7 +43,9 @@ export default Component.extend({
                 success => {
                     this.set('isRequesting', false);
                     this.manager.toaster(self, 'تم الموافقة على العقد')
-                    
+                    this.set("isOwnerAndNeedAprroved", false);
+                    this.set("isRenterAndNeedAprroved", false);
+                    this.set('noNeedAprroved', true);
                 },
                 errors => {
                     console.log(errors)
@@ -71,7 +73,9 @@ export default Component.extend({
                         }).then(
                             success => {    
                                 self.manager.toaster(self, 'تم رفض العقد')
-                                
+                                this.set("isOwnerAndNeedAprroved", false);
+                                this.set("isRenterAndNeedAprroved", false);
+                                this.set('noNeedAprroved', true);
                             },
                             errors => {
                                 console.log(errors)
