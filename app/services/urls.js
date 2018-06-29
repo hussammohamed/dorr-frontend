@@ -39,6 +39,12 @@ export default Ember.Service.extend({
     },
     saveMaintenance(){
         return ENV.host + "/maintenances" + "?lang=" + this.get('intl').get('locale'); 
+    },
+    updateMaintenance(id){
+        return ENV.host + "/maintenances/" + id + "?lang=" + this.get('intl').get('locale'); 
+    },
+    getMaintenanceByProperty(id){
+        return ENV.host +"/mproperties/" + id + "/maintenances" + "?lang=" + this.get('intl').get('locale'); 
     }
 
 

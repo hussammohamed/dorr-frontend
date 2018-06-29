@@ -32,10 +32,13 @@ Router.map(function() {
         });
         this.route('maintenance-requests', function() {
           this.route('add');
+          this.route('show', { path: '/:maintenance_id' });
+          this.route('edit', { path: '/:maintenance_id/edit' });
           this.route('lists', { path: '/' }, function() {
             this.route('pending');
             this.route('history');
           });
+          
         });
         this.route('collection-requests', function() {
           this.route('pending');

@@ -2,20 +2,55 @@
     {{#paper-card as |card|}}
     <div class="md-padding">
         <h4 class="page-title">طلبات الصيانة</h4>
-        {{#paper-form  class="md-padding" onSubmit=(action (if user.id "updateRequest" "saveRequest")) as |form|}}
+        {{#paper-form  class="md-padding" onSubmit=(action (if request.id "updateRequest" "saveRequest") 1) as |form|}}
         <div class="layout-row ayout-row layout-wrap md-padding u-spacing-20">
-       {{#paper-select class="flex-50"  label="رقم الوحدة" required=true errorMessages=regularValidation  options=selectedUnits selected=request.unit_id onChange=(action (mut request.unit_id))
+       {{#paper-select class="flex-50"  label="رقم الوحدة"  disabled=(if (or isShow (eq isNotRenter true)) true false) required=true errorMessages=regularValidation  options=selectedUnits selected=request.unit_id onChange=(action (mut request.unit_id))
         as |unit|}} {{unit.no}} {{/paper-select}}
-         {{#paper-select class="flex-50"  label="نوع الخدمة" required=true errorMessages=regularValidation  options=types selected=request.service_type onChange=(action (mut request.service_type))
-        as |type|}} {{type.name_ar}} {{/paper-select}}
-        {{form.input class="flex-50" label=" الخدمة"   errorMessages=regularValidation required=true   value=request.service onChange=(action (mut request.service)) }} 
-        {{paper-input class="flex-100" textarea=true block=true label=" وصف المشكلة"  passThru=(hash rows=6 )
+         {{#paper-select class="flex-50"  label="نوع الخدمة"   disabled=(if (or isShow (eq isNotRenter true)) true false) required=true errorMessages=regularValidation  options=types selected=request.service_type onChange=(action (mut request.service_type))
+        as |type|}} {{type.name}} {{/paper-select}}
+        {{form.input class="flex-50" label=" الخدمة"    disabled=(if (or isShow (eq isNotRenter true)) true false)  errorMessages=regularValidation required=true   value=request.service onChange=(action (mut request.service)) }} 
+        {{paper-input class="flex-100" textarea=true block=true   disabled=(if (or isShow (eq isNotRenter true)) true false) label="  وصف المشكلة"  passThru=(hash rows=6 )
   value=request.description onChange=(action (mut request.description))}} 
+  {{#if request.id}}
+   {{#paper-select class="flex-50"  label="الرد" disabled=(if (or isShow (not-eq isNotRenter true)) true false) required=true errorMessages=regularValidation  options=ownerResponses selected=request.owner_response onChange=(action (mut request.owner_response))
+        as |response|}} {{response.name}} {{/paper-select}}
+        {{form.input class="flex-50" label="بما لايزيد عن"   disabled=(if (or isShow (not-eq isNotRenter true)) true false)  errorMessages=regularValidation   value=request.min_fix_amount onChange=(action (mut request.min_fix_amount)) }} 
+        {{form.input class="flex-50" label="اجرة العمال"   disabled=(if (or isShow (and (not-eq isNotRenter true) (not-eq request.owner_response.id "2") )) true false)  errorMessages=regularValidation required=true   value=request.laborer_pay onChange=(action (mut request.laborer_pay)) }} 
+        {{form.input class="flex-50" label="قيمة المواد المستخدمة"   disabled=(if (or isShow (and (not-eq isNotRenter true) (not-eq request.owner_response.id "2") )) true false) errorMessages=regularValidation required=true   value=request.matrials_price onChange=(action (mut request.matrials_price)) }} 
+        <div class=" u-full-width mdl-grid u-mbuttom30">
+            <div class="mdl-cell mdl-cell--12-col">
+                <div class=" m-b-1 w-80">
+                    <div class="form-group inputDnD">
+                        <i class="material-icons">insert_drive_file</i>
+                        <input type="file" accept="image/jpeg, image/png, application/pdf" data-title="إرفاق الفواتير" class={{if inputFile
+                            "form-control-file text-primary font-weight-bold has-name" "form-control-file text-primary font-weight-bold"}} id="inputFile" disabled={{isShow}} name="attachment"
+                            onchange={{ action "fileInputChange" "inputFile"}}>
+                        <div class="file-name">{{inputFile}}</div>
+                        {{#if request.invoice_image}}
+                        <a href="{{request.invoice_image}}" target="_blank" download>تنزيل</a>
+                        {{/if}}
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
   <div class=" flex-100 u-empty-space"></div>
        </div>
         <div class="layout-row">
             <span class="flex"></span>
-            {{#form.submit-button disabled=isRequesting  class="u-padding-side-60" raised=true primary=true}}حفظ{{/form.submit-button}}  
+            {{#if isShow}}
+            {{#paper-button disabled=isRequesting onClick=(action "deleteRequst" request.id)  class="u-padding-side-60" raised=true warn=true}}حذف{{/paper-button}}  
+            {{#if (eq request.status "0")}}
+                {{#paper-button disabled=isRequesting onClick=(action "editRequst" request.id)  class="u-padding-side-60" raised=true primary=true}}تعديل{{/paper-button}}
+                {{/if}}  
+            {{else}}
+            {{#if request.id}}
+             {{#paper-button disabled=isRequesting onClick=(action "updateRequest" 0)  class="u-padding-side-60" raised=true primary=true}}حفظ{{/paper-button}}  
+            {{/if}}
+            {{#form.submit-button disabled=isRequesting  class="u-padding-side-60" raised=(if request.id false true) primary=true}}{{#if request.id}} أقفال الطلب{{else}} حفظ{{/if}}{{/form.submit-button}}
+              
+            {{/if}}
         </div>
         {{/paper-form}}
     </div>
