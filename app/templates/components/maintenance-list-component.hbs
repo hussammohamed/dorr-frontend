@@ -37,10 +37,12 @@
          {{#paper-button iconButton=true}} {{paper-icon "more_vert" size=18 class="md-menu-origin"}} {{/paper-button}} 
         {{/menu.trigger}} 
         {{#menu.content class="u-custome-menu" width=4 as |content|}} 
+         {{#if (eq request.status 0)}}
         {{#content.menu-item
         onClick=(action "editRequst" request.id)}} {{paper-icon "edit" size=18 class="md-menu-align-target"}}
         <span>تعديل</span>
         {{/content.menu-item}}
+        {{/if}}
         {{#content.menu-item
         onClick=(action "deleteRequst" request.id)}} {{paper-icon "delete" size=18 class="md-menu-align-target"}}
         <span>حذف</span>
