@@ -16,7 +16,7 @@ export default DS.Model.extend({
     electricity_measurement: DS.attr(),
     water_measurement: DS.attr(),
     gas_measurement: DS.attr(),
-
+    contract_id: DS.attr(),
     type: DS.belongsTo('type', {async: false}),
     furnished: DS.belongsTo('furnished'),
     furnished_status: DS.belongsTo('furnished_status'),

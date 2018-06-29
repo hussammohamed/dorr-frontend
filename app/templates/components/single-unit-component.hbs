@@ -41,9 +41,11 @@
  
   {{/paper-form}}
 {{/paper-card}}
+
+{{#if (eq unit.available 1)}}
 <h5 class="page-title u-mtop60">بيانات الأيجار</h5>
 {{#paper-card class="md-padding " as |card|}}
-{{#if (eq unit.available 1)}}
+
 <div class="layout-row md-padding">
 
   <span class="flex"></span>
@@ -60,8 +62,12 @@
   <span class="flex"></span>
 
 </div>
+{{/paper-card}}
+{{else}}
+
+{{component 'contract-show-component' contract=contract currentUser=currentUser isUnitView=true}}
 {{/if}}
-{{/paper-card}} {{else}}
+ {{else}}
 
   {{#paper-form class="md-padding" onSubmit=(if unit.id 'updateUnit' 'saveUnit') as |form|}}
   <div class={{if unit.collapse "unit-card collapse" "unit-card"}}>

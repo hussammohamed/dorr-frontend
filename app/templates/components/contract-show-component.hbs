@@ -415,7 +415,9 @@
        {{#paper-button disabled=isRequesting onClick=(action "contractDisagree"  (if (eq contract.contract_status 5) 7 6)) class="u-padding-side-60" raised=true warn=true}}رفض{{/paper-button}}
         {{/if}}
         {{#if noNeedAprroved}}
+        {{#unless isUnitView}}
        {{#paper-button disabled=isRequesting onClick=(action "backToContracts") class="u-padding-side-60" raised=true primary=true}}الرجوع{{/paper-button}}
+       {{/unless}}
         {{/if}}
 
        {{/if}}

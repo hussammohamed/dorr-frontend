@@ -13,10 +13,18 @@ export default Route.extend({
         }
       }),
         model(params){
-            return this.store.find('unit', params.unit_id);
+            return this.store.find('unit', params.unit_id).then(
+                succsess => {
+                    return{
+                        "unit": succsess,
+                        "currentUser": this.modelFor('index'),
+                    }
+                }
+            );
         },
         setupController: function (controller, model) {
-            controller.set('unit', model);
+            controller.set('unit', model.unit);
+            controller.set('currentUser', model.currentUser)
         }
 
 });
