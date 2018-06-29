@@ -36,6 +36,15 @@ export default Ember.Service.extend({
     },
     changeContractStatus(id, value){
         return ENV.host + "/contracts/" + id + "/status/" + value + "?lang=" + this.get('intl').get('locale');
+    },
+    saveMaintenance(){
+        return ENV.host + "/maintenances" + "?lang=" + this.get('intl').get('locale'); 
+    },
+    updateMaintenance(id){
+        return ENV.host + "/maintenances/" + id + "?lang=" + this.get('intl').get('locale'); 
+    },
+    getMaintenanceByProperty(id){
+        return ENV.host +"/mproperties/" + id + "/maintenances" + "?lang=" + this.get('intl').get('locale'); 
     }
 
 

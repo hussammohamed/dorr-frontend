@@ -3,22 +3,22 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | maintenance-pending-component', function(hooks) {
+module('Integration | Component | maintenance-list-component', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{maintenance-pending-component}}`);
+    await render(hbs`{{maintenance-list-component}}`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#maintenance-pending-component}}
+      {{#maintenance-list-component}}
         template block text
-      {{/maintenance-pending-component}}
+      {{/maintenance-list-component}}
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

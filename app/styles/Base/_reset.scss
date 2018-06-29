@@ -188,7 +188,7 @@ ul,ol{
     background-color: $primary-base;
     color: $text-color;
     
-    &:hover{
+    &:not([disabled]):hover{
       background-color: $primary-base;
       // color: $secondary-base;
     }
@@ -196,11 +196,13 @@ ul,ol{
       background-color: $primary-base !important;
       color: $text-color;
     }
+    
   }
   &.mdl-button--borded{
     border: 1px solid $primary-base;
     color: $primary-base;
   }
+  
 }
 .mdl-textfield--floating-label{
   &.is-focused{
@@ -370,9 +372,12 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar{
 }
 
 .md-open-menu-container.md-active{
-  z-index: 999;
+  z-index: 9999;
 }
 .md-button.md-default-theme.md-primary, .md-button.md-primary{
   color: $primary-base;
   border: 1px solid  $primary-base;
+}
+md-input-container .md-input-messages-animation{
+  font-size: 12px;
 }
