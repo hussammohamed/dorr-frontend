@@ -3,8 +3,14 @@ import Component from '@ember/component';
 export default Component.extend({
     didInsertElement() {
         this.paid();
-        this.set('collects', this.get('order').get('payment_collects'));
-        this.set('currentRemain', this.get('order').get('payment_collects').get('lastObject').get('remain'))
+        let collects = this.get('order').get('payment_collects')
+        this.set('collects', collects);
+        if(collects.get('length')){
+            this.set('currentRemain', collects.get('lastObject').get('remain'))
+        }else{
+            this.set('currentRemain',this.get('order').get('amount'))
+        }
+        
     },
     paid() {
         let order = this.get('order');
@@ -21,7 +27,6 @@ export default Component.extend({
             this.paid();
         },
         addCollect() {
-            let paymentOrder = this.get('order');
             let order = this.get('order');
             this.store.createRecord('payment-collect', {
                 payment_order_id: order,

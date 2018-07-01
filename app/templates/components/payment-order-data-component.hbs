@@ -1,13 +1,15 @@
 
     {{#paper-card as |card|}}
-    <div class="md-padding">
+    <div class="md-padding u-padding-side-32">
         <h4 class="page-title">طلب تحصيل</h4>
-       <div class="layout-row md-padding">
+       <div class="layout-row md-padding panal panal-gray">
            <div class="flex-20">{{order.units}}</div>
            <div class="flex"></div>
            <div class="flex-10">{{order.amount}}</div>
        </div>
+        <h5 class="page-title u-gray-color">تحصيل جزئي</h5>
        <div class="layout-row md-padding">
+          
             {{#paper-data-table class="u-right-table payment-table flex-100"  as |table|}}
 {{#table.head as |head|}}
   {{#head.column }}تم التحصيل{{/head.column}}
@@ -44,7 +46,7 @@
 {{/table.body}}
 {{/paper-data-table}}
        </div>
-       <div class="layout-row">
+       <div class="layout-row u-mtop30">
            <span class="flex"></span>
             {{#paper-button disabled=isRequesting onClick=(action "saveOrder" request.id)  class="u-padding-side-60" raised=true primary=true}}حفظ{{/paper-button}}
             {{#paper-button disabled=isRequesting onClick=(action "closeOrder" request.id)  class="u-padding-side-60"  primary=true}}تم التحصيل{{/paper-button}}

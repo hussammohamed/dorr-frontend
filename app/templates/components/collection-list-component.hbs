@@ -10,7 +10,7 @@
 {{/table.head}}
 {{#table.body as |body|}}
   {{#each  (filter (action "statusFilter") orders) as |order|}}
-    {{#body.row edit=(if (eq order.status '0') true false)  onClick=(action 'editOrder' order.id) as |row|}}
+    {{#body.row edit=(if (eq order.status '0') true false)  onClick=(if (eq order.status 0) (action 'editOrder' order.id) null) as |row|}}
       {{#row.cell }}{{order.due_date}}{{/row.cell}}
       {{#row.cell }}{{order.units}}{{/row.cell}}
       {{#row.cell}}{{order.amount}}{{/row.cell}}

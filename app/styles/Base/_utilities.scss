@@ -39,6 +39,10 @@
 .u-margin-8{
     margin: 8px;
 }
+.u-padding-side-32{
+    padding-left: 32px;
+    padding-right: 32px;
+}
 .u-flip{
     @if $direction == rtl{
         -moz-transform: scaleX(-1);
@@ -232,4 +236,17 @@
 }
 .u-empty-space{
     min-height: 3rem;
+}
+.panal{
+    padding: 24px;
+    border: 1px rgba(0, 0, 0, 0.12) solid;
+    border-radius: 5px;
+    margin: 24px 0;
+    &.panal-gray{
+        background-color: rgb(245, 245, 245);
+    }
+}
+.u-gray-color{
+    color:  rgba(0, 0, 0, 0.54) !important;
+
 }
