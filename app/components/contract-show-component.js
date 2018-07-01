@@ -18,6 +18,28 @@ export default Component.extend({
         }
     },
     actions:{
+        createPaymentOrder(id){
+            console.log(id)
+            var self = this;
+            let data = new FormData();
+           console.log(self.get('property'))
+            data.append('data', JSON.stringify({
+                "payment_id": id,
+                " m_property_id": self.get('property').get('id')
+            }))
+            new Ember.RSVP.Promise(function (resolve, reject) {
+                self.manager.ajaxRequestFile(self, self.get('urls').createPaymentOrder(), 'POST', resolve, reject, data);
+            }).then(
+                success => {    
+                    self.manager.toaster(self, 'تم رفض العقد')
+                   
+                },
+                errors => {
+                    this.set('isRequesting', false);
+                    console.log(errors)
+                }
+            )
+        },
         backToContracts(){
             this.get('router').transitionTo('index.properties.show.contracts')
         },

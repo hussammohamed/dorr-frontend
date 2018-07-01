@@ -1,0 +1,15 @@
+
+    {{#paper-card as |card|}}
+    <div class="md-padding">
+        <h4 class="page-title">طلب تحصيل</h4>
+       <div class="layout-row md-padding">
+           <div class="flex-20">{{order.units}}</div>
+           <div class="flex"></div>
+           <div class="flex-10">{{order.amount}}</div>
+       </div>
+    </div>
+    {{#if isRequesting}}
+{{paper-progress-linear}}
+{{/if}}
+
+    {{/paper-card}}

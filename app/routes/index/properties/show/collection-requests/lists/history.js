@@ -2,9 +2,9 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
     breadCrumb: {
-        title: "طلبات تحصيل قائمة"
+        title: "طلبات تحصيل  سابقة"
     },
-     model(){
+    model(){
         return {
             "property": this.modelFor('index.properties.show'),
             "currentUser": this.modelFor('index'),

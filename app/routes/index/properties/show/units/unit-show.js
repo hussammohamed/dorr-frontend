@@ -18,11 +18,13 @@ export default Route.extend({
                     return{
                         "unit": succsess,
                         "currentUser": this.modelFor('index'),
+                        "property": this.modelFor('index.properties.show'),
                     }
                 }
             );
         },
         setupController: function (controller, model) {
+            controller.set('property', model.property);
             controller.set('unit', model.unit);
             controller.set('currentUser', model.currentUser)
         }
