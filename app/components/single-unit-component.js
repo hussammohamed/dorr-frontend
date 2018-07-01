@@ -15,7 +15,9 @@ export default Component.extend(dorrValidations, {
         // ))
         this.set('unit', {});
         }else{
-            this.set('contract', this.store.findRecord('contract', this.get('unit').get('contract_id')))
+            if(this.get('unit').get('contract_id')){
+                this.set('contract', this.store.findRecord('contract', this.get('unit').get('contract_id')))
+            }
         }
         
        

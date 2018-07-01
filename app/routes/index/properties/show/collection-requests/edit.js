@@ -11,7 +11,9 @@ export default Route.extend({
         }
       }),
         model(params){
-            return this.store.find('payment-order', params.payment_order_id).then(
+
+
+            return this.store.find('payment-order', params.payment_order_id,).then(
                 succsess =>{
                     return {
                         "property": this.modelFor('index.properties.show'),

@@ -7,6 +7,48 @@
            <div class="flex"></div>
            <div class="flex-10">{{order.amount}}</div>
        </div>
+       <div class="layout-row md-padding">
+            {{#paper-data-table class="u-right-table payment-table flex-100"  as |table|}}
+{{#table.head as |head|}}
+  {{#head.column }}تم التحصيل{{/head.column}}
+  {{#head.column }}الباقي{{/head.column}}
+  {{#head.column }}يحصل في{{/head.column}}
+{{/table.head}}
+{{#table.body as |body|}}
+  {{#each collects as |collect index|}}
+    {{#body.row as |row|}}
+       {{#row.cell  as |cell|}} {{paper-input type="number" disabled=(if collect.id true false) value=collect.amount max=currentRemain   errorMessages=(hash
+      max="يجب ان لايكون اكبر من الباقي ."
+    ) onChange=(action "changeAmount" collect)}}{{/row.cell}}
+      {{#row.cell  as |cell|}} 
+         {{paper-input type="number" disabled=true value=collect.remain   onChange=(action (mut collect.remain))}}
+      {{/row.cell}}
+       {{#row.cell  as |cell|}} 
+        {{paper-pikaday value=collect.due_date disabled=(if collect.id true false) calenderType=(if (eq order.contract_calender_type.id "2") 'UmmAlQura' 'gregorian') isRTL=true yearRange='1900,currentYear' onChange=(action (mut collect.due_date ))}}
+       {{/row.cell}}
+        {{#unless collect.id}}
+    {{#row.cell  as |cell|}} {{#paper-button iconButton=true onClick=(action "deleteCollect" index collect)}} {{paper-icon "delete" size=18}} {{/paper-button}} {{/row.cell}}
+    {{else}}
+    {{#row.cell  as |cell|}}  {{/row.cell}}
+    {{/unless}}
+    {{/body.row}}
+    
+  {{/each}}
+  {{#unless isNewCollect}}
+      {{#body.row  as |row|}}
+     {{#row.cell class="u-center" colspan="5"}}
+      {{#paper-button class="no-padding" iconButton=true primary=true raised=true primary=true onClick=(action 'addCollect')}}{{paper-icon "add" }}{{/paper-button}}
+     {{/row.cell}}
+     {{/body.row}}
+     {{/unless}}
+{{/table.body}}
+{{/paper-data-table}}
+       </div>
+       <div class="layout-row">
+           <span class="flex"></span>
+            {{#paper-button disabled=isRequesting onClick=(action "saveOrder" request.id)  class="u-padding-side-60" raised=true primary=true}}حفظ{{/paper-button}}
+            {{#paper-button disabled=isRequesting onClick=(action "closeOrder" request.id)  class="u-padding-side-60"  primary=true}}تم التحصيل{{/paper-button}}
+       </div>
     </div>
     {{#if isRequesting}}
 {{paper-progress-linear}}

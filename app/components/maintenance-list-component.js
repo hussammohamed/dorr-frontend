@@ -23,9 +23,7 @@ export default Component.extend({
     },
     actions:{
         statusFilter(record){
-            console.log(record.get("status"), this.get('requestsStatus'))
             if(record.get("status") == this.get('requestsStatus')){
-                console.log(record)
                 return record;
             }
         },

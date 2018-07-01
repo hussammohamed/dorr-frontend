@@ -19,10 +19,8 @@ export default Component.extend({
     },
     actions:{
         createPaymentOrder(id){
-            console.log(id)
             var self = this;
             let data = new FormData();
-           console.log(self.get('property'))
             data.append('data', JSON.stringify({
                 "payment_id": id,
                 " m_property_id": self.get('property').get('id')
