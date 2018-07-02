@@ -36,6 +36,7 @@ export default DS.Model.extend({
     agency: DS.belongsTo('agency'),
     data_status: DS.attr(),
     completed: Ember.computed('data_status', 'units',function() {
+        
         let units = this.get('units');
         let dataStatus = this.get('data_status');
         if(dataStatus){
@@ -46,6 +47,17 @@ export default DS.Model.extend({
             }  
         }
         
+    }),
+    isRenter:  Ember.computed('owner', 'agent',function() {
+        let ownerId = this.get('owner').get('id');
+        let agentId = this.get('agent').get('id');
+        let currentUserId = this.store.currentUser.id
+       if(currentUserId != ownerId && currentUserId != agentId){
+           return true;
+       }else{
+           return false;
+       }
+       
     }),
     long:DS.attr(),
     lat: DS.attr(),

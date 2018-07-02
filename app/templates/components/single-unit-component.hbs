@@ -31,12 +31,13 @@
           {{form.input disabled=true class="flex-50" type="number" label="عدد مكيفات سبلت" errorMessages=regularValidation value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
            <span class="flex-50"></span>
       </div>
+      {{#unless property.isRenter}}
       <div class="layout-row">
         <span class="flex"></span>
          {{#paper-button class="u-padding-side-60"  raised=true warn=true onClick=(action 'deleteUnit' unit.id)}}حذف{{/paper-button}}
        {{#paper-button class="u-padding-side-60"  raised=true primary=true onClick=(action 'editUnit' unit.id)}}تعديل{{/paper-button}}
       </div>
-  
+    {{/unless}}
    
  
   {{/paper-form}}
