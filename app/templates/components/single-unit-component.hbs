@@ -65,7 +65,18 @@
 </div>
 {{/paper-card}}
 {{else}}
-{{component 'contract-show-component' property=property contract=contract currentUser=currentUser isUnitView=true}}
+{{#paper-card class="md-padding " as |card|}}
+<div class="layout-row md-padding">
+
+  <span class="flex"></span>
+ <button id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onClick={{action "viewContract" unit.contract_id}}>
+    عرض العقد
+  </button>
+
+  <span class="flex"></span>
+  </div>
+    {{/paper-card}}
+{{!-- {{component 'contract-show-component' property=property contract=contract currentUser=currentUser isUnitView=true}} --}}
 {{/if}}
  {{else}}
 

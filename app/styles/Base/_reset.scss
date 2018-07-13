@@ -381,3 +381,22 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar{
 md-input-container .md-input-messages-animation{
   font-size: 12px;
 }
+
+.app{
+  position: relative;
+}
+.page-loading{
+	position: absolute;
+    top: 120px;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    z-index: 9999;
+    md-progress-linear{
+        height: 3px;
+        .md-container{
+            height: 3px;
+            background-color: transparent;
+        }
+    }
+} 
