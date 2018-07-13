@@ -41,8 +41,11 @@ Router.map(function() {
           
         });
         this.route('collection-requests', function() {
-          this.route('pending');
-          this.route('history');
+          this.route('lists', { path: '/' }, function() {
+            this.route('pending');
+            this.route('history');
+          });
+          this.route('edit', { path: '/:payment_order_id' });
         });
         this.route('contracts', function() {
           this.route('add');

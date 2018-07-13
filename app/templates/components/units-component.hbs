@@ -1,9 +1,10 @@
 
 
-
+{{#unless property.isRenter}}
   <div class="layout-row u-md-padding-top-bottom"> <span class="flex"></span><button onclick={{action "addUnit"}}  id="loginBtn" class="mdl-button u-margin-8 u-padding-side-60 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                 أضف وحدة
             </button></div>
+  {{/unless}}
    <div class="table-card">
   {{#paper-card class="" as  |card|}}
     <div class="header-overlay"></div>
@@ -31,6 +32,7 @@
       {{/if}}{{/row.cell}}
       {{#row.cell }}ــــــــ{{/row.cell}}
       {{#row.cell numeric=true}}ــــــــ{{/row.cell}}
+     {{#unless property.isRenter}}
       {{#row.cell edit=true as |cell|}}
          {{#paper-menu  offset="237 23" as |menu|}} 
          {{#menu.trigger}} 
@@ -51,6 +53,9 @@
         
          {{/menu.content}} {{/paper-menu}}
       {{/row.cell}}
+      {{else}}
+       {{#row.cell }}{{/row.cell}}
+      {{/unless}}
     {{/body.row}}
      
     {{else}}

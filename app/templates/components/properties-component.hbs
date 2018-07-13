@@ -37,7 +37,12 @@
       {{else}}
       {{#if (eq property.agent.id currentUser.id)}}
       مدير
+      {{else}}
+      {{#if property.isRenter}}
+      مستأجر
       {{/if}}
+      {{/if}}
+      
       {{/if}}
       {{/row.cell}}
        

@@ -1,9 +1,10 @@
 
 
-
+{{#unless property.isRenter}}
   <div class="layout-row u-md-padding-top-bottom"> <span class="flex"></span><button onclick={{action "addContract"}}  id="loginBtn" class="mdl-button u-margin-8 u-padding-side-60 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                 أضف عقد جديد
             </button></div>
+{{/unless}}
    <div class="table-card">
   {{#paper-card class="" as  |card|}}
     <div class="header-overlay"></div>

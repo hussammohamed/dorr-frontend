@@ -45,6 +45,18 @@ export default Ember.Service.extend({
     },
     getMaintenanceByProperty(id){
         return ENV.host +"/mproperties/" + id + "/maintenances" + "?lang=" + this.get('intl').get('locale'); 
+    },
+    createPaymentOrder(){
+        return ENV.host +"/payment_orders" + "?lang=" + this.get('intl').get('locale'); 
+    },
+    getPaymentsOrderByProperty(id){
+        return ENV.host +"/mproperties/" + id + "/payment_orders" + "?lang=" + this.get('intl').get('locale');
+    },
+    createPaymentCollect(){
+        return ENV.host +"/payment_collects" + "?lang=" + this.get('intl').get('locale');     
+    },
+    updatedPaymentOrder(id){
+        return ENV.host +"/payment_orders/" + id + "?lang=" + this.get('intl').get('locale');
     }
 
 

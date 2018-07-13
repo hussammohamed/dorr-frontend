@@ -15,7 +15,9 @@ export default Component.extend(dorrValidations, {
         // ))
         this.set('unit', {});
         }else{
-            this.set('contract', this.store.findRecord('contract', this.get('unit').get('contract_id')))
+            // if(this.get('unit').get('contract_id')){
+            //     this.set('contract', this.store.findRecord('contract', this.get('unit').get('contract_id')))
+            // }
         }
         
        
@@ -55,6 +57,9 @@ export default Component.extend(dorrValidations, {
  
  
          },
+        viewContract(id){
+            this.get('router').transitionTo('index.properties.show.contracts.contract-view', id);
+        },
         saveUnit(){
             var self = this;
             let createdUnit  =  this.store.createRecord('unit', this.get('unit'));

@@ -371,6 +371,13 @@
        {{/row.cell}}
         {{#row.cell  as |cell|}} 
         {{paper-input type="number" disabled=true value=payment.amount onChange=(action (mut payment.amount))}} {{/row.cell}}
+        {{#unless property.isRenter}}
+        {{#row.cell  as |cell|}} 
+        {{#paper-button iconButton=true onClick=(action "createPaymentOrder" payment.id)}}{{paper-icon "notification_important"}}{{/paper-button}}
+        {{/row.cell}}
+        {{else}}
+        {{#row.cell  as |cell|}} {{/row.cell}}
+        {{/unless}}
     {{/body.row}}
     
   {{/each}}

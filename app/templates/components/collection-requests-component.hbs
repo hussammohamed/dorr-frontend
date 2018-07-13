@@ -1,13 +1,13 @@
 
-  <div class="layout-row u-md-padding-top-bottom "> <span class="flex"></span><button onclick={{action "addRequest"}}  id="loginBtn" class="mdl-button u-padding-side-60 u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+  {{!-- <div class="layout-row u-md-padding-top-bottom "> <span class="flex"></span><button onclick={{action "addRequest"}}  id="loginBtn" class="mdl-button u-padding-side-60 u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
                 طلب جديد 
-            </button></div>
+            </button></div> --}}
 {{#paper-card   as |card|}}
 {{#paper-tabs  selected=currentRouteName borderBottom=true  as |tabs|}}
-  {{#tabs.tab value="index.properties.show.collection-requests.pending" href=(href-to "index.properties.show.collection-requests.pending")}}
+  {{#tabs.tab value="index.properties.show.collection-requests.lists.pending" href=(href-to "index.properties.show.collection-requests.lists.pending")}}
     طلبات قائمة
   {{/tabs.tab}}
-  {{#tabs.tab value="index.properties.show.collection-requests.history" href=(href-to "index.properties.show.collection-requests.history")}}
+  {{#tabs.tab value="index.properties.show.collection-requests.lists.history" href=(href-to "index.properties.show.collection-requests.lists.history")}}
     طلبات سابقة
   {{/tabs.tab}}
 {{/paper-tabs}}

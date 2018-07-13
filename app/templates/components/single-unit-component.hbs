@@ -31,12 +31,13 @@
           {{form.input disabled=true class="flex-50" type="number" label="عدد مكيفات سبلت" errorMessages=regularValidation value=unit.split_air_conditioner onChange=(action (mut unit.split_air_conditioner)) required=true}}
            <span class="flex-50"></span>
       </div>
+      {{#unless property.isRenter}}
       <div class="layout-row">
         <span class="flex"></span>
          {{#paper-button class="u-padding-side-60"  raised=true warn=true onClick=(action 'deleteUnit' unit.id)}}حذف{{/paper-button}}
        {{#paper-button class="u-padding-side-60"  raised=true primary=true onClick=(action 'editUnit' unit.id)}}تعديل{{/paper-button}}
       </div>
-  
+    {{/unless}}
    
  
   {{/paper-form}}
@@ -64,8 +65,18 @@
 </div>
 {{/paper-card}}
 {{else}}
+{{#paper-card class="md-padding " as |card|}}
+<div class="layout-row md-padding">
 
-{{component 'contract-show-component' contract=contract currentUser=currentUser isUnitView=true}}
+  <span class="flex"></span>
+ <button id="loginBtn" class="mdl-button u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored" onClick={{action "viewContract" unit.contract_id}}>
+    عرض العقد
+  </button>
+
+  <span class="flex"></span>
+  </div>
+    {{/paper-card}}
+{{!-- {{component 'contract-show-component' property=property contract=contract currentUser=currentUser isUnitView=true}} --}}
 {{/if}}
  {{else}}
 

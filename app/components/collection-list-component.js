@@ -4,19 +4,19 @@ export default Component.extend({
     didInsertElement() {
         let self = this;
         new Ember.RSVP.Promise(function (resolve, reject) {
-            self.manager.ajaxRequestFile(self, self.get('urls').getMaintenanceByProperty(self.get('property').id), 'GET', resolve, reject);
+            self.manager.ajaxRequestFile(self, self.get('urls').getPaymentsOrderByProperty(self.get('property').id), 'GET', resolve, reject);
         }).then(
             success => {
                 this.set('isRequesting', false);
-                this.store.peekAll('maintenance').map(function(record){
+                this.store.peekAll('payment-order').map(function(record){
                     record.unloadRecord();
                 })
                 this.store.pushPayload(success);
-                this.set('requests', this.store.peekAll('maintenance'));
+                this.set('orders', this.store.peekAll('payment-order'));
 
             },
             errors => {
-                console.log(errors)
+               
                 this.set('isRequesting', false);
             }
         )
@@ -27,14 +27,10 @@ export default Component.extend({
                 return record;
             }
         },
-        requestView(id){
-            this.get('router').transitionTo("index.properties.show.maintenance-requests.show", id);
+        editOrder(id){
+            this.get('router').transitionTo("index.properties.show.collection-requests.edit", id);
         },
-        editRequst(id){
-            this.get('router').transitionTo("index.properties.show.maintenance-requests.edit", id);
-
-        },
-        deleteRequst(id){
+        deleteOrder(id){
             var self = this;
             swal({
                 title: "هل أنت متأكد",
@@ -49,7 +45,7 @@ export default Component.extend({
             },
                 function (isConfirm) {
                     if (isConfirm) {
-                       self.store.findRecord('maintenance', id, { backgroundReload: false }).then(function(maintenance) {
+                       self.store.findRecord('payment-order', id, { backgroundReload: false }).then(function(maintenance) {
                         maintenance.deleteRecord();
                         maintenance.get('isDeleted');
                         maintenance.save(); 
@@ -61,5 +57,6 @@ export default Component.extend({
                 })
 
         }
+    
     }
 });
