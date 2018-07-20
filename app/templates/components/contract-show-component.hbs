@@ -45,12 +45,15 @@
       {{#paper-card class="md-padding" as |card|}}
       <div class="layout-row layout-wrap md-padding u-spacing-20">
         {{form.input class="flex-50" label=" الأسم بالكامل" disabled=true value=contract.owner_name onChange=(action (mut contract.owner.name))}}
+        {{#unless property.isRenter}}
         {{form.input class="flex-50" label=" الجنسية" disabled=true value=contract.owner_nationality.name onChange=(action (mut contract.owner.nationality.name))}}
         {{form.input class="flex-50" label=" نوع الهوية" disabled=true value=contract.owner_id_type.name onChange=(action (mut contract.owner.id_type.name))}}
         {{form.input class="flex-50" label=" رقم الهوية" disabled=true value=contract.owner_id_no onChange=(action (mut contract.owner.id_no))}}
         {{form.input class="flex-50" label=" رقم الجوال" disabled=true value=contract.owner_mobile1 onChange=(action (mut contract.owner.mobile1))}}
         {{form.input class="flex-50" label=" البريد الإلكتروني" disabled=true value=contract.owner_email onChange=(action (mut contract.owner.email))}}
+     {{/unless}}
       </div>
+      {{#unless property.isRenter}}
            <div class=" u-full-width mdl-grid u-mbuttom30">
             <div class="mdl-cell mdl-cell--12-col md-padding">
                 <div class=" m-b-1 w-80">
@@ -66,6 +69,7 @@
                 </div>
             </div>
         </div>
+        {{/unless}}
       {{/paper-card}}
     </div>
        {{!-- بيانات المستأجر --}}

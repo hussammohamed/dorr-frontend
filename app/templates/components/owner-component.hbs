@@ -1,9 +1,11 @@
 {{#if isShow}}
+
   {{#paper-card as |card|}}
  {{#paper-form  class="md-padding" onSubmit=(action (if user.id "updateUser" "saveUser")) as |form|}}
         <div class="layout-row"  onClick={{action "formClick"}}>
             <div class="layout-column flex-50 md-padding">
                 {{form.input label=" الأسم بالكامل" disabled=true  errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)   value=user.name onChange=(action (mut user.name)) }} 
+                {{#unless property.isRenter}}
                 {{#paper-select  label="نوع الهوية" errorMessages=regularValidation disabled=true   options=idTypes selected=user.id_type onChange=(action (mut user.id_type))
                 as |idType|}} {{idType.name}} {{/paper-select}}
                 {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation disabled=true    options=regions selected=user.id_issuer onChange=(action (mut user.id_issuer))
@@ -11,7 +13,9 @@
                 {{form.input type="date" label="تاريخ الأنتهاء " errorMessages=regularValidation disabled=true  value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) }}
                 {{form.input type="number" errorMessages=regularValidation  disabled=true  label="رقم الجوال" value=user.mobile1 onChange=(action (mut user.mobile1)) }}
                 {{form.input type="number" label="رقم الحساب البنكي IBAN" maxlength="24" minlength="24" errorMessages=regularValidation  disabled=true   value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
+                {{/unless}}
             </div>
+            {{#unless property.isRenter}}
             <div class="layout-column flex-50 md-padding">
                 {{form.input type="text" label="عنوان المالك" errorMessages=regularValidation  disabled=true  required=(if (and user.id (eq user.id currentUser.id)) true false) value=user.address onChange=(action (mut user.address)) }}
                 {{form.input type="number" label="رقم الهوية" errorMessages=regularValidation disabled=true  required=(if (and user.id (eq user.id currentUser.id)) true false) value=user.id_no onChange=(action (mut user.id_no))}}
@@ -22,7 +26,9 @@
                 {{#paper-select  label="البنك الخاص بالمالك" errorMessages=regularValidation  disabled=true  options=banks selected=user.bank onChange=(action (mut  user.bank))
                 as |bank|}} {{bank.name}} {{/paper-select}}
             </div>
+           {{/unless}}
         </div>
+        {{#unless property.isRenter}}
         <div class=" u-full-width mdl-grid u-mbuttom30">
             <div class="mdl-cell mdl-cell--12-col md-padding">
                 <div class=" m-b-1 w-80">
@@ -38,9 +44,10 @@
         
                     </div>
                 </div>
-        
+         
             </div>
         </div>
+        {{/unless}}
         {{/paper-form}}
         {{/paper-card}}
 
