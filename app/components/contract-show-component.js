@@ -29,7 +29,7 @@ export default Component.extend({
                 self.manager.ajaxRequestFile(self, self.get('urls').createPaymentOrder(), 'POST', resolve, reject, data);
             }).then(
                 success => {    
-                    self.manager.toaster(self, 'تم رفض العقد')
+                    self.manager.toaster(self, 'تم استلام طلب')
                    
                 },
                 errors => {

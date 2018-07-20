@@ -10,7 +10,7 @@
                 as |region|}} {{region.title}} {{/paper-select}}
                 {{form.input type="date" label="تاريخ الأنتهاء " errorMessages=regularValidation disabled=true  value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) }}
                 {{form.input type="number" errorMessages=regularValidation  disabled=true  label="رقم الجوال" value=user.mobile1 onChange=(action (mut user.mobile1)) }}
-                {{form.input type="number" label="رقم الحساب البنكي IBAN" errorMessages=regularValidation  disabled=true   value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
+                {{form.input type="number" label="رقم الحساب البنكي IBAN" maxlength="24" minlength="24" errorMessages=regularValidation  disabled=true   value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
             </div>
             <div class="layout-column flex-50 md-padding">
                 {{form.input type="text" label="عنوان المالك" errorMessages=regularValidation  disabled=true  required=(if (and user.id (eq user.id currentUser.id)) true false) value=user.address onChange=(action (mut user.address)) }}
@@ -94,7 +94,7 @@
                 as |region|}} {{region.title}} {{/paper-select}}
                 {{form.input type="date" label="تاريخ الأنتهاء " errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) }}
                 {{form.input type="number" errorMessages=regularValidation  required=true disabled=(if user.id true false) label="رقم الجوال" value=user.mobile1 onChange=(action (mut user.mobile1)) }}
-                {{form.input type="number" label="رقم الحساب البنكي IBAN" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
+                {{form.input type="number" label="رقم الحساب البنكي IBAN" errorMessages=regularValidation   maxlength="24" minlength="24" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
             </div>
             <div class="layout-column flex-50 md-padding">
                 {{form.input type="text" label="عنوان المالك" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) required=(if (and user.id (eq user.id currentUser.id)) true false) value=user.address onChange=(action (mut user.address)) }}

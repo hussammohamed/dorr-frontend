@@ -46,10 +46,15 @@
         onClick=(action "editUnit" unit.id)}} {{paper-icon "edit" size=18 class="md-menu-align-target"}}
         <span>تعديل</span>
         {{/content.menu-item}}
+         {{#content.menu-item
+        onClick=(action "copyUnit" unit.id)}} {{paper-icon "file_copy" size=18 class="md-menu-align-target"}}
+        <span>نسخ</span>
+        {{/content.menu-item}}
         {{#content.menu-item
         onClick=(action "deleteUnit" unit.id)}} {{paper-icon "delete" size=18 class="md-menu-align-target"}}
         <span>حذف</span>
         {{/content.menu-item}}
+       
         
          {{/menu.content}} {{/paper-menu}}
       {{/row.cell}}

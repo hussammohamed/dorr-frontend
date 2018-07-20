@@ -10,7 +10,7 @@
                 as |region|}} {{region.title}} {{/paper-select}}
                 {{form.input type="date" label="تاريخ الأنتهاء " errorMessages=regularValidation disabled=true  value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) }}
                 {{form.input type="number" errorMessages=regularValidation  disabled=true  label="رقم الجوال" value=user.mobile1 onChange=(action (mut user.mobile1)) }}
-                {{form.input type="number" label="رقم الحساب البنكي IBAN" errorMessages=regularValidation  disabled=true   value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
+                {{form.input type="number" label="رقم الحساب البنكي IBAN" maxlength="24" minlength="24" errorMessages=regularValidation  disabled=true   value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
                 {{form.input type="number" label="رقم صك الوكالة" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=true errorMessages=regularValidation value=property.agency_instrument_no onChange=(action (mut property.agency_instrument_no)) }}
                 {{form.input type="date" label="تاريخ الأصدار " required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=true errorMessages=regularValidation value=property.agency_instrument_date onChange=(action (mut  property.agency_instrument_date)) }}
             </div>
@@ -107,7 +107,7 @@
                 {{form.input class="flex-50" type="number" label="رقم الجوال" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=user.mobile1 onChange=(action (mut user.mobile1)) required=true}}
                 {{#paper-select class="flex-50"  label="الجنسية" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation options=nationalities selected=user.nationality onChange=(action (mut  user.nationality))
                 as |nationality|}} {{nationality.name}} {{/paper-select}}
-                {{form.input class="flex-50" type="number" label="رقم الحساب البنكي IBAN" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=user.bank_iban onChange=(action (mut user.bank_iban))   }}
+                {{form.input class="flex-50" type="number" label="رقم الحساب البنكي IBAN" maxlength="24" minlength="24" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=user.bank_iban onChange=(action (mut user.bank_iban))   }}
                 {{#paper-select class="flex-50"  label="البنك الخاص بالمالك" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation options=banks selected=user.bank onChange=(action (mut  user.bank))
                 as |bank|}} {{bank.name}} {{/paper-select}}
                 {{form.input class="flex-50" type="number" label="رقم صك الوكالة" required=true  errorMessages=regularValidation value=property.agency_instrument_no onChange=(action (mut property.agency_instrument_no)) }}

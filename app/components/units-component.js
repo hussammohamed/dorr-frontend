@@ -43,6 +43,25 @@ export default Component.extend({
         },
         addUnit(){
             this.get('router').transitionTo('index.properties.show.units.unit-add')
+        },
+        copyUnit(id){
+            var self = this;
+            let currentUnit = this.store.peekRecord('unit', id);
+            let newUnit = currentUnit.toJSON();
+            delete newUnit.available; delete newUnit.contract;  delete newUnit.contract_id;   delete newUnit.selected; 
+            newUnit.no += 1;
+            newUnit.created_by = this.get('currentUser').id;
+            new Ember.RSVP.Promise(function(resolve, reject) {
+                self.manager.ajaxRequest(self, self.get('urls').getUrl("units"), 'POST', resolve, reject, JSON.stringify([newUnit]));
+            }).then(
+                success => {
+                    this.store.pushPayload('mproperty', success);
+                    this.manager.toaster(self, 'تم نسخ الوحده بنجاح')
+                },
+                errors => {
+                    console.log(errors)
+                }
+            )
         }
     }
 });
