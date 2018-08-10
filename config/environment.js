@@ -15,6 +15,14 @@ module.exports = function(environment) {
     sassOptions: {
       includePaths: ['bower_components/material-design-lite/src']
     },
+    firebase: {
+      apiKey: "AIzaSyDvN0Pywabdl8U8J2hxM0b32h7ErOZuXZ8",
+      authDomain: "dorr-app.firebaseapp.com",
+      databaseURL: "https://dorr-app.firebaseio.com",
+      projectId: "dorr-app",
+      storageBucket: "dorr-app.appspot.com",
+      messagingSenderId: "243311451130"
+    },
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
