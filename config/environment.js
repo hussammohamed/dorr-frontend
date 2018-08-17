@@ -36,14 +36,16 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    // ENV.domainUrl = "http://localhost:4200"
+    ENV.domainUrl = "http://localhost:4200"
     // ENV.host = "http://localhost:8000/api/v1"
     // ENV.hostOuth = "http://localhost:8000/api"
-    // ENV.mainUrl = "http://localhost:8000"
+    // ENV.mainUrl = "http://localhost:8000";
+    // ENV.orginDomain = "localhost"
     ENV.host = "http://dorr.bareeqstudio.com/api/v1"
     ENV.hostOuth = "http://dorr.bareeqstudio.com/api"
     ENV.mainUrl = "http://dorr.bareeqstudio.com";
-    ENV.orginDomain = ".bareeqstudio.com"
+    // ENV.orginDomain = ".bareeqstudio.com"
+
   }
 
   if (environment === 'test') {

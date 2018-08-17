@@ -23,7 +23,7 @@ export default Ember.Service.extend({
         return Cookies.get('token');
     },
     authUserId(){
-        return Cookies.get('userId');
+        return true;
     },
     ensureAuthenticated() {
         if (this.authToken()) {

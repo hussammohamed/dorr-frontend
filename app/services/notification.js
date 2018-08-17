@@ -3,6 +3,7 @@ export default Ember.Service.extend({
     firebase: Ember.inject.service(),
     session: Ember.inject.service(),
     manager: Ember.inject.service(),
+    store: Ember.inject.service(),
     urls: Ember.inject.service(),
     initNotification(index) {
         var self = this;
@@ -18,10 +19,7 @@ export default Ember.Service.extend({
                     });
             })
             .then(function (token) {
-                console.log(token)
-                console.log(self.get('firebase'))
-                
-                self.registrationToTopic(token, "ddd")
+                self.registrationToTopic(token, self.get('store').currentUser.id)
                 // self.sendToken(token, index)
             })
             .catch(function (err) {
@@ -42,8 +40,8 @@ export default Ember.Service.extend({
                 audio1.play();
                 console.log('Received a message from service worker: ', event);
                 var notification = new Notification('Notification title', {
-                    icon: '/img/logo.png',
-                    body: "Hey there! You've been notified!",
+                    icon: '/images/dorr-logo.svg',
+                    body: event.data.data.web_msg,
                 });
                 notification.onclick = function () {
                     window.focus();
@@ -55,7 +53,7 @@ export default Ember.Service.extend({
     },
     registrationToTopic(token, topic){
         Ember.$.ajax({
-            url: "https://iid.googleapis.com/iid/v1/"+ token +"/rel/topics/ddd",
+            url: "https://iid.googleapis.com/iid/v1/"+ token +"/rel/topics/" + topic,
             method: "POST",
             contentType: "application/json", // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)// NEEDED, DON'T OMIT THIS
             headers  : {
