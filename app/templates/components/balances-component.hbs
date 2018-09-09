@@ -1,0 +1,22 @@
+<div class="table-card">
+{{#paper-card class="" as  |card|}}
+    <div class="card-shadow"></div>
+{{#paper-data-table class="u-custom-table u-custome-menu"   as |table|}}
+{{#table.head as |head|}}
+  {{#head.column }}إيرادات إيجار{{/head.column}}
+  {{#head.column }}مصاريف صيانة{{/head.column}}
+   {{#head.column }}المسحوبات{{/head.column}}
+  {{#head.column }}الرصيد{{/head.column}}
+
+{{/table.head}}
+{{#table.body as |body|}}
+    {{#body.row as |row|}}
+      {{#row.cell }}{{total.income}}{{/row.cell}}
+      {{#row.cell}}{{total.outcome}}{{/row.cell}}
+      {{#row.cell }}{{total.withdraws}}{{/row.cell}}
+      {{#row.cell }}{{total.balance}}{{/row.cell}}
+    {{/body.row}}
+{{/table.body}}
+{{/paper-data-table}}
+  {{/paper-card}}
+  </div>

@@ -75,8 +75,9 @@ export default Component.extend({
             data.append('data', JSON.stringify({
                "status": 1,
             }))
+
             new Ember.RSVP.Promise(function (resolve, reject) {
-                self.manager.ajaxRequestFile(self, self.get('urls').updatedPaymentOrder(self.get('order').id), 'POST', resolve, reject, data);
+                self.manager.ajaxRequest(self, self.get('urls').paymentOrderCollection(self.get('order').id) + "/" + self.get('currentRemain'), 'POST', resolve, reject);
             }).then(
                 success => {
                     this.set('isRequesting', false);

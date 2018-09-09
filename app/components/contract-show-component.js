@@ -18,6 +18,23 @@ export default Component.extend({
         }
     },
     actions:{
+        paymentCollection(id){
+            let self = this;
+            new Ember.RSVP.Promise(function (resolve, reject) {
+                self.manager.ajaxRequest(self, self.get('urls').paymentCollection(id), 'POST', resolve, reject);
+            }).then(
+                success => { 
+                    // this.store.peekRecord('payment', id).unloadRecord();
+                    this.store.pushPayload('payment', success)   
+                    self.manager.toaster(self, 'تم تحصيل الدفعة')
+                   
+                },
+                errors => {
+                    this.set('isRequesting', false);
+                    
+                }
+            )
+        },
         createPaymentOrder(id){
             var self = this;
             let data = new FormData();

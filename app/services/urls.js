@@ -43,6 +43,9 @@ export default Ember.Service.extend({
     updateMaintenance(id){
         return ENV.host + "/maintenances/" + id + "?lang=" + this.get('intl').get('locale'); 
     },
+    closeMaintenance(id){
+        return ENV.host + "/maintenances/" + id + "/close?lang=" + this.get('intl').get('locale'); 
+    },
     getMaintenanceByProperty(id){
         return ENV.host +"/mproperties/" + id + "/maintenances" + "?lang=" + this.get('intl').get('locale'); 
     },
@@ -57,7 +60,26 @@ export default Ember.Service.extend({
     },
     updatedPaymentOrder(id){
         return ENV.host +"/payment_orders/" + id + "?lang=" + this.get('intl').get('locale');
+    },
+    paymentCollection(id){
+        return ENV.host +"/payments/" + id + "/collected?lang=" + this.get('intl').get('locale');
+    },
+    paymentOrderCollection(id){
+        return ENV.host +"/payment_orders/" + id + "/collected";
+    },
+    getTransaction(mpropertyId){
+        return ENV.host +"/mproperties/" + mpropertyId + "/transactions";
+    },
+    transferRequests(){
+        return ENV.host + "/transfer_requests";
+    },
+    addTransaction(){
+        return ENV.host + "/transactions";
+    },
+    getBalances(mpropertyId){
+        return ENV.host +"/mproperties/" + mpropertyId + "/transactions_total";
     }
+
 
 
 });

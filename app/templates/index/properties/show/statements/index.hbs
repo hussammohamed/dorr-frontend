@@ -1,0 +1,15 @@
+ {{component "statement-component" property=property currentUser=currentUser}}
+
+<div class="u-md-padding-top-bottom">
+    <h4 class="page-title">
+        أجمالي الأرصدة
+    </h4>
+
+    {{component "balances-component" property=property currentUser=currentUser total=total}}
+</div>
+<div class="u-md-padding-top-bottom">
+    <h4 class="page-title">
+        المسحوبات
+    </h4>
+    {{component "transactions-component" property=property currentUser=currentUser transactions=withdraws isWithdraws=true}}
+</div>

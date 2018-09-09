@@ -37,7 +37,12 @@
       <i class="material-icons">insert_drive_file</i>
       <span>العقود</span>
     {{/link-to}}
-
+    {{#unless property.isRenter}}
+    {{#link-to "index.properties.show.statements"  tagName="li"}} 
+      <i class="material-icons">account_balance_wallet</i>
+      <span>كشف حساب</span>
+    {{/link-to}}
+  {{/unless}}
      
   
     

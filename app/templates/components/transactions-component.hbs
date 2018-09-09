@@ -1,0 +1,57 @@
+<div class="table-card">
+{{#paper-card class="" as  |card|}}
+    <div class="header-overlay"></div>
+    <div class="card-shadow"></div>
+{{#paper-data-table class="u-custom-table u-custome-menu"   as |table|}}
+{{#table.head as |head|}}
+  {{#head.column }}التاريخ{{/head.column}}
+  {{#unless isWithdraws}}
+  {{#head.column }}البيان{{/head.column}}
+  {{/unless}}
+  {{#if isWithdraws}}
+  
+  {{#head.column }}طريقة السحب{{/head.column}}
+  {{/if}}
+  {{#head.column }}المبلغ{{/head.column}}
+  {{#if isWithdraws}}
+  {{#head.column }}الصورة{{/head.column}}
+  {{/if}}
+  {{#unless isWithdraws}}
+  {{#head.column }}الرصيد{{/head.column}}
+  {{/unless}}
+
+{{/table.head}}
+{{#table.body as |body|}}
+  {{#each transactions as |transaction|}}
+    {{#body.row as |row|}}
+      {{#row.cell }}{{transaction.created_at}}{{/row.cell}}
+      {{#unless isWithdraws}}
+{{#row.cell}}{{transaction.name}}{{/row.cell}}
+  {{/unless}}
+       {{#if isWithdraws}}
+      
+      {{#row.cell }}{{transaction.method.name}}{{/row.cell}}
+       {{/if}}
+       {{#row.cell }}
+       {{#if (eq transaction.type 1)}}
+       {{transaction.amount}}
+       {{else}}
+        ({{transaction.amount}})
+       {{/if}}
+       {{/row.cell}}
+        {{#if isWithdraws}}
+        {{#row.cell }}{{transaction.image}}{{/row.cell}}
+        {{/if}}
+         {{#unless isWithdraws}}
+  {{#row.cell }}{{transaction.balance}}{{/row.cell}}
+  {{/unless}}
+    {{/body.row}}
+    {{else}}
+    {{#body.row as |row|}}
+      {{#row.cell  colspan=5}}لايوجد بيانات{{/row.cell}}
+     {{/body.row}}
+  {{/each}}
+{{/table.body}}
+{{/paper-data-table}}
+  {{/paper-card}}
+  </div>

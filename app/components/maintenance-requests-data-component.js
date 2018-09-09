@@ -50,18 +50,19 @@ export default Component.extend(dorrValidations, {
         updateRequest(status){
             this.set('isRequesting', true);
             var self = this;
+            var url;
             let request = this.get('request').toJSON();
             if(request.owner_response == 4){
                 request.status =  4;
             }else{
                 request.status =  status;
             }
-            
+            if(request.status == 0) url = self.get('urls').updateMaintenance(self.get("request").get("id")); else url = self.get('urls').closeMaintenance(self.get("request").get("id"));
             let data = new FormData();
             data.append("data", JSON.stringify(request));
             data.append('invoice_image', Ember.$('#inputFile')[0].files[0]);
             new Ember.RSVP.Promise(function (resolve, reject) {
-                self.manager.ajaxRequestFile(self, self.get('urls').updateMaintenance(self.get("request").get("id")), 'POST', resolve, reject, data);
+                self.manager.ajaxRequestFile(self, url, 'POST', resolve, reject, data);
             }).then(
                 success => {
                     this.set('isRequesting', false);

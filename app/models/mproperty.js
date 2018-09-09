@@ -59,6 +59,20 @@ export default DS.Model.extend({
        }
        
     }),
+    userRelation:  Ember.computed('owner', 'agent',function() {
+        let ownerId = this.get('owner').get('id');
+        let agentId = this.get('agent').get('id');
+        let currentUserId = this.store.currentUser.id
+        switch(parseInt(currentUserId) ) {
+            case parseInt(ownerId):
+                return "owner";
+            case parseInt(agentId):
+                return "agent";
+            default:
+                return "renter";
+        }
+       
+    }),
     long:DS.attr(),
     lat: DS.attr(),
     user_relation: DS.attr(),

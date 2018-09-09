@@ -20,6 +20,7 @@ export default Ember.Service.extend({
             })
             .then(function (token) {
                 self.registrationToTopic(token, self.get('store').currentUser.id)
+                console.log(token)
                 // self.sendToken(token, index)
             })
             .catch(function (err) {

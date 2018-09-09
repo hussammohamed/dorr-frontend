@@ -52,6 +52,11 @@ Router.map(function() {
           this.route('edit', {path: '/:contract_id/complete'});
           this.route('contract-view', {path: '/:contract_id'});
         });
+        this.route('statements', function() {
+          this.route('withdraw-request');
+          this.route('transfer-request');
+          this.route('details-statement');
+        });
       });
     });
   });

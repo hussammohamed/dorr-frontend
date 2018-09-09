@@ -1,0 +1,18 @@
+
+  <div class="layout-row u-md-padding-top-bottom "> <span class="flex"></span>
+        <button onclick={{action "detailsStatement"}}   id="loginBtn" class="u-padding-side-60 u-margin-8 md-default-theme md-button md-primary">
+                 تفاصيل الحساب 
+            </button>
+{{#if (eq property.userRelation 'agent')}}
+  <button onclick={{action "addTransferRequest"}}   id="loginBtn" class="mdl-button u-padding-side-60 u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                طلب تحويل
+            </button>
+            {{/if}}
+            {{#if (eq property.userRelation 'owner')}}
+             <button onclick={{action "addWithdraw"}}   id="loginBtn" class="mdl-button u-padding-side-60 u-margin-8 mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                إضف سحب
+            </button>
+            {{/if}}
+       
+
+            </div>
