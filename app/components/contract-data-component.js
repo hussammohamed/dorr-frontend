@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 
-export default Component.extend({
+import dorrValidations from '../mixins/dorr-validations'
+export default Component.extend(dorrValidations,{
     selectedUnits: Ember.computed(function(){
         return this.get('property').get('units').map(function(unit){
             return unit;

@@ -94,7 +94,11 @@
         {{#paper-form class="md-padding"  onSubmit=(action (if user.id "updateUser" "saveUser")) as |form|}}
         <div class="layout-row layout-row layout-wrap md-padding u-spacing-20"  onClick={{action "formClick"}}>
           
-                {{form.input class="flex-50" label=" الأسم بالكامل" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=user.name onChange=(action (mut user.name)) }} 
+                {{form.input class="flex-50" label=" الأسم بالكامل" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) customValidations=fullNameValidation  errorMessages=(hash
+        required="هذا الحقل إلزامي"
+        max=balanceError
+        minlength= "يجب ان لا يقل عن عشرة احرف"
+        ) minlength="10" value=user.name onChange=(action (mut user.name)) }} 
                 {{form.input class="flex-50" type="text" label="العنوان" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation value=user.address onChange=(action (mut user.address)) }}
                 {{#paper-select class="flex-50"  label="نوع الهوية" required=(if (and user.id (eq user.id currentUser.id)) true false) disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) errorMessages=regularValidation options=idTypes selected=user.id_type onChange=(action (mut user.id_type))
                 as |idType|}} {{idType.name}} {{/paper-select}}

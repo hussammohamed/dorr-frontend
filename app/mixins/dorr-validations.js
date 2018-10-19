@@ -19,6 +19,19 @@ export default Mixin.create({
           
         }
       }],
+      fullNameValidation: [{
+        message: 'من فضلك ادخل أحرف فقط',
+        validate: (inputValue) => {
+            let Pattern = /^([^0-9]*)$/;
+          if(!inputValue){
+              return true;
+          }else{
+              return Pattern.test(inputValue);
+          }
+            
+          }
+
+      }],
       ibanValidation: [{
         message: 'يجب ان يكون ٢٤ رقم ',
         validate: (inputValue) => {

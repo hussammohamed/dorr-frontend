@@ -135,7 +135,11 @@
         {{form.input class="flex-50" label=" رقم الجوال" disabled=true value=renter.mobile1 onChange=(action (mut renter.mobile1))}}
         {{form.input class="flex-50" label=" البريد الإلكتروني" disabled=true value=renter.email onChange=(action (mut renter.email))}}
       {{else}}
-       {{form.input class="flex-50" label=" الأسم بالكامل" required=true value=contract.renter_name onChange=(action (mut contract.renter_name))}}
+       {{form.input class="flex-50" label=" الأسم بالكامل" required=true customValidations=fullNameValidation  errorMessages=(hash
+        required="هذا الحقل إلزامي"
+        max=balanceError
+        minlength= "يجب ان لا يقل عن عشرة احرف"
+        )  minlength="10" value=contract.renter_name onChange=(action (mut contract.renter_name))}}
        {{#paper-select class="flex-50"  label="الجنسية" errorMessages=regularValidation  options=nationalities selected=contract.renter_nationality onChange=(action (mut  contract.renter_nationality))
                 as |nationality|}} {{nationality.name}} {{/paper-select}}
         {{#paper-select class="flex-50"  label="نوع الهوية" errorMessages=regularValidation  options=idTypes selected=contract.renter_id_type onChange=(action (mut contract.renter_id_type))
