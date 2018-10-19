@@ -35,22 +35,24 @@ export default Ember.Service.extend({
             self.getNotification(index, payload);
 
         });
-        navigator.serviceWorker.onmessage = function (event) {
-            if (event.data.type === "background") {
-                var audio1 = new Audio('/audio/1.ogg');
-                audio1.play();
-                console.log('Received a message from service worker: ', event);
-                var notification = new Notification('Notification title', {
-                    icon: '/images/dorr-logo.svg',
-                    body: event.data.data.web_msg,
-                });
-                notification.onclick = function () {
-                    window.focus();
-                };
-                self.getNotification(index, event.data);
+        if (navigator.serviceWorker) {
+            navigator.serviceWorker.onmessage = function (event) {
+                if (event.data.type === "background") {
+                    var audio1 = new Audio('/audio/1.ogg');
+                    audio1.play();
+                    console.log('Received a message from service worker: ', event);
+                    var notification = new Notification('Notification title', {
+                        icon: '/images/dorr-logo.svg',
+                        body: event.data.data.web_msg,
+                    });
+                    notification.onclick = function () {
+                        window.focus();
+                    };
+                    self.getNotification(index, event.data);
 
-            }
-        };
+                }
+            };
+        }
     },
     registrationToTopic(token, topic){
         Ember.$.ajax({
@@ -93,11 +95,14 @@ export default Ember.Service.extend({
         }
     },
     destroyService() {
-        navigator.serviceWorker.getRegistrations().then(function (registrations) {
-            for (let registration of registrations) {
-                registration.unregister()
-            }
-        })
+        if(navigator.serviceWorker){
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                for (let registration of registrations) {
+                    registration.unregister()
+                }
+            })
+        }
+       
 
     },
     getNotification(index, payload) {
