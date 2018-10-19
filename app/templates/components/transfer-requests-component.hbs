@@ -17,7 +17,7 @@
     {{#row.cell }}{{request.method.name}}{{/row.cell}}
     {{#row.cell }}{{request.amount}}{{/row.cell}}
     {{#row.cell }}{{#if request.image}}
-         <a href="{{request.image}}" target="_blank" download>تنزيل</a>
+         <a href="{{request.image}}" target="_blank" download>عرض</a>
          {{/if}}{{/row.cell}}
          {{#row.cell }}{{#paper-button disabled=isRequesting  iconButton=true onClick=(action "requestAgree" request.id)}}{{paper-icon "done"}}{{/paper-button}}{{/row.cell}}
     {{/body.row}}

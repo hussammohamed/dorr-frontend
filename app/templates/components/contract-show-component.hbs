@@ -27,7 +27,7 @@
                             id="contractImageFile"    name="attachment"  onchange={{ action "fileInputChange" "contractImageFile"}}>
                             <div class="file-name">{{contractImageFile}}</div>
                               {{#if contract.contract_image}}
-                        <a href="{{contract.contract_image}}" target="_blank" download>تنزيل</a>
+                        <a href="{{contract.contract_image}}" target="_blank" download>عرض</a>
                          {{/if}}
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                             id="ownerIdFile"  disabled={{if owner.id true false}}  name="attachment"  onchange={{ action "fileInputChange" "ownerIdFile"}}>
                             <div class="file-name">{{ownerIdFile}}</div>
                               {{#if contract.owner_id_image}}
-                        <a href="{{contract.owner_id_image}}" target="_blank" download>تنزيل</a>
+                        <a href="{{contract.owner_id_image}}" target="_blank" download>عرض</a>
                          {{/if}}
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                             id="renterIdFile"  disabled=true  name="attachment"  onchange={{ action "fileInputChange" "renterIdFile"}}>
                             <div class="file-name">{{renterIdFile}}</div>
                               {{#if contract.renter_id_image}}
-                        <a href="{{contract.renter_id_image}}" target="_blank" download>تنزيل</a>
+                        <a href="{{contract.renter_id_image}}" target="_blank" download>عرض</a>
                          {{/if}}
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                             id="agentIdFile"  disabled={{if owner.id true false}}  name="attachment"  onchange={{ action "fileInputChange" "agentIdFile"}}>
                             <div class="file-name">{{agentIdFile}}</div>
                               {{#if contract.agent_id_image}}
-                        <a href="{{contract.agent_id_image}}" target="_blank" download>تنزيل</a>
+                        <a href="{{contract.agent_id_image}}" target="_blank" download>عرض</a>
                          {{/if}}
                     </div>
                 </div>

@@ -26,7 +26,7 @@
                         <input disabled type="file" accept="image/jpeg, image/png" data-title="مرفق السجل التجاري" class="form-control-file text-primary font-weight-bold"
                             id="inputFile" accept="image/*" name="attachment">
                              {{#if agency.commercial_register_image}}
-                        <a href="{{agency.commercial_register_image}}" target="_blank" download>تنزيل</a>
+                        <a href="{{agency.commercial_register_image}}" target="_blank" download>عرض</a>
                          {{/if}}
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                             id="inputFile" accept="image/*" name="attachment"  onchange={{ action "fileInputChange" "inputFile"}}>
                             <div class="file-name">{{inputFile}}</div>
                              {{#if agency.commercial_register_image}}
-                        <a href="{{agency.commercial_register_image}}" target="_blank" download>تنزيل</a>
+                        <a href="{{agency.commercial_register_image}}" target="_blank" download>عرض</a>
                          {{/if}}
                     </div>
                 </div>

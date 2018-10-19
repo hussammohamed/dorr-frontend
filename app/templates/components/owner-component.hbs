@@ -35,7 +35,7 @@
                     <div class="form-group inputDnD">
                           
                         {{#if user.id_image}}
-                        <a href="{{user.id_image}}">تنزيل</a>
+                        <a href="{{user.id_image}}">عرض</a>
                          {{/if}}
                         <i class="material-icons">insert_drive_file</i>
                         <input type="file" disabled accept="image/jpeg, image/png" data-title="مرفق صورة الهوية" class="form-control-file text-primary font-weight-bold"
@@ -124,7 +124,7 @@
                             id="idFile"  disabled={{if (and user.id (not-eq user.id currentUser.id)) true false}}  name="attachment"  onchange={{ action "fileInputChange" "idFile"}}>
                             <div class="file-name">{{idFile}}</div>
                               {{#if user.id_image}}
-                        <a href="{{user.id_image}}" target="_blank" download>تنزيل</a>
+                        <a href="{{user.id_image}}" target="_blank" download>عرض</a>
                          {{/if}}
                     </div>
                 </div>

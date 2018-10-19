@@ -36,7 +36,7 @@
                         <input disabled type="file" accept="image/jpeg, image/png" data-title="مرفق صورة الهوية" class="form-control-file text-primary font-weight-bold"
                             id="inputFile" accept="image/*" name="attachment">
                             {{#if user.id_image}}
-                        <a href="{{user.id_image}}" target="_blank" download>تنزيل</a>
+                        <a href="{{user.id_image}}" target="_blank" download>عرض</a>
                          {{/if}}
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                         <input disabled type="file" accept="image/jpeg, image/png" data-title="مرفق عقد إتفاقية إدارة ملكية " class="form-control-file text-primary font-weight-bold"
                             id="inputFile" accept="image/*" name="attachment">
                               {{#if property.property_management_contract_image}}
-                                <a href="{{property.property_management_contract_image}}" target="_blank" download>تنزيل</a>
+                                <a href="{{property.property_management_contract_image}}" target="_blank" download>عرض</a>
                              {{/if}}
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                             id="idFile" disabled={{if (and user.id (not-eq user.id currentUser.id)) true false}}  name="attachment" onchange={{ action "fileInputChange" "idFile"}}>
                           <div class="file-name">{{idFile}}</div>
                               {{#if user.id_image}}
-                        <a href="{{user.id_image}}" target="_blank" download>تنزيل</a>
+                        <a href="{{user.id_image}}" target="_blank" download>عرض</a>
                          {{/if}}
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                             id="agency_instrument_image"  name="attachment" onchange={{ action "fileInputChange" "agency_instrument_image"}}>
                             <div class="file-name">{{agency_instrument_image}}</div>
                              {{#if property.agency_instrument_image}}
-                                <a href="{{property.agency_instrument_image}}" target="_blank" download>تنزيل</a>
+                                <a href="{{property.agency_instrument_image}}" target="_blank" download>عرض</a>
                              {{/if}}
                     </div>
                 </div>
@@ -155,7 +155,7 @@
                             id="agencyFile"  name="attachment" onchange={{ action "fileInputChange" "agencyFile"}}>
                             <div class="file-name">{{agencyFile}}</div>
                              {{#if property.property_management_contract_image}}
-                                <a href="{{property.property_management_contract_image}}" target="_blank" download>تنزيل</a>
+                                <a href="{{property.property_management_contract_image}}" target="_blank" download>عرض</a>
                              {{/if}}
                     </div>
                 </div>
