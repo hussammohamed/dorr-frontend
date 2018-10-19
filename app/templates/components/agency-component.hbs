@@ -50,18 +50,21 @@
         {{#paper-form class="md-padding" onSubmit=(action (if agency.id "updateAgency" "saveAgency")) as |form|}}
         <div class="layout-row">
             <div class="layout-column flex-50 md-padding">
-                {{form.input label=" الأسم" value=agency.commercial_register_name onChange=(action (mut agency.commercial_register_name)) required=true}} 
-                 {{#paper-select  label=" جهة الأصدار" options=regions selected=agency.commercial_register_issuer onChange=(action (mut agency.commercial_register_issuer))
+                {{form.input label=" الأسم" errorMessages=regularValidation value=agency.commercial_register_name onChange=(action (mut agency.commercial_register_name)) required=true}} 
+                 {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation options=regions selected=agency.commercial_register_issuer onChange=(action (mut agency.commercial_register_issuer))
                 as |region|}} {{region.title}} {{/paper-select}}
-                {{form.input type="date" label="تاريخ الأصدار" value=agency.commercial_register_date onChange=(action (mut  agency.commercial_register_date)) required=true}} 
+                {{form.input type="date" label="تاريخ الأصدار" errorMessages=regularValidation value=agency.commercial_register_date onChange=(action (mut  agency.commercial_register_date)) required=true}} 
                 
-                {{form.input type="number" label="رقم الجوال " value=agency.phone onChange=(action (mut agency.phone)) required=true}}
+                {{form.input type="number" label="رقم الجوال " errorMessages=regularValidation value=agency.phone onChange=(action (mut agency.phone)) required=true}}
             </div>
             <div class="layout-column flex-50 md-padding">
-                {{form.input type="number" label="رقم السجل التجاري " value=agency.commercial_register_no onChange=(action (mut agency.commercial_register_no)) required=true}}
-                {{form.input type="text" label="العنوان" value=agency.commercial_register_address onChange=(action (mut  agency.commercial_register_address)) required=true}}   
-                {{form.input type="date" label="تاريخ الأنتهاء " value=agency.commercial_register_exp_date onChange=(action (mut  agency.commercial_register_exp_date)) required=true}}
-                {{form.input type="number" label="رقم الفاكس " value=agency.fax onChange=(action (mut agency.fax)) }}  
+                {{form.input type="number" label="رقم السجل التجاري " errorMessages=(hash
+        required="هذا الحقل إلزامي"
+        minlength="يجب ان لايكون اقل من عشره ارقام"
+        ) minlength="10" value=agency.commercial_register_no onChange=(action (mut agency.commercial_register_no)) required=true}}
+                {{form.input type="text" label="العنوان" errorMessages=regularValidation value=agency.commercial_register_address onChange=(action (mut  agency.commercial_register_address)) required=true}}   
+                {{form.input type="date" label="تاريخ الأنتهاء " errorMessages=regularValidation value=agency.commercial_register_exp_date onChange=(action (mut  agency.commercial_register_exp_date)) required=true}}
+                {{form.input type="number" label="رقم الفاكس " errorMessages=regularValidation value=agency.fax onChange=(action (mut agency.fax)) }}  
             </div>
         </div>
    

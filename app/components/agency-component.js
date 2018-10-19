@@ -1,6 +1,6 @@
 import Component from '@ember/component';
-
-export default Component.extend({
+import dorrValidations from '../mixins/dorr-validations'
+export default Component.extend(dorrValidations,{
     isRequesting: false,
     didInsertElement() {
         if(this.get('property').get('agency').get('id')){
