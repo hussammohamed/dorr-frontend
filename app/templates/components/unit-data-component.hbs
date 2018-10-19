@@ -23,7 +23,7 @@
       {{form.input type="number" label="رقم الوحدة" errorMessages=regularValidation value=unit.no onChange=(action (mut unit.no)) required=true}}
        {{form.input type="number" label="رقم الدور" errorMessages=regularValidation value=unit.floor onChange=(action (mut unit.floor)) required=true}}
         {{form.input type="number" label="رقم عداد الكهرباء" errorMessages=regularValidation value=unit.electricity_meter onChange=(action (mut unit.electricity_meter))}}
-      {{#paper-select  label="التأثيث" required=true errorMessages=regularValidation  options=furnished selected=unit.furnished onChange=(action (mut unit.furnished))
+      {{#paper-select  label="التأثيث"  required=true errorMessages=regularValidation  options=furnished selected=unit.furnished onChange=(action (mut unit.furnished))
         as |furnished|}} {{furnished.name}} {{/paper-select}}
         {{#paper-select  label="خزائن للمطبخ"  errorMessages=regularValidation options=kitchen-cabinet required=true selected=unit.kitchen_cabinet onChange=(action (mut unit.kitchen_cabinet))
         as |item|}} {{item.name}} {{/paper-select}}
@@ -39,7 +39,7 @@
         as |type|}} {{type.name}} {{/paper-select}}
         {{form.input type="number" label="رقم عداد المياه" errorMessages=regularValidation value=unit.water_meter onChange=(action (mut unit.water_meter)) }}
          {{form.input type="number" label="رقم عداد الغاز" errorMessages=regularValidation value=unit.gas_meter onChange=(action (mut unit.gas_meter)) }}
-       {{#paper-select  label="حالة التأثيث" errorMessages=regularValidation options=furnished-status selected=unit.furnished_status onChange=(action (mut unit.furnished_status))
+       {{#paper-select  label="حالة التأثيث" required=(if (eq unit.furnished.id "2")false true)   disabled=(if (eq unit.furnished.id "2") true false) errorMessages=regularValidation options=furnished-status selected=unit.furnished_status onChange=(action (mut unit.furnished_status))
         as |item|}} {{item.name}} {{/paper-select}}
        
        {{form.input type="number" label=" عدد غرف المعيشة" errorMessages=regularValidation value=unit.living_rooms onChange=(action (mut unit.living_rooms)) required=true}}
