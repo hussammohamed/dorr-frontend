@@ -32,7 +32,7 @@ export default DS.Model.extend({
     renter_id_type: DS.belongsTo('id-type'),
     renter_id_no: DS.attr(),
     renter_id_image: DS.attr(),
-    renter_mobile: DS.attr(),
+    renter_mobile1: DS.attr(),
     renter_email: DS.attr(),
 
     // owner_data

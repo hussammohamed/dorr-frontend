@@ -13,3 +13,11 @@
     </h4>
     {{component "transactions-component" property=property currentUser=currentUser transactions=withdraws isWithdraws=true}}
 </div>
+  {{#if (and transferRequests.length (eq property.userRelation 'owner'))}}
+<div class="u-md-padding-top-bottom">
+    <h4 class="page-title">
+        طلبات تحويل
+    </h4>
+      {{component "transfer-requests-component" property=property currentUser=currentUser transferRequests=transferRequests}}
+</div>
+    {{/if}}

@@ -141,7 +141,7 @@
         {{#paper-select class="flex-50"  label="نوع الهوية" errorMessages=regularValidation  options=idTypes selected=contract.renter_id_type onChange=(action (mut contract.renter_id_type))
                 as |idType|}} {{idType.name}} {{/paper-select}}
         {{form.input class="flex-50" label=" رقم الهوية"  value=contract.renter_id_no onChange=(action (mut contract.renter_id_no))}}
-        {{form.input class="flex-50" label=" رقم الجوال" required=true value=contract.renter_mobile onChange=(action (mut contract.renter_mobile))}}
+        {{form.input class="flex-50" label=" رقم الجوال" required=true value=contract.renter_mobile1 onChange=(action (mut contract.renter_mobile1))}}
         {{form.input class="flex-50" label=" البريد الإلكتروني" required=true value=contract.renter_email onChange=(action (mut contract.renter_email))}}
       {{/if}}
 

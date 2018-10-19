@@ -1,0 +1,35 @@
+<div class="table-card">
+{{#paper-card class="" as  |card|}}
+    <div class="header-overlay"></div>
+    <div class="card-shadow"></div>
+{{#paper-data-table class="u-custom-table u-custome-menu"   as |table|}}
+{{#table.head as |head|}}
+  {{#head.column }}التاريخ{{/head.column}}
+  {{#head.column }}طريقة التحويل{{/head.column}}
+  {{#head.column }}المبلغ{{/head.column}}
+  {{#head.column }}الصورة{{/head.column}}
+  {{#head.column }}الموافقة{{/head.column}}
+{{/table.head}}
+{{#table.body as |body|}}
+  {{#each transferRequests as |request|}}
+    {{#body.row as |row|}}
+      {{#row.cell }}{{request.created_at}}{{/row.cell}}
+    {{#row.cell }}{{request.method.name}}{{/row.cell}}
+    {{#row.cell }}{{request.amount}}{{/row.cell}}
+    {{#row.cell }}{{#if request.image}}
+         <a href="{{request.image}}" target="_blank" download>تنزيل</a>
+         {{/if}}{{/row.cell}}
+         {{#row.cell }}{{#paper-button disabled=isRequesting  iconButton=true onClick=(action "requestAgree" request.id)}}{{paper-icon "done"}}{{/paper-button}}{{/row.cell}}
+    {{/body.row}}
+    {{else}}
+    {{#body.row as |row|}}
+      {{#row.cell  colspan=5}}لايوجد بيانات{{/row.cell}}
+     {{/body.row}}
+  {{/each}}
+{{/table.body}}
+{{/paper-data-table}}
+ {{#if isRequesting}}
+{{paper-progress-linear}}
+{{/if}}
+  {{/paper-card}}
+  </div>

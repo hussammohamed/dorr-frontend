@@ -78,6 +78,12 @@ export default Ember.Service.extend({
     },
     getBalances(mpropertyId){
         return ENV.host +"/mproperties/" + mpropertyId + "/transactions_total";
+    },
+    getTransfertRequests(mpropertyId){
+        return ENV.host +"/mproperties/" + mpropertyId + "/transfer_requests";
+    },
+    agreeTransferRequest(id){
+        return ENV.host + "/transfer_requests/" + id + "/status/1";
     }
 
 

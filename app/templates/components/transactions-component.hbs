@@ -40,7 +40,12 @@
        {{/if}}
        {{/row.cell}}
         {{#if isWithdraws}}
-        {{#row.cell }}{{transaction.image}}{{/row.cell}}
+        
+        {{#row.cell }}
+        {{#if transaction.image}}
+         <a href="{{transaction.image}}" target="_blank" download>تنزيل</a>
+         {{/if}}
+        {{/row.cell}}
         {{/if}}
          {{#unless isWithdraws}}
   {{#row.cell }}{{transaction.balance}}{{/row.cell}}

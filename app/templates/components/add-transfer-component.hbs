@@ -4,10 +4,15 @@
         <h4 class="page-title">طلب تحويل</h4>
         {{#paper-form  class="md-padding"  onSubmit=(action "saveRequest") as |form|}}
         <div class="layout-row ayout-row layout-wrap md-padding u-spacing-20">
-            {{form.input class="flex-50" label="الرصيد"   disabled=true  errorMessages=regularValidation required=true   value=request.service onChange=(action (mut request.service)) }} 
-          {{form.input class="flex-50" label=" المبلغ"     errorMessages=regularValidation required=true   value=request.service onChange=(action (mut request.service)) }} 
-         {{#paper-select class="flex-50"  label="طريق الدفع"   required=true errorMessages=regularValidation  options=types selected=request.service_type onChange=(action (mut request.service_type))
+            {{form.input class="flex-50" label=" المبلغ" errorMessages=(hash
+        required="هذا الحقل إلزامي"
+        max=balanceError
+        min= "يجب ان يكون المبلغ لا يقل عن ريال"
+        ) required=true max=totals.balance min=1 value=request.amount onChange=(action (mut request.amount)) }}
+         {{#paper-select class="flex-50"  label="طريق الدفع"   required=true errorMessages=regularValidation  options=types selected=request.method onChange=(action (mut request.method))
         as |type|}} {{type.name}} {{/paper-select}}
+          {{paper-input class="flex-100" textarea=true block=true label="ملاحظات"  passThru=(hash rows=5 maxRows=5)
+            value=request.notes onChange=(action (mut request.notes))}}
         </div>
         <div class=" u-full-width mdl-grid u-mbuttom30">
             <div class="mdl-cell mdl-cell--12-col">

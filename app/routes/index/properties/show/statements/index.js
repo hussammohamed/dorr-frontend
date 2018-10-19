@@ -19,6 +19,23 @@ export default Route.extend({
                 errors => {
                 }
             ),
+            "transferRequests": new Ember.RSVP.Promise(function(resolve, reject) {
+                self.get('manager').ajaxRequest(self, self.get('urls').getTransfertRequests(property.id), 'GET', resolve, reject);
+            }).then(
+                success => {
+                    let requests = [];
+                    this.store.pushPayload('transfer-request', success);
+                    
+                   this.store.peekAll('transfer-request').map(function(record){ 
+                       if(record.get('status') == 0)
+                       
+                       requests.push(record);
+                   });
+                   return  requests;
+                },
+                errors => {
+                }
+            ),
             "withdraws": new Ember.RSVP.Promise(function(resolve, reject) {
                 self.get('manager').ajaxRequest(self, self.get('urls').getTransaction(property.id), 'GET', resolve, reject);
             }).then(
@@ -42,7 +59,8 @@ export default Route.extend({
         controller.set('property', model.property);
         controller.set('currentUser', model.currentUser);
         controller.set('withdraws', model.withdraws);
-        controller.set('total', model.total)
+        controller.set('total', model.total);
+        controller.set('transferRequests', model.transferRequests);
     }
    
 
