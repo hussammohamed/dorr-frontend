@@ -6,15 +6,17 @@ import Cookies from 'ember-cli-js-cookie';
 export default Ember.Service.extend({
     intl: Ember.inject.service(),
     store: Ember.inject.service(),
+    manager: Ember.inject.service(),
     isAuthorized(permission) {
         return Ember.$.inArray(permission, this.getUserPermissions());
     },
     deleteUserSession() {
         let domain = ENV.orginDomain;
-        Cookies.remove('userId', {domain: domain});
-        Cookies.remove('token', {domain: domain});
-        Cookies.remove('dorr_session', {domain: domain});
         this.redirectToLogin();
+        Cookies.remove('userId', { domain: domain });
+        Cookies.remove('token', { domain: domain });
+        Cookies.remove('dorr_session', { domain: domain });
+        
     },
     getMainUrl(){
         return ENV.mainUrl;
@@ -46,7 +48,7 @@ export default Ember.Service.extend({
         }
     },
     redirectToLogin() {
-        window.location.href = ENV.mainUrl;
+        window.location.href = ENV.mainUrl + "/logout-session";
     },
     redirectToCorrectRoute() {
         if (this.authToken() && this.authUserId()) {
@@ -54,7 +56,7 @@ export default Ember.Service.extend({
         } else {
             this.redirectToLogin();
         }
-       
+
     },
     getCurrentLanguage() {
         return this.get('intl').get('locale');

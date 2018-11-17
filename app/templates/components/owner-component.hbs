@@ -94,30 +94,39 @@
         {{#paper-form  class="md-padding" onSubmit=(action (if user.id "updateUser" "saveUser")) as |form|}}
         <div class="layout-row"  onClick={{action "formClick"}}>
             <div class="layout-column flex-50 md-padding">
+               
                 {{form.input label=" الأسم بالكامل"   disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) customValidations=fullNameValidation  errorMessages=(hash
         required="هذا الحقل إلزامي"
         max=balanceError
         minlength= "يجب ان لا يقل عن عشرة احرف"
         ) required=(if (and user.id (eq user.id currentUser.id)) true false) minlength="10"   value=user.name onChange=(action (mut user.name)) }} 
+                 {{#unless user.id}}
                 {{#paper-select  label="نوع الهوية" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) required=(if (and user.id (eq user.id currentUser.id)) true false)  options=idTypes selected=user.id_type onChange=(action (mut user.id_type))
                 as |idType|}} {{idType.name}} {{/paper-select}}
                 {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) options=regions selected=user.id_issuer onChange=(action (mut user.id_issuer))
                 as |region|}} {{region.title}} {{/paper-select}}
-                {{form.input type="date" label="تاريخ الأنتهاء " errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) value=user.id_exp_date onChange=(action (mut  user.id_exp_date)) }}
+                {{paper-pikaday value=user.id_exp_date label="تاريخ الأنتهاء "  errorMessages=regularValidation  class="flex-50" required=(if (and user.id (eq user.id currentUser.id)) true false)  calenderType='gregorian' isRTL=true  onChange=(action (mut user.id_exp_date))}}
+                
                 {{form.input type="number" errorMessages=regularValidation  required=true disabled=(if user.id true false) label="رقم الجوال" value=user.mobile1 onChange=(action (mut user.mobile1)) }}
                 {{form.input type="number" label="رقم الحساب البنكي IBAN" errorMessages=regularValidation   maxlength="24" minlength="24" disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) value=user.bank_iban onChange=(action (mut user.bank_iban)) }}
+                {{/unless}}
             </div>
             <div class="layout-column flex-50 md-padding">
+                {{#unless user.id}}
                 {{form.input type="text" label="عنوان المالك" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) required=(if (and user.id (eq user.id currentUser.id)) true false) value=user.address onChange=(action (mut user.address)) }}
                 {{form.input type="number" label="رقم الهوية" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) required=(if (and user.id (eq user.id currentUser.id)) true false) value=user.id_no onChange=(action (mut user.id_no))}}
-                {{form.input type="date" label="تاريخ الأصدار" errorMessages=regularValidation required=(if (and user.id (eq user.id currentUser.id)) true false)  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) value=user.id_issued_date onChange=(action (mut user.id_issued_date)) }}   
+                 {{paper-pikaday value=user.id_issued_date label="تاريخ الأصدار"  errorMessages=regularValidation  class="flex-50" required=(if (and user.id (eq user.id currentUser.id)) true false)  calenderType='gregorian' isRTL=true  onChange=(action (mut user.id_issued_date))}}
+                {{/unless}}
                 {{form.input type="email" errorMessages=regularValidation  required=true disabled=(if user.id true false) label="البريد الألكتروني" value=user.email onChange=(action (mut user.email)) }} 
+                {{#unless user.id}}
                 {{#paper-select  label="الجنسية" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) options=nationalities selected=user.nationality onChange=(action (mut  user.nationality))
                 as |nationality|}} {{nationality.name}} {{/paper-select}}
                 {{#paper-select  label="البنك الخاص بالمالك" errorMessages=regularValidation  disabled=(if (and user.id (not-eq user.id currentUser.id)) true false) options=banks selected=user.bank onChange=(action (mut  user.bank))
                 as |bank|}} {{bank.name}} {{/paper-select}}
+                {{/unless}}
             </div>
         </div>
+        {{#unless user.id}}
         <div class=" u-full-width mdl-grid u-mbuttom30">
             <div class="mdl-cell mdl-cell--12-col md-padding">
                 <div class=" m-b-1 w-80">
@@ -135,10 +144,11 @@
         
             </div>
         </div>
+          {{/unless}}
         <div class="layout-row">
             <span class="flex"></span>
              {{#if (and user.id (not property.owner.id))}}
-             {{#paper-button class="u-padding-side-60" onClick=(action 'deleteSearch') raised=true raised=true warn=true}}حذف المدير{{/paper-button}}
+             {{#paper-button class="u-padding-side-60" onClick=(action 'deleteSearch') raised=true raised=true warn=true}}حذف صاحب العقار{{/paper-button}}
             {{/if}}
             {{!-- {{#if (and user.id (or (eq user.registered 0) (eq user.id currentUser.id)))}}
              {{#paper-button class="u-padding-side-60" onClick=(action 'deleteUser') raised=true raised=true warn=true}}حذف المالك{{/paper-button}}

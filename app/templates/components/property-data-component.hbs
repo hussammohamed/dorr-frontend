@@ -83,14 +83,14 @@
       {{form.input class="flex-50" label="أسم العقار" value=property.name onChange=(action (mut property.name)) required=true errorMessages=regularValidation}}
       {{#paper-select class="flex-50" label="نوع العقار" errorMessages=regularValidation required=true options=types selected=property.type onChange=(action (mut property.type))
         as |type|}} {{type.name}} {{/paper-select}}
-      {{form.input class="flex-50" type="number" label="عدد الأدوار" value=property.floors onChange=(action (mut property.floors)) required=true errorMessages=regularValidation}}
-       {{form.input  class="flex-50" type="number" label="عدد الوحدات" errorMessages=regularValidation value=property.units_no onChange=(action (mut property.units_no)) required=true}}
-       {{form.input class="flex-50" type="number" label="عدد المصاعد" value=property.elevators onChange=(action (mut property.elevators)) required=true errorMessages=regularValidation}}
-        {{form.input class="flex-50"  type="number" label="عدد المواقف" errorMessages=regularValidation value=property.parking onChange=(action (mut property.parking)) required=true}}
+      {{form.input class="flex-50" type="number" label="عدد الأدوار" value=property.floors onChange=(action (mut property.floors)) required=true max=99 errorMessages=regularValidation}}
+       {{form.input  class="flex-50" type="number" label="عدد الوحدات" errorMessages=regularValidation value=property.units_no onChange=(action (mut property.units_no)) max=99 required=true}}
+       {{form.input class="flex-50" type="number" label="عدد المصاعد" value=property.elevators onChange=(action (mut property.elevators)) max=99 required=true errorMessages=regularValidation}}
+        {{form.input class="flex-50"  type="number" label="عدد المواقف" errorMessages=regularValidation value=property.parking max=99 onChange=(action (mut property.parking)) required=true}}
        {{form.input class="flex-50" type="number" label="سنة البناء " value=property.year_of_construction	 onChange=(action (mut property.year_of_construction)) required=true errorMessages=regularValidation}}
        {{form.input class="flex-50"  type="number" label="صك الملكية" errorMessages=regularValidation value=property.property_instrument_no onChange=(action (mut property.property_instrument_no)) required=true}}
        {{form.input class="flex-50" type="text" label=" مكان الأصدار" customValidations=fullNameValidation required=true value=property.property_instrument_place	 onChange=(action (mut property.property_instrument_place)) required=true errorMessages=regularValidation}}
-        {{form.input class="flex-50" type="date" label="تاريخ الأصدار" errorMessages=regularValidation value=property.property_instrument_date onChange=(action (mut property.property_instrument_date)) required=true}}
+        {{paper-pikaday value=property.property_instrument_date label="تاريخ الأصدار"  class="flex-50"  calenderType='gregorian' isRTL=true  onChange=(action (mut property.property_instrument_date))}}
        {{#paper-select class="flex-50" label=" جهة الأصدار" errorMessages=regularValidation options=regions selected=property.property_instrument_issuer onChange=(action (mut property.property_instrument_issuer errorMessages=regularValidation))
                 as |region|}} {{region.title}} {{/paper-select}}
          <span class="flex-50"></span>

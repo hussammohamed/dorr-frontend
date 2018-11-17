@@ -53,8 +53,9 @@
                 {{form.input label=" الأسم" errorMessages=regularValidation value=agency.commercial_register_name onChange=(action (mut agency.commercial_register_name)) required=true}} 
                  {{#paper-select  label=" جهة الأصدار" errorMessages=regularValidation options=regions selected=agency.commercial_register_issuer onChange=(action (mut agency.commercial_register_issuer))
                 as |region|}} {{region.title}} {{/paper-select}}
-                {{form.input type="date" label="تاريخ الأصدار" errorMessages=regularValidation value=agency.commercial_register_date onChange=(action (mut  agency.commercial_register_date)) required=true}} 
                 
+                 {{paper-pikaday value=agency.commercial_register_date required=true label="تاريخ الأصدار"    errorMessages=regularValidation  class="flex-50"   calenderType='gregorian' isRTL=true  onChange=(action (mut agency.commercial_register_date))}}
+
                 {{form.input type="number" label="رقم الجوال " errorMessages=regularValidation value=agency.phone onChange=(action (mut agency.phone)) required=true}}
             </div>
             <div class="layout-column flex-50 md-padding">
@@ -63,7 +64,8 @@
         minlength="يجب ان لايكون اقل من عشره ارقام"
         ) minlength="10" value=agency.commercial_register_no onChange=(action (mut agency.commercial_register_no)) required=true}}
                 {{form.input type="text" label="العنوان" errorMessages=regularValidation value=agency.commercial_register_address onChange=(action (mut  agency.commercial_register_address)) required=true}}   
-                {{form.input type="date" label="تاريخ الأنتهاء " errorMessages=regularValidation value=agency.commercial_register_exp_date onChange=(action (mut  agency.commercial_register_exp_date)) required=true}}
+
+                {{paper-pikaday value=agency.commercial_register_exp_date label="تاريخ الأنتهاء"    errorMessages=regularValidation  class="flex-50"   calenderType='gregorian' isRTL=true  onChange=(action (mut agency.commercial_register_exp_date))}}
                 {{form.input type="number" label="رقم الفاكس " errorMessages=regularValidation value=agency.fax onChange=(action (mut agency.fax)) }}  
             </div>
         </div>

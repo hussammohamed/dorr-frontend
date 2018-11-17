@@ -61,10 +61,10 @@
       {{#paper-card class="md-padding" as |card|}}
       <div class="layout-row layout-wrap md-padding u-spacing-20">
         {{form.input class="flex-50" label=" الأسم بالكامل" disabled=true value=owner.name onChange=(action (mut owner.name))}}
-        {{form.input class="flex-50" label=" الجنسية" disabled=true value=owner.nationality.name onChange=(action (mut owner.nationality.name))}}
+        {{!-- {{form.input class="flex-50" label=" الجنسية" disabled=true value=owner.nationality.name onChange=(action (mut owner.nationality.name))}}
         {{form.input class="flex-50" label=" نوع الهوية" disabled=true value=owner.id_type.name onChange=(action (mut owner.id_type.name))}}
         {{form.input class="flex-50" label=" رقم الهوية" disabled=true value=owner.id_no onChange=(action (mut owner.id_no))}}
-        {{form.input class="flex-50" label=" رقم الجوال" disabled=true value=owner.mobile1 onChange=(action (mut owner.mobile1))}}
+        {{form.input class="flex-50" label=" رقم الجوال" disabled=true value=owner.mobile1 onChange=(action (mut owner.mobile1))}} --}}
         {{form.input class="flex-50" label=" البريد الإلكتروني" disabled=true value=owner.email onChange=(action (mut owner.email))}}
       </div>
            <div class=" u-full-width mdl-grid u-mbuttom30">
